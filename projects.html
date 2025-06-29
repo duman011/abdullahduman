@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3M56YTT90B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3M56YTT90B');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abdullah Duman - Projeler</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <meta name="description" content="Abdullah Duman'ın geliştirdiği Personel Yönetim Sistemi, Satranç Uygulaması ve diğer profesyonel yazılım projeleri">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'roboto', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      transition: background 0.5s ease, color 0.5s ease;
+      overflow-x: auto;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    body.light {
+      background: linear-gradient(135deg, #e0f7fa, #f1f8ff);
+      color: #006064;
+      border-color: #64b5f6;
+    }
+
+    /* Giriş Animasyonu */
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    body.light header {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      color: #00ffe0;
+      letter-spacing: 2px;
+      animation: glitch 2s infinite;
+    }
+
+    body.light .logo {
+      color: #007ea7;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 1px 1px #ff00c1; }
+      20% { text-shadow: -1px -1px #00ffe0; }
+      40% { text-shadow: 1px -1px #ff00c1; }
+      60% { text-shadow: -1px 1px #00ffe0; }
+      80% { text-shadow: 0px 0px #fff; }
+      100% { text-shadow: 1px 1px #ff00c1; }
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #ccc;
+      font-size: 1.2rem;
+      position: relative;
+      transition: color 0.3s;
+      font-weight: bold;
+    }
+
+    nav a.active,
+    nav a:hover {
+      text-shadow:
+        0 0 10px #ff00c1,
+        0 0 20px #ff00c1,
+        0 0 40px #ff00c1;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: #00ffe0;
+      left: 0;
+      bottom: -5px;
+      transition: 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    body.light nav a {
+      color: #333;
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, red, orange, yellow, lime, cyan, blue, magenta, red);
+      transition: 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(360deg);
+      transition: transform 0.5s ease;
+      box-shadow: 0 0 10px #ff00c1, 0 0 20px #00ffe0;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      color: #00ffe0;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #00ffe0;
+      display: inline-block;
+    }
+
+    body.light .section h2 {
+      color: #007ea7;
+      border-color: #007ea7;
+    }
+
+    .project {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #00ffe088;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .project:hover {
+      transform: scale(1.03);
+      background: rgba(0, 255, 224, 0.1);
+    }
+
+    body.light .project {
+      background: rgba(0, 126, 167, 0.05);
+      border: 1px solid #007ea7;
+    }
+
+    body.light .project:hover {
+      background: rgba(0, 126, 167, 0.1);
+    }
+
+    .project h3 {
+      color: #00ffe0;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    body.light .project h3 {
+      color: #007ea7;
+    }
+
+    .project p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    body.light .project p {
+      color: #333;
+    }
+    @media (max-width: 1200px) {
+      .content {
+        max-width: 800px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 5%;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .content {
+        margin: 30px auto;
+        padding: 15px;
+      }
+      
+      .section h2 {
+        font-size: 1.8rem;
+      }
+      
+      .project {
+        padding: 15px;
+      }
+      
+      .project h3 {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .logo {
+        font-size: 1.3rem;
+      }
+      
+      nav a {
+        font-size: 1rem;
+        margin: 0 10px;
+      }
+      
+      .theme-toggle {
+        width: 30px;
+        height: 30px;
+      }
+      
+      .content {
+        margin: 20px auto;
+      }
+      
+      .project {
+        margin-bottom: 15px;
+      }
+      
+      .project h3 {
+        font-size: 1.2rem;
+      }
+      
+      .project p {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 10px 3%;
+      }
+      
+      .logo {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+      
+      nav a {
+        font-size: 0.9rem;
+        margin: 0 8px;
+      }
+      
+      .section h2 {
+        font-size: 1.5rem;
+      }
+      
+      .project {
+        padding: 12px;
+      }
+      
+      .project h3 {
+        font-size: 1.1rem;
+      }
+      
+      .project p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+      
+      .theme-toggle {
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+    /* Yatay mobil mod için ekstra düzenlemeler */
+    @media (max-width: 768px) and (orientation: landscape) {
+      .content {
+        margin: 15px auto;
+      }
+      
+      .project {
+        margin-bottom: 10px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">ABDULLAH DUMAN</div>
+    <nav>
+      <a href="index.html">Ana Sayfa</a>
+      <a href="projects.html" class="active">Projeler</a>
+      <a href="resume.html">Özgeçmiş</a>
+      <a href="contact.html">İletişim</a>
+    </nav>
+    <div class="theme-toggle" onclick="toggleTheme()"></div>
+  </header>
+
+  <div class="content">
+    <div class="section">
+      <h2>Projelerim</h2>
+
+      <div class="project">
+        <h3>Personel Yönetim Sistemi (PHP & MySQL)</h3>
+        <p>Personel ekleme, silme, yetkilendirme, izin ve maaş takibi yapan modern bir web paneli.</p>
+      </div>
+
+      <div class="project">
+        <h3>Kadın Sağlığı Kulübü Web Sitesi</h3>
+        <p>Bilgi ve etkinlik paylaşımına açık, Abdullah Duman tarafından ücretsiz tasarlanan bir dernek web sitesi.</p>
+      </div>
+
+      <div class="project">
+        <h3>Satranç Uygulaması (.NET, Windows Forms)</h3>
+        <p>2D oynanabilir satranç oyunu. Taş hareketleri, hamle kontrolü, UI tasarımı ve skor takibi içeriyor.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    }
+
+    window.onload = () => {
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light');
+      }
+    };
+
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href.startsWith('#') || this.target === '_blank') return;
+        e.preventDefault();
+        window.location.href = href;
+      });
+    });
+  </script>
+</body>
+</html>
