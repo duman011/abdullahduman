@@ -2,511 +2,332 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Abdullah Duman - Kişisel Sayfa</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <meta name="description" content="Abdullah Duman - Bilgisayar Mühendisliği 3. sınıf öğrencisi ve full-stack developer. Java, .NET, Python ve modern web teknolojilerinde uzmanlık.">
-  <meta name="keywords" content="abdullah duman, yazılım geliştirici, java developer, .net projeleri, python programlama, web tasarım">
-  <meta name="author" content="Abdullah Duman">
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3M56YTT90B"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-3M56YTT90B');
-  </script>
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Abdullah Duman | Yazılım Geliştirici Portfolyo">
-  <meta property="og:description" content="Profesyonel yazılım projeleri ve teknik beceriler">
-  <meta property="og:image" content="http://abdullah-duman.kesug.com/images/og-image.jpg">
-  <meta property="og:url" content="http://abdullah-duman.kesug.com">
-  <meta property="og:type" content="website">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Abdullah Duman | Yazılım Uzmanı">
-  <meta name="twitter:description" content="İnovatif yazılım çözümleri ve teknoloji projeleri">
-  <meta name="twitter:image" content="http://abdullah-duman.kesug.com/images/twitter-card.jpg">
-
-  <!-- Schema.org -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Abdullah Duman",
-    "jobTitle": "Bilgisayar Mühendisliği Öğrencisi",
-    "url": "http://abdullah-duman.kesug.com",
-    "sameAs": [
-      "https://www.linkedin.com/in/abdullah-duman-112812245/",
-      "https://github.com/duman011",
-      "https://www.instagram.com/abdullah_duman00/"
-    ],
-    "image": "http://abdullah-duman.kesug.com/images/profile.jpg",
-    "description": "Yazılım geliştirme ve teknoloji projeleri üzerinde çalışan bilgisayar mühendisliği öğrencisi"
-  }
-  </script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abdullah Duman | Portfolyo</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
- 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --bg-dark: #121212;
+      --bg-dark-alt: #22223b;
+      --text-dark: #ffffff;
+      --accent-color: #00c9ff;
+      --bg-light: #f4f7fa;
+      --text-light: #333;
+      --cube-size: 60px;
     }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin-top: 10xp;
-      background: linear-gradient(135deg, #101820, #1A1A2E);
-      color: #fff;
-      font-family: 'roboto', sans-serif;
-      overflow: auto;
-      transition: background 1s ease, color 1s ease;
-      bottom: 50px;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-dark);
+      transition: background 0.7s, color 0.7s;
+      overflow-x: hidden;
+      min-height: 100vh;
     }
-
-
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: #ccc;
-      font-size: 1.2rem;
-      position: relative;
-      transition: color 0.3s ease;
-      font-weight: bold;
-
-    }
-
-
-    nav a.active,
-    nav a:hover {
-      
-      text-shadow:
-         
-         0 0 10px #ff00c1,
-         0 0 20px #ff00c1,
-         0 0 40px #ff00c1;
-    }
-
-    
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      background: #00ffe0;
-      left: 0;
-      bottom: -5px;
-      transition: 0.3s;
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    body.light nav a {
-        color: #333;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      color: #00ffe0;
-      letter-spacing: 2px;
-      animation: glitch 2s infinite;
-    }
-
-    body.light .logo {
-      color: #007ea7;
-    }
-
-    body.fade-in {
-      animation: pageFadeIn 1s ease-out;
-    }
-
-    @keyframes pageFadeIn {
-      0% { opacity: 0; transform: scale(0.98) translateY(10px); filter: blur(5px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-    }
-
-    .page-out {
-      animation: pageFadeOut 0.6s ease-in forwards;
-    }
-
-    @keyframes pageFadeOut {
-      to { opacity: 0; transform: scale(1.1) rotateX(20deg); filter: blur(10px); }
-    }
-
     body.light {
-        background: linear-gradient(135deg, #e0f7fa, #f1f8ff);
-        color: #006064;
-        border-color: #64b5f6;
+      background: var(--bg-light) !important;
+      color: var(--text-light);
     }
-
-
-    body.light .skill-box {
-      background: linear-gradient(135deg, #d0e1ff, #ffffff);
-      color: #202020;
-      border-color: #5c9ded;
+    .matrix-bg {
+      pointer-events: none;
+      position: fixed;
+      z-index: 1;
+      width: 100vw;
+      height: 100vh;
+      top: 0; left: 0;
+      opacity: 0.18;
+      background: transparent;
     }
-
-    body.light .social a,
-    body.light .social a:hover {
-      background: linear-gradient(135deg, #e0f7fa, #f1f8ff);
-      color: #006064;
-      border-color: #64b5f6;
+    /* DAMAR ARKA PLANDA! */
+    #veinOverlay {
+      pointer-events: none;
+      position: fixed;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      z-index: 2; /* ARKA PLAN */
+      display: none;
+      opacity: 0.45;
+      filter: blur(0.2px) brightness(0.85);
+      background: transparent;
     }
-
-    body.light .intro-text {
-        background: linear-gradient(135deg, #e0f7fa, #f1f8ff);
-        color: #006064;
-        border-color: #64b5f6;
-      
-     
-    }
-
-    .container {
-      position: relative;
-      
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      
-      padding: 50px 20px 80px;
-      gap: 30px;
-      text-align: center;
-      bottom: 50px;
-    }
-
-    .name {
-      margin-top: 20xp;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3.5em;
-      font-weight: bold;
-      background: linear-gradient(180deg, #00f2ff, #00f2ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      position: relative;
-      overflow: hidden;
-      animation: typing 2s steps(20, end), fillLiquid 3s 2s forwards, flow 3s 5s infinite linear;
-      white-space: nowrap;
-    }
-
-    .name::before {
-      content: attr(data-text);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      color: transparent;
-      background: linear-gradient(to top, rgba(0,255,255,0.6), rgba(0,255,255,1));
-      background-size: 100% 200%;
-      background-repeat: no-repeat;
-      -webkit-background-clip: text;
-    }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    @keyframes fillLiquid {
-      0% { background-position: 0% 100%; }
-      100% { background-position: 0% 0%; }
-    }
-
-    @keyframes flow {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-
-    .position {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.2em;
-      color: #FF4081;
-      border-right: 2px solid #FF4081;
-      animation: typing 3s steps(40, end);
-      white-space: nowrap;
-    }
-
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .skill-box {
-      background: linear-gradient(135deg, #ff1744, #3f51b5);
-      padding: 12px 25px;
-      border-radius: 15px;
-      border: 2px solid #FF1744;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .skill-box::before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      background: red;
-      animation: ledFlow 5s linear infinite;
-      top: 0;
-    }
-
-    @keyframes ledFlow {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    .social {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .social a {
-      color: white;
-      font-size: 1.5em;
-      transition: transform 0.3s, color 0.3s;
-      border: 2px solid;
-      border-image: linear-gradient(45deg, red, #00FFC6) 1;
-      padding: 10px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, rgba(255,0,0,0.3), rgba(0,255,198,0.3));
-    }
-
-    .social a:hover {
-      transform: scale(1.3);
-      color: #00FFC6;
-    }
-
-    .social::after {
-      content: 'Bana ulaşabileceğin sosyal medya hesaplarım :))';
-      font-size: 0.9em;
-      margin-top: 10px;
-      color: #aaa;
-      font-style: italic;
-      animation: typing 2s 2s steps(40, end);
-      width: 100%;
-      text-align: center;
-    }
-
-    .theme-selector {
-      
-      margin-top: 20px;   /* Üstten 20 piksel boşluk */
-      margin-bottom: 20px; /* Alttan 20 piksel boşluk */
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .theme-wheel {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, red, orange, yellow, lime, cyan, blue, magenta, red);
-      border: 5px solid #fff;
-      cursor: grab;
-      animation: rotateWheel 10s linear infinite;
-    }
-
-    .theme-wheel:hover {
-      
-      box-shadow: 0 0 10px #ff00c1, 0 0 20px #00ffe0;
-
-    }
-    @keyframes rotateWheel {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    
-
-
     header {
-      margin-bottom: 20px; 
-      background: rgba(0, 0, 0, 0.7);
-      padding: 20px 5%;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 20px 10%;
+      background: rgba(0,0,0,0.5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(5px);
     }
-
-    body.light header {
-      background: rgba(255, 255, 255, 0.9);
+    body.light header { background: rgba(255,255,255,0.8); }
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      color: var(--accent-color);
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #00c9ff;
+      flex-shrink: 0;
     }
-
-    @keyframes glitch {
-      0% { text-shadow: 1px 1px #ff00c1; }
-      20% { text-shadow: -1px -1px #00ffe0; }
-      40% { text-shadow: 1px -1px #ff00c1; }
-      60% { text-shadow: -1px 1px #00ffe0; }
-      80% { text-shadow: 0px 0px #fff; }
-      100% { text-shadow: 1px 1px #ff00c1; }
+    nav {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+      margin-left: auto;
     }
-
-    @media (max-width: 1200px) {
-        .name {
-            font-size: 3rem;
-        }
-        .position {
-            font-size: 1.1rem;
-        }
+    nav a {
+      color: inherit;
+      text-decoration: none;
+      margin-left: 15px;
+      font-weight: 400;
+      position: relative;
+      padding: 5px 13px;
+      border-radius: 8px;
+      transition: background 0.22s, color 0.22s;
     }
-
-    @media (max-width: 992px) {
-        .container {
-            padding: 30px 15px 60px;
-            gap: 20px;
-        }
-        
-        .name {
-            font-size: 2.5rem;
-            white-space: normal;
-            line-height: 1.2;
-        }
-        
-        nav a {
-            font-size: 1rem;
-            margin: 0 10px;
-        }
-        
-        .skill-box {
-            padding: 10px 20px;
-            font-size: 0.9rem;
-        }
-        
-        .theme-wheel {
-            width: 60px;
-            height: 60px;
-        }
+    nav a::after {
+      content: '';
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      transition: width 0.3s;
     }
-
-    @media (max-width: 768px) {
-        header {
-            margin-bottom: 5px;
-            flex-direction: column;
-            gap: 15px;
-            padding: 15px 5%;
-        }
-        
-        .name {
-            font-size: 2rem;
-        }
-        
-        .position {
-            font-size: 1rem;
-            white-space: normal;
-            border-right: none;
-            padding: 0 10px;
-        }
-        
-        .skills {
-            gap: 10px;
-        }
-        
-        .social a {
-            font-size: 1.2rem;
-            padding: 8px;
-        }
-        
-        .intro-text {
-            font-size: 1rem;
-            padding: 0 10px;
-        }
+    nav a:hover, nav a.active {
+      background: rgba(0,201,255,0.11);
+      color: var(--accent-color);
     }
+    nav a:hover::after, nav a.active::after { width: 100%; }
 
-    @media (max-width: 480px) {
-        .container {
-            padding: 20px 10px 50px;
-            margin-top:5xp;
-        }
-        
-        .name {
-            font-size: 1.8rem;
-        }
-        
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        nav a {
-            margin: 0 5px;
-            font-size: 0.9rem;
-        }
-        
-        .skill-box {
-            padding: 8px 15px;
-            font-size: 0.8rem;
-        }
-        
-        
-        
-        .theme-wheel {
-            width: 50px;
-            height: 50px;
-            border-width: 3px;
-        }
-        
-        .social::after {
-            font-size: 0.8rem;
-        }
+    /* MOBILE */
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+        padding: 13px 4vw 5px 4vw;
+        gap: 5px;
+      }
+      .logo {
+        font-size: 1.1rem;
+        margin-bottom: 4px;
+      }
+      nav {
+        justify-content: center;
+        width: 100%;
+        margin: 0;
+        gap: 2px;
+      }
+      nav a {
+        margin-left: 7px;
+        font-size: 1rem;
+        padding: 6px 9px;
+      }
     }
-
-    /* Mobil Cihazlarda Yatay Mod Düzenlemesi */
-    @media (max-height: 500px) and (orientation: landscape) {
-        .container {
-            padding-top: 70px;
-            justify-content: flex-start;
-        }
-        
-        .name {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-        
-        .skills {
-            gap: 8px;
-        }
+    @media (max-width:480px) {
+      header {
+        padding: 7px 1vw 2px 1vw;
+      }
+      .logo {
+        font-size: .95rem;
+      }
+      nav a {
+        margin-left: 4px;
+        font-size: 0.97rem;
+        padding: 5px 6px;
+        border-radius: 7px;
+      }
+      .container { padding: 18vw 0 8vw 0; }
+      .name { font-size: 1.3rem; }
     }
- 
-
-</style>
+    .container {
+      text-align: center;
+      padding: 80px 10% 40px 10%;
+      position: relative;
+      z-index: 10;
+    }
+    .name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      margin-bottom: 10px;
+      animation: slideDown 1s ease;
+      letter-spacing: 2px;
+      text-shadow: 0 0 12px #00c9ff44;
+    }
+    .position {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      animation: slideDown 1.2s ease;
+      color: #00c9ff;
+    }
+    .skills {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    .skill-box {
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: 1.5px solid var(--accent-color);
+      background: rgba(0, 201, 255, 0.10);
+      backdrop-filter: blur(2px);
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+      font-weight: 500;
+      position: relative;
+      z-index: 10;
+      overflow: visible;
+    }
+    .skill-box:hover {
+      transform: translateY(-10px) scale(1.08);
+      box-shadow: 0 5px 25px #00c9ff77;
+      background: rgba(0, 201, 255, 0.20);
+    }
+    .social {
+      margin-bottom: 32px;
+    }
+    .social a {
+      color: inherit;
+      font-size: 1.5rem;
+      margin: 0 10px;
+      transition: transform 0.3s, color 0.3s;
+      filter: drop-shadow(0 0 2px #00c9ff);
+    }
+    .social a:hover {
+      transform: scale(1.25);
+      color: var(--accent-color);
+      filter: drop-shadow(0 0 6px #00c9ff);
+    }
+    .theme-toggle-cube-wrap {
+      margin: 38px auto 0 auto;
+      perspective: 600px;
+      width: var(--cube-size);
+      height: var(--cube-size);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 11;
+      transition: filter 0.3s;
+    }
+    .theme-toggle-cube {
+      width: var(--cube-size);
+      height: var(--cube-size);
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    .rotated { transform: rotateY(180deg) rotateX(180deg); }
+    .cube-face {
+      position: absolute;
+      width: var(--cube-size);
+      height: var(--cube-size);
+      background: linear-gradient(135deg,#00c9ff 0%,#181f2a 100%);
+      border: 2px solid #00c9ff80;
+      border-radius: 14px;
+      box-shadow: 0 4px 22px #00c9ff44;
+      color: #fff;
+      font-size: 2rem;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+      user-select: none;
+    }
+    .cube-face.top    { transform: rotateX(90deg) translateZ(30px);}
+    .cube-face.bottom { transform: rotateX(-90deg) translateZ(30px);}
+    .cube-face.right  { transform: rotateY(90deg) translateZ(30px);}
+    .cube-face.left   { transform: rotateY(-90deg) translateZ(30px);}
+    .cube-face.front  { transform: translateZ(30px);}
+    .cube-face.back   { transform: rotateY(180deg) translateZ(30px);}
+    .theme-toggle-cube-wrap:hover {
+      filter: brightness(1.22) drop-shadow(0 0 32px #ff1867) drop-shadow(0 0 8px #00c9ff) contrast(1.2);
+    }
+    .theme-loader-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(15,32,39,0.96);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      animation: fadeIn .5s;
+    }
+    .theme-loader-overlay.active { display: flex; }
+    .loader-circuit {
+      width: 82px; height: 82px;
+      display: grid; place-items: center;
+      margin-bottom: 16px;
+    }
+    .loader-circuit::before {
+      content: '';
+      width: 82px; height: 82px;
+      border: 5px solid #00c9ff55;
+      border-top: 5px solid #00c9ff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      position: absolute;
+      left: 0; top: 0;
+    }
+    .loader-circuit::after {
+      content: '';
+      width: 36px; height: 36px;
+      border: 3px solid #00c9ff99;
+      border-bottom: 3px solid #181f2a;
+      border-radius: 50%;
+      position: absolute;
+      left: 23px; top: 23px;
+      animation: spin-rev 1.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg);} }
+    @keyframes spin-rev { to { transform: rotate(-360deg);} }
+    .loader-text {
+      font-family: 'Orbitron', monospace;
+      color: #00c9ff;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #00c9ff;
+      animation: flicker .7s infinite alternate;
+      margin-top: 10px;
+    }
+    @keyframes flicker {
+      from { opacity: .85;}
+      to { opacity: 1;}
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @media (max-width:600px){
+      .container { padding: 30px 2vw 20px 2vw; }
+      .skills { gap: 8px; }
+      .name { font-size: 2rem;}
+      .theme-toggle-cube-wrap { margin:24px auto 0 auto; }
+    }
+  </style>
 </head>
-
-<body class="fade-in">
+<body>
+  <canvas id="matrixBg" class="matrix-bg"></canvas>
+  <canvas id="veinOverlay"></canvas>
   <header>
     <div class="logo">ABDULLAH DUMAN</div>
     <nav>
-      <a href="index.html" class="active">Ana Sayfa</a>
+      <a href="#" class="active">Ana Sayfa</a>
       <a href="projects.html">Projeler</a>
       <a href="resume.html">Özgeçmiş</a>
       <a href="contact.html">İletişim</a>
-    </nav> 
+    </nav>
   </header>
-
   <div class="container">
-    <div class="name" data-text="ABDULLAH DUMAN">ABDULLAH DUMAN</div>
+    <div class="name">ABDULLAH DUMAN</div>
     <div class="position">Bilgisayar Mühendisliği 3. Sınıf Öğrencisi</div>
-
-    <div class="skills">
+    <div class="skills" id="skillsBar">
       <div class="skill-box"><i class="fab fa-java"></i> Java</div>
       <div class="skill-box"><i class="fas fa-code"></i> .NET</div>
       <div class="skill-box"><i class="fas fa-robot"></i> Python</div>
@@ -516,49 +337,191 @@
       <div class="skill-box"><i class="fas fa-database"></i> MySQL</div>
       <div class="skill-box"><i class="fab fa-js"></i> JavaScript</div>
     </div>
-
-    <div class="intro-text" style="max-width: 600px; margin: 20px auto; font-size: 1.1em; line-height: 1.6;">
-      <h1>Merhaba! Ben Abdullah Duman.</h1>
-      <p>
-        <strong>Abdullah Duman</strong> olarak, yazılım dünyasındaki en son teknolojilerle <br>
-        entegre çözümler üretmeye odaklanıyorum. <br>
-        Özellikle <strong>Java ve .NET</strong> tabanlı <br> kurumsal yazılımlar konusunda uzmanlığımla dikkat çekiyorum.
-      </p>
-    </div>
-
     <div class="social">
-      <a href="https://www.instagram.com/abdullah_duman00/"><i class="fab fa-instagram"></i></a>
-      <a href="https://www.linkedin.com/in/abdullah-duman-112812245/"><i class="fab fa-linkedin"></i></a>
-      <a href="https://github.com/duman011"><i class="fab fa-github"></i></a>
-      <a href="mailto:dduman.abdulla2003@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fas fa-envelope"></i></a>
     </div>
-
-    <div class="theme-selector">
-      <div class="theme-wheel" id="themeToggle" onclick="toggleTheme()"></div>
+    <div class="theme-toggle-cube-wrap" id="themeCubeBtn">
+      <div class="theme-toggle-cube" id="cube3d">
+        <div class="cube-face front">🌚</div>
+        <div class="cube-face back"><i class="fas fa-sun"></i></div>
+        <div class="cube-face top">🌙</div>
+        <div class="cube-face bottom">☀️</div>
+        <div class="cube-face left"><i class="fas fa-laptop-code"></i></div>
+        <div class="cube-face right"><i class="fas fa-bolt"></i></div>
+      </div>
     </div>
   </div>
-
+  <div class="theme-loader-overlay" id="themeLoader">
+    <div class="loader-circuit"></div>
+    <div class="loader-text">Tema değiştiriliyor...</div>
+  </div>
   <script>
-    function toggleTheme() {
-      const body = document.body;
-      body.classList.toggle('light');
-      localStorage.setItem('theme', body.classList.contains('light') ? 'light' : 'dark');
+    // Matrix yağmuru
+    function matrixRain() {
+      const canvas = document.getElementById('matrixBg');
+      const ctx = canvas.getContext('2d');
+      let w = window.innerWidth;
+      let h = window.innerHeight;
+      canvas.width = w;
+      canvas.height = h;
+      let fontSize = 16;
+      let columns = Math.floor(w / fontSize);
+      let drops = [];
+      for (let i = 0; i < columns; i++) drops[i] = Math.random() * h;
+      const matrixChars = '01ABCDEFGHIJKLMNOPQRSTUVXYZ#@&%$?'.split('');
+      function draw() {
+        ctx.fillStyle = 'rgba(18,18,18,0.15)';
+        ctx.fillRect(0, 0, w, h);
+        ctx.font = fontSize + 'px monospace';
+        ctx.fillStyle = '#00c9ff';
+        for (let i = 0; i < drops.length; i++) {
+          const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+          if (Math.random() > 0.965) drops[i] = 0;
+          drops[i]++;
+        }
+      }
+      setInterval(draw, 50);
+      window.addEventListener('resize', () => {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w;
+        canvas.height = h;
+      });
     }
 
+    // Ultra ince, arka planda damar animasyonu
+    function startVeinAnim(callback) {
+      const overlay = document.getElementById('veinOverlay');
+      overlay.width = window.innerWidth;
+      overlay.height = window.innerHeight;
+      overlay.style.display = 'block';
+      const ctx = overlay.getContext('2d');
+      ctx.clearRect(0,0,overlay.width,overlay.height);
+      const boxes = document.querySelectorAll('.skill-box');
+      let veins = [];
+      boxes.forEach(box => {
+        let rect = box.getBoundingClientRect();
+        let origin = {
+          x: rect.left + rect.width/2 + window.scrollX,
+          y: rect.top + rect.height/2 + window.scrollY
+        };
+        let numVein = 7 + Math.floor(Math.random()*2);
+        for(let i=0;i<numVein;i++){
+          let angle = Math.random() * 2 * Math.PI;
+          veins.push({
+            points: [origin],
+            angle: angle,
+            speed: 8 + Math.random()*7,
+            alive: true
+          });
+        }
+      });
+      let frame = 0;
+      function animate() {
+        ctx.globalAlpha = 1;
+        ctx.lineCap = "round";
+        frame++;
+        for (let vein of veins) {
+          if (!vein.alive) continue;
+          vein.angle += (Math.random()-.5)*0.2;
+          let last = vein.points[vein.points.length-1];
+          let next = {
+            x: last.x + Math.cos(vein.angle)*vein.speed,
+            y: last.y + Math.sin(vein.angle)*vein.speed
+          };
+          if(next.x<0||next.x>overlay.width||next.y<0||next.y>overlay.height){
+            vein.alive=false;
+            continue;
+          }
+          for(let other of veins){
+            if(other===vein || !other.alive) continue;
+            let their = other.points[other.points.length-1];
+            let dx = next.x-their.x, dy=next.y-their.y;
+            let dist = Math.sqrt(dx*dx+dy*dy);
+            if(dist<14){
+              if(Math.random()>0.5){ vein.alive=false; } else { other.alive=false; }
+              break;
+            }
+          }
+          if(!vein.alive) continue;
+          vein.points.push(next);
+          vein.speed *= 0.985;
+          if(vein.points.length>65) vein.alive=false;
+        }
+        // Ultra ince, net neon kırmızı çizgi
+        ctx.save();
+        ctx.shadowBlur = 4;
+        ctx.shadowColor = "#FF073A";
+        for (let vein of veins) {
+          if (vein.points.length<2) continue;
+          ctx.beginPath();
+          ctx.strokeStyle = "rgba(255,7,58,0.98)";
+          ctx.lineWidth = 0.37;
+          ctx.moveTo(vein.points[0].x, vein.points[0].y);
+          for(let i=1;i<vein.points.length;i++){
+            ctx.lineTo(vein.points[i].x, vein.points[i].y);
+          }
+          ctx.stroke();
+        }
+        ctx.restore();
+        for (let vein of veins) {
+          if(!vein.alive) continue;
+          let tip = vein.points[vein.points.length-1];
+          ctx.beginPath();
+          ctx.arc(tip.x, tip.y, 0.65, 0, Math.PI*2);
+          ctx.fillStyle = "rgba(255,7,58,0.17)";
+          ctx.shadowColor = "#FF073A";
+          ctx.shadowBlur = 2.2;
+          ctx.fill();
+        }
+        let anyAlive = veins.some(v=>v.alive);
+        if(anyAlive && frame<115){
+          requestAnimationFrame(animate);
+        } else {
+          setTimeout(()=>{
+            overlay.style.display = 'none';
+            if(callback) callback();
+          }, 140);
+        }
+      }
+      animate();
+    }
+
+    // TEMA GEÇİŞİ + DAMAR ANİMASYONU
+    const cubeBtn = document.getElementById('themeCubeBtn');
+    const themeCube = document.getElementById('cube3d');
+    const loader = document.getElementById('themeLoader');
+    let isRotated = false;
+
+    cubeBtn.onclick = function () {
+      isRotated = !isRotated;
+      themeCube.classList.toggle('rotated');
+      startVeinAnim(function(){
+        document.body.classList.toggle('light');
+        localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+        if (!document.body.classList.contains('light'))
+          document.body.style.background = 'var(--bg-dark-alt)';
+        else
+          document.body.style.background = '';
+        loader.classList.add('active');
+        setTimeout(()=>{ loader.classList.remove('active'); }, 950);
+      });
+    };
+
+    // SAYFA AÇILIRKEN DAMAR ANİMASYONU!
     window.onload = () => {
       if (localStorage.getItem('theme') === 'light') {
         document.body.classList.add('light');
+        isRotated = true;
+        themeCube.classList.add('rotated');
       }
+      matrixRain();
+      setTimeout(()=>{ startVeinAnim(); }, 400);
     };
-
-    document.querySelectorAll('nav a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetUrl = this.href;
-        document.body.classList.add('page-out');
-        setTimeout(() => window.location.href = targetUrl, 500);
-      });
-    });
   </script>
 </body>
 </html>
