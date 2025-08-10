@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ABDULLAH DUMAN — Portfolyo</title>
-<meta name="description" content="Abdullah Duman | Bilgisayar Mühendisliği 3. sınıf — Web & Mobil geliştirici. Projeler, yetenekler ve iletişim.">
+<meta name="description" content="Abdullah Duman | Bilgisayar Mühendisliği 3. sınıf — Web & Mobil geliştirici.">
 <meta name="color-scheme" content="dark light">
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -12,21 +12,22 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <style>
-/* ===== THEME TOKENS ===== */
+/* ===== TOKENS ===== */
 :root{
-  --bg-1:#070a12; --bg-2:#0c1020; --bg-3:rgba(11,15,26,.55);
-  --txt:#e8edf2; --muted:#aab3c2;
+  --bg-1:#080a12; --bg-2:#0d1020; --bg-3:rgba(11,15,26,.55);
+  --txt:#e8edf2; --muted:#a8b0bf;
   --pri:#7aa9ff; --sec:#9d7bff; --tri:#00e7d4;
   --glass:rgba(255,255,255,.06); --card-bd:rgba(255,255,255,.12); --ring:rgba(122,169,255,.45);
   --shadow:0 10px 30px rgba(0,0,0,.35);
-  --radius-xl:24px; --radius-md:16px; --radius-sm:12px;
-  --maxw:1200px; --pad:clamp(16px,3vw,28px); --nav-h:64px;
-  --sat: env(safe-area-inset-top, 0px); --sal: env(safe-area-inset-left, 0px);
-  --sar: env(safe-area-inset-right, 0px); --sab: env(safe-area-inset-bottom, 0px);
+  --radius-xl:24px; --radius-md:16px;
+  --maxw:1200px;
+  --nav-h:64px;
+  --pad:clamp(16px, 3vw, 28px);           /* yatay boşluk */
+  --v-gap:clamp(48px, 7vw, 96px);         /* dikey ritim */
 }
 :root.light{
-  --bg-1:#f6f7fb; --bg-2:#ffffff; --bg-3:rgba(255,255,255,.7);
-  --txt:#0e1220; --muted:#4f5869; --pri:#2d6fff; --sec:#6a4dff; --tri:#00b3a4;
+  --bg-1:#f6f7fb; --bg-2:#fff; --bg-3:rgba(255,255,255,.7);
+  --txt:#0e1220; --muted:#4a5364; --pri:#2d6fff; --sec:#6a4dff; --tri:#00b3a4;
   --glass:rgba(0,0,0,.04); --card-bd:rgba(0,0,0,.08); --ring:rgba(45,111,255,.35);
   --shadow:0 12px 30px rgba(0,0,0,.12);
 }
@@ -46,7 +47,7 @@ body{
 }
 img{max-width:100%; display:block}
 
-/* backdrop (masaüstü) */
+/* animated backdrop (her cihazda aktif) */
 .backdrop{
   position:fixed; inset:-10vmax; z-index:-2; pointer-events:none;
   background:conic-gradient(from 0deg, rgba(122,169,255,.12), rgba(0,231,212,.12), rgba(157,123,255,.12), rgba(122,169,255,.12));
@@ -56,43 +57,47 @@ img{max-width:100%; display:block}
 
 /* ===== NAV ===== */
 .nav{position:sticky; top:0; z-index:60; backdrop-filter:blur(10px); background:var(--bg-3); border-bottom:1px solid var(--card-bd)}
-.nav .inner{
-  max-width:var(--maxw); margin:0 auto;
-  padding:calc(var(--sat)/2) max(var(--pad), var(--sal)) calc(var(--sat)/2) max(var(--pad), var(--sal));
-  height:var(--nav-h); display:flex; align-items:center; justify-content:space-between;
-}
+.nav .inner{max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); height:var(--nav-h); display:flex; align-items:center; justify-content:space-between}
 .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.6px}
 .brand .logo{width:36px; height:36px; border-radius:10px; overflow:hidden; box-shadow:var(--shadow); background:linear-gradient(135deg,var(--pri),var(--sec))}
 .brand span{font-family:'Orbitron', sans-serif; font-size:1.05rem}
-
 .links{display:flex; gap:18px; align-items:center}
-.links a{color:var(--muted); text-decoration:none; font-weight:600; font-size:.95rem; padding:10px 12px; border-radius:10px; line-height:1}
+.links a{color:var(--muted); text-decoration:none; font-weight:600; font-size:.95rem; padding:10px 12px; border-radius:10px}
 .links a.active,.links a:hover{color:var(--txt); background:var(--glass)}
 .hamb{display:none; font-size:1.25rem; background:none; border:0; color:var(--txt)}
 .theme-toggle{border:1px solid var(--card-bd); background:var(--glass); border-radius:999px; width:40px; height:40px; display:grid; place-items:center; cursor:pointer}
-
-/* progress */
 .progress{position:fixed; top:0; left:0; height:3px; width:0; background:linear-gradient(90deg,var(--pri),var(--tri)); z-index:70}
 
 /* ===== LAYOUT ===== */
-.container{max-width:var(--maxw); margin:0 auto; padding:0 max(var(--pad), var(--sal))}
-section{padding: clamp(56px, 8vw, 96px) 0}
-section, header{scroll-margin-top: calc(var(--nav-h) + 16px)}
+.container{max-width:var(--maxw); margin:0 auto; padding:0 var(--pad)}
+section{padding:var(--v-gap) 0}
+section, header{scroll-margin-top:calc(var(--nav-h) + 14px)}
 
 /* ===== HERO ===== */
-.hero{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(20px,3vw,32px); align-items:center; min-height: clamp(60vh, 78vh, 84vh)}
+.hero{
+  display:grid; grid-template-columns:1.05fr .95fr;
+  gap:clamp(20px,3vw,32px); align-items:center;
+  min-height:clamp(60vh, 78vh, 84vh);
+}
 .title{
   font-family:'Orbitron', sans-serif;
-  font-size:clamp(20px, 6.2vw, 44px);   /* güvenli ölçü */
-  max-width:22ch; line-height:1.15; letter-spacing:.6px;
-  text-wrap:balance; overflow-wrap:anywhere; margin:0;
+  /* akışkan tipografi + güvenli satır uzunluğu */
+  font-size:clamp(22px, 6.2vw, 52px);
+  line-height:1.1; letter-spacing:.6px; margin:0;
+  max-width:22ch; text-wrap:balance; overflow-wrap:anywhere;
   background:linear-gradient(90deg,var(--pri),var(--tri),var(--sec));
   -webkit-background-clip:text; background-clip:text; color:transparent;
   filter:drop-shadow(0 10px 30px rgba(0,0,0,.2));
 }
 .subtitle{color:var(--muted); margin-top:12px; font-size:clamp(14px,1.6vw,18px)}
 .cta{display:flex; gap:12px; margin-top:18px; flex-wrap:wrap}
-.btn{display:inline-flex; align-items:center; gap:10px; cursor:pointer; border:none; font-weight:800; padding:14px 18px; border-radius:14px; letter-spacing:.4px; text-decoration:none; min-height:44px; background:linear-gradient(135deg,var(--pri),var(--sec)); color:#0b0f1a; box-shadow:0 10px 28px rgba(122,169,255,.25); transition:transform .25s ease, box-shadow .25s ease}
+.btn{
+  display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer;
+  font-weight:800; padding:12px 16px; border-radius:14px; letter-spacing:.4px; text-decoration:none;
+  background:linear-gradient(135deg,var(--pri),var(--sec)); color:#0b0f1a;
+  box-shadow:0 10px 28px rgba(122,169,255,.25); transition:transform .2s ease, box-shadow .2s ease;
+  flex:0 1 auto; max-width:calc(50% - 6px); /* satır kırılırsa oranlı kalır */
+}
 .btn:hover{transform:translateY(-2px); box-shadow:0 14px 36px rgba(122,169,255,.38)}
 .btn.ghost{background:transparent; color:var(--txt); border:1px solid var(--card-bd); box-shadow:none}
 .btn.ghost:hover{background:var(--glass)}
@@ -105,8 +110,8 @@ section, header{scroll-margin-top: calc(var(--nav-h) + 16px)}
 /* ===== MARQUEE ===== */
 .marquee{margin-top:22px; border-top:1px dashed var(--card-bd); border-bottom:1px dashed var(--card-bd); padding:10px 0; overflow:hidden}
 .marquee .track{display:flex; gap:16px; animation:scroll 22s linear infinite; white-space:nowrap}
-.marquee:hover .track{animation-play-state:paused}
 .marquee .pill{padding:8px 14px; border-radius:999px; background:var(--glass); border:1px solid var(--card-bd); font-weight:700; font-size:.92rem}
+.marquee:hover .track{animation-play-state:paused}
 @keyframes scroll{to{transform:translateX(-50%)}}
 
 /* ===== SECTION TITLE ===== */
@@ -114,17 +119,16 @@ section, header{scroll-margin-top: calc(var(--nav-h) + 16px)}
 .sec-title h2{font-size:clamp(20px,2.6vw,34px); margin:0}
 .sec-title .bar{flex:1; height:2px; background:linear-gradient(90deg,var(--pri), transparent); opacity:.5}
 
-/* ===== GRID/CARDS ===== */
+/* ===== GRID / CARDS (boşluksuz, orantılı) ===== */
 .grid{
   display:grid; gap:18px;
-  /* otomatik: 1 -> 2 -> 3 sütun, boşluk bırakmaz */
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 .card{border:1px solid var(--card-bd); background:var(--glass); border-radius:var(--radius-md); padding:18px; position:relative; overflow:hidden; transition:transform .18s ease, box-shadow .25s ease, border-color .25s ease}
 .card:hover{transform:translateY(-3px); box-shadow:var(--shadow); border-color:var(--ring)}
 .card h3{margin:8px 0 6px; font-size:1.12rem}
 .card p{margin:0; color:var(--muted)}
-.badge{display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.85rem; padding:6px 10px; border-radius:999px; background:linear-gradient(135deg, rgba(122,169,255,.2), rgba(157,123,255,.2)); border:1px solid var(--ring); color:var(--txt)}
+.badge{display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.85rem; padding:6px 10px; border-radius:999px; background:linear-gradient(135deg, rgba(122,169,255,.2), rgba(157,123,255,.2)); border:1px solid var(--ring); color: var(--txt)}
 .shine{position:absolute; inset:0; background: radial-gradient(600px circle at var(--mx, 0px) var(--my, 0px), rgba(255,255,255,.08), transparent 40%); opacity:0; transition:opacity .2s ease; pointer-events:none}
 .card:hover .shine{opacity:1}
 
@@ -148,80 +152,47 @@ form textarea{grid-column:span 2; min-height:140px; resize:vertical}
 .socials a:hover{transform:translateY(-2px) scale(1.03); border-color:var(--ring); box-shadow:0 12px 26px rgba(0,0,0,.2)}
 
 /* ===== FOOTER ===== */
-footer{border-top:1px solid var(--card-bd); padding:22px 0 calc(32px + var(--sab)); color:var(--muted)}
+footer{border-top:1px solid var(--card-bd); padding:22px 0 40px; color:var(--muted)}
 
-/* ===== MOBILE ===== */
+/* ===== MOBILE — oran koru ===== */
 @media (max-width:980px){
   .hero{grid-template-columns:1fr; min-height:auto}
   .hero-card{order:2}
 }
-@media (max-width:820px){
-  /* CTA butonları bar gibi olmasın */
-  .cta{ justify-content:center; gap:10px }
-  .cta .btn{ width:auto; min-width:min(46%, 220px); justify-content:center }
-  /* marquee: parmakla kaydır */
-  .marquee{ overflow:auto; -webkit-overflow-scrolling:touch }
-  .marquee .track{ animation:none; gap:12px; padding:2px 4px; width:max-content }
-  .marquee .pill{ font-size:.9rem; padding:7px 12px }
-}
 @media (max-width:720px){
   .links{display:none} .hamb{display:block}
-  .title, .subtitle{ text-align:center }
-  .socials{ justify-content:center }
+  .title,.subtitle{text-align:center}
+  .cta{justify-content:center}
+  .btn{max-width:unset}
   form{grid-template-columns:1fr} form textarea{grid-column:span 1}
   .progress{height:2px}
+  .marquee{overflow:auto; -webkit-overflow-scrolling:touch}
+  .marquee .track{animation:none; gap:12px; padding:2px 4px; width:max-content}
 }
-/* mobile menu sheet + safe areas */
+
+/* mobile sheet menu */
 .links.mobile{
-  position:fixed;
-  left:max(12px, var(--sal)); right:max(12px, var(--sar));
-  top:calc(var(--nav-h) + var(--sat) + 8px);
+  position:fixed; left:12px; right:12px; top:calc(var(--nav-h) + 8px);
   background:var(--bg-2); border:1px solid var(--card-bd); border-radius:16px;
   padding:10px; flex-direction:column; gap:4px; box-shadow:var(--shadow); display:none; z-index:65
 }
 .links.mobile a{padding:12px 14px}
 .links.mobile.show{display:flex}
 
-/* ===== PAGE TRANSITION CURTAIN ===== */
-.curtain{
-  position:fixed; inset:0; pointer-events:none; z-index:80;
-  background:radial-gradient(1000px 1000px at var(--x,50%) var(--y,50%), rgba(122,169,255,.45), rgba(0,231,212,.35) 40%, rgba(157,123,255,.45) 70%, transparent 72%);
-  transform:scale(0); opacity:.9; transition:transform .55s cubic-bezier(.2,.8,.2,1), opacity .35s ease;
-  mix-blend-mode:screen; filter:blur(14px) saturate(120%);
-}
-
-/* ===== REVEAL ANIMS ===== */
+/* curtain + reveals */
+.curtain{position:fixed; inset:0; pointer-events:none; z-index:80; background:radial-gradient(1000px 1000px at var(--x,50%) var(--y,50%), rgba(122,169,255,.45), rgba(0,231,212,.35) 40%, rgba(157,123,255,.45) 70%, transparent 72%); transform:scale(0); opacity:.9; transition:transform .55s cubic-bezier(.2,.8,.2,1), opacity .35s ease; mix-blend-mode:screen; filter:blur(14px) saturate(120%)}
 .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
 .reveal.show{opacity:1; transform:none}
-.reveal.stagger:nth-child(1){transition-delay:.05s}
-.reveal.stagger:nth-child(2){transition-delay:.12s}
-.reveal.stagger:nth-child(3){transition-delay:.18s}
-.reveal.stagger:nth-child(4){transition-delay:.24s}
-.reveal.stagger:nth-child(5){transition-delay:.30s}
-.reveal.stagger:nth-child(6){transition-delay:.36s}
 
 /* focus ring */
 :focus-visible{outline:2px solid var(--ring); outline-offset:2px; border-radius:10px}
-
-/* ==== TOUCH/MOBILE: bantları kapat, tek arka plan ==== */
-@media (pointer: coarse), (max-width: 900px){
-  .backdrop{ display:none !important; }
-  #space{ display:none !important; }
-  body{
-    background:
-      radial-gradient(1200px 650px at 50% -10%, rgba(122,169,255,.12), transparent 60%),
-      radial-gradient(900px 520px at 100% 10%, rgba(0,231,212,.10), transparent 60%),
-      linear-gradient(180deg, var(--bg-1), var(--bg-1));
-    background-repeat:no-repeat; background-size:cover;
-  }
-}
 </style>
 </head>
 <body>
 <div class="progress" id="progress"></div>
 <div class="backdrop"></div>
-<div id="curtain" class="curtain" aria-hidden="true"></div>
 <canvas id="space" aria-hidden="true" style="position:fixed; inset:0; z-index:-1; opacity:.45;"></canvas>
+<div id="curtain" class="curtain" aria-hidden="true"></div>
 
 <!-- NAV -->
 <nav class="nav" role="navigation">
@@ -241,11 +212,7 @@ footer{border-top:1px solid var(--card-bd); padding:22px 0 calc(32px + var(--sab
     <button class="theme-toggle" id="themeBtn" aria-label="Tema Değiştir"><i class="fa-regular fa-moon"></i></button>
   </div>
   <div class="links mobile" id="navMobile">
-    <a href="#home">Ana Sayfa</a>
-    <a href="#about">Hakkımda</a>
-    <a href="#skills">Yetenekler</a>
-    <a href="#projects">Projeler</a>
-    <a href="#contact">İletişim</a>
+    <a href="#home">Ana Sayfa</a><a href="#about">Hakkımda</a><a href="#skills">Yetenekler</a><a href="#projects">Projeler</a><a href="#contact">İletişim</a>
   </div>
 </nav>
 
@@ -266,7 +233,7 @@ footer{border-top:1px solid var(--card-bd); padding:22px 0 calc(32px + var(--sab
       </div>
 
       <div class="marquee reveal" aria-hidden="true">
-        <div class="track" id="marqueeTrack">
+        <div class="track">
           <span class="pill">Python</span><span class="pill">Flutter</span><span class="pill">Kotlin</span><span class="pill">PHP</span><span class="pill">.NET</span><span class="pill">MySQL</span><span class="pill">Playwright</span><span class="pill">QR Güvenlik</span><span class="pill">Android Studio</span><span class="pill">HTML/CSS/JS</span>
           <span class="pill">Python</span><span class="pill">Flutter</span><span class="pill">Kotlin</span><span class="pill">PHP</span><span class="pill">.NET</span><span class="pill">MySQL</span><span class="pill">Playwright</span><span class="pill">QR Güvenlik</span><span class="pill">Android Studio</span><span class="pill">HTML/CSS/JS</span>
         </div>
@@ -284,23 +251,12 @@ footer{border-top:1px solid var(--card-bd); padding:22px 0 calc(32px + var(--sab
 </header>
 
 <main>
-  <!-- ABOUT -->
   <section id="about" class="container">
     <div class="sec-title reveal"><h2>Hakkımda</h2><div class="bar"></div></div>
     <div class="grid">
-      <div class="card reveal stagger">
-        <div class="shine"></div>
-        <h3>Kimim?</h3>
-        <p>Problem çözmeyi ve zor şeyleri basitleştirmeyi seviyorum. Güvenlik, performans ve kullanıcı deneyimini aynı masaya oturtan çözümler çıkarırım. Kod yazmadığım zamanlarda motosiklet teknolojilerini kurcalarım.</p>
-      </div>
-      <div class="card reveal stagger">
-        <div class="shine"></div>
-        <h3>Odak Alanlarım</h3>
-        <p><strong>Mobil</strong> (Flutter/Kotlin), <strong>Web</strong> (PHP, .NET), <strong>Otomasyon</strong> (Python + Playwright) ve <strong>Görüntü İşleme</strong> (OpenCV). Renkli ama dengeli UI/UX ve temiz mimari önceliğimdir.</p>
-      </div>
-      <div class="card reveal">
-        <div class="shine"></div>
-        <h3>Eğitim & Deneyim</h3>
+      <div class="card reveal"><div class="shine"></div><h3>Kimim?</h3><p>Problem çözmeyi ve zor şeyleri basitleştirmeyi seviyorum. Güvenlik, performans ve kullanıcı deneyimini aynı masaya oturtan çözümler çıkarırım. Kod yazmadığım zamanlarda motosiklet teknolojilerini kurcalarım.</p></div>
+      <div class="card reveal"><div class="shine"></div><h3>Odak Alanlarım</h3><p><strong>Mobil</strong> (Flutter/Kotlin), <strong>Web</strong> (PHP, .NET), <strong>Otomasyon</strong> (Python + Playwright) ve <strong>Görüntü İşleme</strong> (OpenCV). Renkli ama dengeli UI/UX ve temiz mimari önceliğimdir.</p></div>
+      <div class="card reveal"><div class="shine"></div><h3>Eğitim & Deneyim</h3>
         <div class="timeline">
           <div class="t-item"><h4>Amasya Üniversitesi — Bilgisayar Müh. (3. Sınıf)</h4><span>2022 — Günümüz</span></div>
           <div class="t-item"><h4>LinkedIn İş İlanı Analiz Aracı</h4><span>2025 — Python, MySQL, Playwright</span></div>
@@ -310,33 +266,30 @@ footer{border-top:1px solid var(--card-bd); padding:22px 0 calc(32px + var(--sab
     </div>
   </section>
 
-  <!-- SKILLS -->
   <section id="skills" class="container">
     <div class="sec-title reveal"><h2>Yetenekler</h2><div class="bar"></div></div>
     <div class="grid">
-      <article class="card tilt reveal stagger"><div class="shine"></div><h3>Flutter</h3><p>Çoklu platform, kamera & sensör API'leri, performans optimizasyonu.</p></article>
-      <article class="card tilt reveal stagger"><div class="shine"></div><h3>Kotlin</h3><p>CameraX, ML Kit, modern Android bileşenleri.</p></article>
-      <article class="card tilt reveal stagger"><div class="shine"></div><h3>Python</h3><p>Playwright ile otomasyon, Flask API, OpenCV analizleri.</p></article>
-      <article class="card tilt reveal stagger"><div class="shine"></div><h3>PHP & MySQL</h3><p>Modern kontrol panelleri, REST endpoint’leri, güvenlik.</p></article>
-      <article class="card tilt reveal stagger"><div class="shine"></div><h3>.NET</h3><p>WinForms projeleri, oyun/araç geliştirme (C#).</p></article>
-      <article class="card tilt reveal stagger"><div class="shine"></div><h3>UI/UX</h3><p>Koyu tema, egzotik gradyanlar, erişilebilirlik ve animasyon.</p></article>
+      <article class="card tilt reveal"><div class="shine"></div><h3>Flutter</h3><p>Çoklu platform, kamera & sensör API'leri, performans optimizasyonu.</p></article>
+      <article class="card tilt reveal"><div class="shine"></div><h3>Kotlin</h3><p>CameraX, ML Kit, modern Android bileşenleri.</p></article>
+      <article class="card tilt reveal"><div class="shine"></div><h3>Python</h3><p>Playwright ile otomasyon, Flask API, OpenCV analizleri.</p></article>
+      <article class="card tilt reveal"><div class="shine"></div><h3>PHP & MySQL</h3><p>Modern kontrol panelleri, REST endpoint’leri, güvenlik.</p></article>
+      <article class="card tilt reveal"><div class="shine"></div><h3>.NET</h3><p>WinForms projeleri, oyun/araç geliştirme (C#).</p></article>
+      <article class="card tilt reveal"><div class="shine"></div><h3>UI/UX</h3><p>Koyu tema, egzotik gradyanlar, erişilebilirlik ve animasyon.</p></article>
     </div>
   </section>
 
-  <!-- PROJECTS -->
   <section id="projects" class="container">
     <div class="sec-title reveal"><h2>Projeler</h2><div class="bar"></div></div>
     <div class="grid">
-      <article class="card tilt reveal stagger"><div class="shine"></div><span class="badge"><i class="fa-solid fa-qrcode"></i> QR Güvenlik</span><h3>Kağıt/Screenshot Ayırıcı</h3><p>3 farklı enstantane ile çekim, gri ton profiline göre doğrulama ve Python API ile karar verme.</p></article>
-      <article class="card tilt reveal stagger"><div class="shine"></div><span class="badge"><i class="fa-solid fa-chart-line"></i> Otomasyon</span><h3>LinkedIn İlan Analiz Paneli</h3><p>Günlük veri çekimi, MySQL depolama ve PHP panel üzerinden görsel analiz.</p></article>
-      <article class="card tilt reveal stagger"><div class="shine"></div><span class="badge"><i class="fa-solid fa-chess-board"></i> Masaüstü</span><h3>Satranç Uygulaması (.NET)</h3><p>WinForms üzerinde 2D satranç, temiz kod ve yeniden oynatma.</p></article>
-      <article class="card tilt reveal stagger"><div class="shine"></div><span class="badge"><i class="fa-solid fa-people-group"></i> Web</span><h3>Personel Yönetim Sistemi</h3><p>Rol tabanlı yetkilendirme, CRUD panelleri ve raporlama.</p></article>
-      <article class="card tilt reveal stagger"><div class="shine"></div><span class="badge"><i class="fa-solid fa-heart-pulse"></i> STK</span><h3>Kadın Sağlığı Kulübü</h3><p>Etkinlik odaklı, duyarlı (responsive) bilgilendirme sitesi.</p></article>
-      <article class="card tilt reveal stagger"><div class="shine"></div><span class="badge"><i class="fa-solid fa-shield"></i> Güvenlik</span><h3>QR/Gradient Tasarım</h3><p>Gradyanlı QR modül tasarımı ve parçacık tabanlı sahtecilik tespiti denemeleri.</p></article>
+      <article class="card tilt reveal"><div class="shine"></div><span class="badge"><i class="fa-solid fa-qrcode"></i> QR Güvenlik</span><h3>Kağıt/Screenshot Ayırıcı</h3><p>3 farklı enstantane ile çekim, gri ton profiline göre doğrulama ve Python API ile karar verme.</p></article>
+      <article class="card tilt reveal"><div class="shine"></div><span class="badge"><i class="fa-solid fa-chart-line"></i> Otomasyon</span><h3>LinkedIn İlan Analiz Paneli</h3><p>Günlük veri çekimi, MySQL depolama ve PHP panel üzerinden görsel analiz.</p></article>
+      <article class="card tilt reveal"><div class="shine"></div><span class="badge"><i class="fa-solid fa-chess-board"></i> Masaüstü</span><h3>Satranç Uygulaması (.NET)</h3><p>WinForms üzerinde 2D satranç, temiz kod ve yeniden oynatma.</p></article>
+      <article class="card tilt reveal"><div class="shine"></div><span class="badge"><i class="fa-solid fa-people-group"></i> Web</span><h3>Personel Yönetim Sistemi</h3><p>Rol tabanlı yetkilendirme, CRUD panelleri ve raporlama.</p></article>
+      <article class="card tilt reveal"><div class="shine"></div><span class="badge"><i class="fa-solid fa-heart-pulse"></i> STK</span><h3>Kadın Sağlığı Kulübü</h3><p>Etkinlik odaklı, duyarlı (responsive) bilgilendirme sitesi.</p></article>
+      <article class="card tilt reveal"><div class="shine"></div><span class="badge"><i class="fa-solid fa-shield"></i> Güvenlik</span><h3>QR/Gradient Tasarım</h3><p>Gradyanlı QR modül tasarımı ve parçacık tabanlı sahtecilik tespiti denemeleri.</p></article>
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact" class="container">
     <div class="sec-title reveal"><h2>İletişim</h2><div class="bar"></div></div>
     <p class="reveal" style="color:var(--muted)">Bir projeyi beraber uçuralım mı? Aşağıdan haber bırak ya da doğrudan <a href="mailto:dduman.abdulla2003@gmail.com" style="color:var(--pri); font-weight:700; text-decoration:none">e-posta</a> gönder.</p>
@@ -360,110 +313,82 @@ footer{border-top:1px solid var(--card-bd); padding:22px 0 calc(32px + var(--sab
 </footer>
 
 <script>
-/* THEME */
+/* theme */
 const root=document.documentElement, themeBtn=document.getElementById('themeBtn');
 const saved=localStorage.getItem('theme'); if(saved==='light') root.classList.add('light');
 themeBtn.addEventListener('click',()=>{ root.classList.toggle('light'); localStorage.setItem('theme', root.classList.contains('light')?'light':'dark');});
 
-/* MOBILE MENU */
+/* mobile menu */
 const hamb=document.getElementById('hamb'), navMobile=document.getElementById('navMobile');
 hamb?.addEventListener('click',()=> navMobile.classList.toggle('show'));
 navMobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navMobile.classList.remove('show')));
 
-/* PAGE TRANSITION CURTAIN + SMOOTH SCROLL */
+/* curtain + smooth scroll */
 const curtain=document.getElementById('curtain');
-function fancyScrollTo(id, clickX, clickY){
-  curtain.style.setProperty('--x', (clickX||innerWidth/2)+'px');
-  curtain.style.setProperty('--y', (clickY||innerHeight/2)+'px');
+function fancyScrollTo(id, x, y){
+  curtain.style.setProperty('--x',(x||innerWidth/2)+'px');
+  curtain.style.setProperty('--y',(y||innerHeight/2)+'px');
   curtain.style.transform='scale(1)';
-  setTimeout(()=>{ document.querySelector(id)?.scrollIntoView({behavior:'smooth', block:'start'}); },180);
-  setTimeout(()=>{ curtain.style.transform='scale(0)'; }, 650);
+  setTimeout(()=>document.querySelector(id)?.scrollIntoView({behavior:'smooth', block:'start'}),180);
+  setTimeout(()=>curtain.style.transform='scale(0)',650);
 }
-function onNavClick(e){
-  e.preventDefault();
-  const id=this.getAttribute('href');
-  const r=this.getBoundingClientRect();
-  fancyScrollTo(id, r.left+r.width/2, r.top+r.height/2);
-}
-[...document.querySelectorAll('#navLinks a, #navMobile a')].forEach(a=>a.addEventListener('click', onNavClick));
+[...document.querySelectorAll('#navLinks a, #navMobile a')].forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault(); const r=a.getBoundingClientRect();
+    fancyScrollTo(a.getAttribute('href'), r.left+r.width/2, r.top+r.height/2);
+  });
+});
 
-/* ACTIVE LINK + REVEALS */
+/* active link + reveals */
 const deskLinks=[...document.querySelectorAll('#navLinks a')];
-const sections=['#home','#about','#skills','#projects','#contact'].map(s=>document.querySelector(s)).filter(Boolean);
+const secs=['#home','#about','#skills','#projects','#contact'].map(s=>document.querySelector(s)).filter(Boolean);
 const obs=new IntersectionObserver((entries)=>{
   const vis=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
   if(!vis) return; const id='#'+vis.target.id;
   deskLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')===id));
 },{threshold:[.35,.6], rootMargin:`-${parseInt(getComputedStyle(root).getPropertyValue('--nav-h'))+8}px 0px -55% 0px`});
-sections.forEach(s=>obs.observe(s));
+secs.forEach(s=>obs.observe(s));
 
-/* Scroll reveal */
 const rev=[...document.querySelectorAll('.reveal')];
 const ro=new IntersectionObserver((en)=>en.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); ro.unobserve(e.target);} }),{threshold:.2});
 rev.forEach(el=>ro.observe(el));
 
-/* NAV PROGRESS BAR */
+/* progress */
 const progress=document.getElementById('progress');
 window.addEventListener('scroll', ()=>{
   const max=document.body.scrollHeight - innerHeight;
-  const pct=Math.max(0, Math.min(1, scrollY / max));
-  progress.style.width=(pct*100)+'%';
+  progress.style.width=(Math.max(0, Math.min(1, scrollY/max))*100)+'%';
 },{passive:true});
 
-/* TILT EFFECT — dokunmatikte kapalı */
-const isTouch = matchMedia('(pointer: coarse)').matches;
-if(!isTouch){
-  const tilts=document.querySelectorAll('.tilt');
-  tilts.forEach(card=>{
+/* tilt (mouse cihazlarda) */
+if(!matchMedia('(pointer: coarse)').matches){
+  document.querySelectorAll('.tilt').forEach(card=>{
     let raf=null;
-    const onMove=(e)=>{
-      const r=card.getBoundingClientRect();
-      const x=e.clientX - r.left, y=e.clientY - r.top;
-      const rx=((y/r.height)-.5)*8, ry=((x/r.width)-.5)*-8;
-      card.style.transform=`perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-      card.style.boxShadow='var(--shadow)'; card.style.borderColor='var(--ring)';
-      card.style.setProperty('--mx', x+'px'); card.style.setProperty('--my', y+'px');
-      raf=null;
-    };
-    card.addEventListener('mousemove',(e)=>{ if(!raf) raf=requestAnimationFrame(()=>onMove(e)); });
+    card.addEventListener('mousemove',e=>{
+      if(raf) return; raf=requestAnimationFrame(()=>{
+        const r=card.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
+        const rx=((y/r.height)-.5)*8, ry=((x/r.width)-.5)*-8;
+        card.style.transform=`perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        card.style.borderColor='var(--ring)'; card.style.setProperty('--mx',x+'px'); card.style.setProperty('--my',y+'px'); raf=null;
+      });
+    });
     card.addEventListener('mouseleave',()=>{ card.style.transform='translateY(-3px)'; card.style.borderColor='var(--card-bd)'; });
   });
 }
 
-/* STARFIELD CANVAS (masaüstü; mobilde CSS ile kapatıldı) */
+/* starfield (her yerde açık) */
 const c=document.getElementById('space'), ctx=c.getContext('2d'); let w,h,dpr,stars=[];
-function resize(){
-  dpr=Math.min(window.devicePixelRatio||1,1.5);
-  w=c.width=Math.floor(innerWidth*dpr); h=c.height=Math.floor(innerHeight*dpr);
-  c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px';
-  spawn();
-}
-function spawn(){
-  const density=(innerWidth<720)?32000:20000;
-  const count=Math.floor((innerWidth*innerHeight)/density);
-  stars=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.4+.2,a:Math.random()*Math.PI*2,s:Math.random()*0.35+0.05}));
-}
-function draw(){
-  ctx.clearRect(0,0,w,h);
-  for(const st of stars){
-    st.x+=Math.cos(st.a)*st.s; st.y+=Math.sin(st.a)*st.s;
-    if(st.x<0) st.x=w; if(st.x>w) st.x=0; if(st.y<0) st.y=h; if(st.y>h) st.y=0;
-    ctx.beginPath(); ctx.arc(st.x,st.y,st.r,0,Math.PI*2); ctx.fillStyle='rgba(200,220,255,.85)'; ctx.fill();
-  }
-  requestAnimationFrame(draw);
-}
+function resize(){ dpr=Math.min(window.devicePixelRatio||1,1.75); w=c.width=Math.floor(innerWidth*dpr); h=c.height=Math.floor(innerHeight*dpr); c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px'; spawn(); }
+function spawn(){ const count=Math.floor((innerWidth*innerHeight)/20000); stars=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.4+.2,a:Math.random()*Math.PI*2,s:Math.random()*0.35+0.05})); }
+function draw(){ ctx.clearRect(0,0,w,h); for(const st of stars){ st.x+=Math.cos(st.a)*st.s; st.y+=Math.sin(st.a)*st.s; if(st.x<0) st.x=w; if(st.x>w) st.x=0; if(st.y<0) st.y=h; if(st.y>h) st.y=0; ctx.beginPath(); ctx.arc(st.x,st.y,st.r,0,Math.PI*2); ctx.fillStyle='rgba(200,220,255,.85)'; ctx.fill(); } requestAnimationFrame(draw); }
 window.addEventListener('resize', resize, {passive:true}); resize(); draw();
 
-/* COPY MAIL */
+/* copy mail + honeypot */
 document.getElementById('copyMail').addEventListener('click', async ()=>{
   await navigator.clipboard.writeText('dduman.abdulla2003@gmail.com');
-  const b=document.getElementById('copyMail'); const old=b.innerHTML; b.innerHTML='<i class="fa-solid fa-check"></i> Kopyalandı';
-  setTimeout(()=> b.innerHTML=old, 1200);
+  const b=document.getElementById('copyMail'); const old=b.innerHTML; b.innerHTML='<i class="fa-solid fa-check"></i> Kopyalandı'; setTimeout(()=> b.innerHTML=old, 1200);
 });
-
-/* FORM honeypot */
-const honeypot=document.createElement('input'); honeypot.type='text'; honeypot.name='company'; honeypot.style.display='none';
-document.getElementById('contactForm').appendChild(honeypot);
+const honeypot=document.createElement('input'); honeypot.type='text'; honeypot.name='company'; honeypot.style.display='none'; document.getElementById('contactForm').appendChild(honeypot);
 </script>
 </body>
 </html>
