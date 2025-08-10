@@ -1,513 +1,434 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ABDULLAH DUMAN — Portfolyo</title>
-  <meta name="description" content="Abdullah Duman | Bilgisayar Mühendisliği 3. sınıf — Web & Mobil geliştirici. Projeler, yetenekler ve iletişim."/>
-  <meta name="color-scheme" content="dark light">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <style>
-    /* ============== THEME TOKENS ============== */
-    :root {
-      --bg-1: #080a12;         /* ana arka plan */
-      --bg-2: #0d1020;         /* kart arka planı */
-      --bg-3: #0b0f1a;         /* navbar blur */
-      --txt:  #e8edf2;         /* ana metin */
-      --muted:#a8b0bf;         /* ikincil metin */
-      --pri:  #7aa9ff;         /* vurgu (mavi) */
-      --sec:  #9d7bff;         /* vurgu (mor) */
-      --tri:  #00e7d4;         /* vurgu (turkuaz) */
-      --glass: rgba(255,255,255,.06);
-      --card-bd: rgba(255,255,255,.12);
-      --ring: rgba(122,169,255,.45);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius-xl: 22px;
-      --radius-md: 14px;
-      --radius-sm: 10px;
-      --maxw: 1120px;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ABDULLAH DUMAN — Portfolyo</title>
+<meta name="description" content="Abdullah Duman | Bilgisayar Mühendisliği 3. sınıf — Web & Mobil geliştirici. Projeler, yetenekler ve iletişim.">
+<meta name="color-scheme" content="dark light">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
-    /* light theme */
-    :root.light {
-      --bg-1: #f6f7fb;
-      --bg-2: #ffffff;
-      --bg-3: rgba(255,255,255,.6);
-      --txt:  #0e1220;
-      --muted:#4a5364;
-      --pri:  #2d6fff;
-      --sec:  #6a4dff;
-      --tri:  #00b3a4;
-      --glass: rgba(0,0,0,.04);
-      --card-bd: rgba(0,0,0,.08);
-      --ring: rgba(45,111,255,.35);
-      --shadow: 0 12px 30px rgba(0,0,0,.12);
-    }
+<style>
+/* ===== THEME TOKENS ===== */
+:root{
+  --bg-1:#070a12; --bg-2:#0c1020; --bg-3:rgba(11,15,26,.55);
+  --txt:#e8edf2; --muted:#aab3c2;
+  --pri:#7aa9ff; --sec:#9d7bff; --tri:#00e7d4;
+  --glass:rgba(255,255,255,.06); --card-bd:rgba(255,255,255,.12); --ring:rgba(122,169,255,.45);
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --radius-xl:24px; --radius-md:16px; --radius-sm:12px;
+  --maxw:1200px; --pad:clamp(16px,3vw,28px); --nav-h:64px;
+}
+:root.light{
+  --bg-1:#f6f7fb; --bg-2:#ffffff; --bg-3:rgba(255,255,255,.7);
+  --txt:#0e1220; --muted:#4f5869; --pri:#2d6fff; --sec:#6a4dff; --tri:#00b3a4;
+  --glass:rgba(0,0,0,.04); --card-bd:rgba(0,0,0,.08); --ring:rgba(45,111,255,.35);
+  --shadow:0 12px 30px rgba(0,0,0,.12);
+}
+/* ===== RESET ===== */
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; color:var(--txt);
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(80vw 80vh at 15% 10%, rgba(122,169,255,.12), transparent 50%),
+    radial-gradient(70vw 70vh at 85% 0%,  rgba(0,231,212,.10), transparent 55%),
+    radial-gradient(60vw 60vh at 50% 100%,rgba(157,123,255,.12), transparent 50%),
+    linear-gradient(180deg,var(--bg-1),var(--bg-1));
+  overflow-x:hidden; -webkit-tap-highlight-color:transparent;
+}
+img{max-width:100%; display:block}
 
-    /* ============== RESET ============== */
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      color: var(--txt);
-      background: radial-gradient(80vw 80vh at 15% 10%, rgba(122,169,255,.12), transparent 50%),
-                  radial-gradient(70vw 70vh at 85% 0%, rgba(0,231,212,.10), transparent 55%),
-                  radial-gradient(60vw 60vh at 50% 100%, rgba(157,123,255,.12), transparent 50%),
-                  linear-gradient(180deg, var(--bg-1), var(--bg-1));
-      overflow-x: hidden;
-    }
+/* backdrop */
+.backdrop{
+  position:fixed; inset:-10vmax; z-index:-2; pointer-events:none;
+  background:conic-gradient(from 0deg, rgba(122,169,255,.12), rgba(0,231,212,.12), rgba(157,123,255,.12), rgba(122,169,255,.12));
+  filter:blur(120px) saturate(120%); animation:swirl 26s linear infinite; opacity:.35;
+}
+@keyframes swirl{to{transform:rotate(1turn)}}
 
-    /* animated backdrop */
-    .backdrop {
-      position: fixed; inset: -10vmax; pointer-events:none; z-index:-1;
-      background: conic-gradient(from 0deg, rgba(122,169,255,.12), rgba(0,231,212,.12), rgba(157,123,255,.12), rgba(122,169,255,.12));
-      filter: blur(100px) saturate(120%);
-      animation: swirl 26s linear infinite;
-      opacity:.35;
-    }
-    @keyframes swirl { to { transform: rotate(1turn); } }
+/* ===== NAV ===== */
+.nav{position:sticky; top:0; z-index:60; backdrop-filter:blur(10px); background:var(--bg-3); border-bottom:1px solid var(--card-bd)}
+.nav .inner{max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); height:var(--nav-h); display:flex; align-items:center; justify-content:space-between}
+.brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.6px}
+.brand .logo{width:36px; height:36px; border-radius:10px; overflow:hidden; box-shadow:var(--shadow); background:linear-gradient(135deg,var(--pri),var(--sec))}
+.brand span{font-family:'Orbitron', sans-serif; font-size:1.05rem}
 
-    /* ====== NAVBAR ====== */
-    .nav {
-      position: sticky; top: 0; z-index: 40;
-      backdrop-filter: blur(10px);
-      background: var(--bg-3);
-      border-bottom: 1px solid var(--card-bd);
-    }
-    .nav .inner {
-      max-width: var(--maxw); margin: 0 auto; display:flex; align-items:center; justify-content:space-between;
-      padding: 14px 20px;
-    }
-    .brand { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.6px; }
-    .brand .logo {
-      width: 34px; height: 34px; border-radius: 10px; position: relative; overflow: hidden;
-      box-shadow: var(--shadow);
-      background: linear-gradient(135deg, var(--pri), var(--sec));
-    }
-    .brand span { font-family: 'Orbitron', sans-serif; font-size: 1.0rem; }
+.links{display:flex; gap:18px; align-items:center}
+.links a{color:var(--muted); text-decoration:none; font-weight:600; font-size:.95rem; padding:10px 12px; border-radius:10px; line-height:1; position:relative}
+.links a.active,.links a:hover{color:var(--txt); background:var(--glass)}
+.hamb{display:none; font-size:1.25rem; background:none; border:0; color:var(--txt)}
+.theme-toggle{border:1px solid var(--card-bd); background:var(--glass); border-radius:999px; width:40px; height:40px; display:grid; place-items:center; cursor:pointer}
 
-    .links { display:flex; gap: 18px; align-items:center; }
-    .links a { text-decoration:none; color:var(--muted); font-weight:600; font-size:.95rem; padding:8px 12px; border-radius:10px; }
-    .links a.active, .links a:hover { color:var(--txt); background: var(--glass); }
+/* nav progress */
+.progress{position:fixed; top:0; left:0; height:3px; width:0; background:linear-gradient(90deg,var(--pri),var(--tri)); z-index:70}
 
-    .theme-toggle { border: 1px solid var(--card-bd); background: var(--glass); border-radius: 999px; padding: 8px 12px; cursor: pointer; display:flex; align-items:center; gap:8px; }
-    .theme-toggle i { font-size: 1rem; }
+/* ===== LAYOUT ===== */
+.container{max-width:var(--maxw); margin:0 auto; padding:0 var(--pad)}
+section{padding: clamp(56px, 8vw, 96px) 0}
+section, header{scroll-margin-top: calc(var(--nav-h) + 16px)}
 
-    .hamb { display:none; font-size:1.25rem; background:none; border:none; color:var(--txt); }
+/* ===== HERO ===== */
+.hero{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(20px,3vw,32px); align-items:center; min-height: clamp(60vh, 78vh, 84vh)}
+.title{
+  font-family:'Orbitron', sans-serif;
+  /* taşmayı kesin olarak engelle */
+  font-size:clamp(26px, 4vw, 52px);
+  max-width: 22ch;
+  line-height:1.08; letter-spacing:.6px;
+  text-wrap:balance; overflow-wrap:anywhere;
+  margin:0;
+  background:linear-gradient(90deg,var(--pri),var(--tri),var(--sec));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 10px 30px rgba(0,0,0,.2));
+}
+.subtitle{color:var(--muted); margin-top:14px; font-size:clamp(14px,1.5vw,18px)}
+.cta{display:flex; gap:12px; margin-top:22px; flex-wrap:wrap}
+.btn{display:inline-flex; align-items:center; gap:10px; cursor:pointer; border:none; font-weight:800; padding:14px 18px; border-radius:14px; letter-spacing:.4px; text-decoration:none; min-height:44px; background:linear-gradient(135deg,var(--pri),var(--sec)); color:#0b0f1a; box-shadow:0 10px 28px rgba(122,169,255,.25); transition:transform .25s ease, box-shadow .25s ease, filter .25s ease}
+.btn:hover{transform:translateY(-2px); box-shadow:0 14px 36px rgba(122,169,255,.38)}
+.btn.ghost{background:transparent; color:var(--txt); border:1px solid var(--card-bd); box-shadow:none}
+.btn.ghost:hover{background:var(--glass)}
 
-    /* ====== LAYOUT ====== */
-    .container { max-width: var(--maxw); padding: 0 20px; margin: 0 auto; }
-    section { padding: 80px 0; }
+.hero-card{border:1px solid var(--card-bd); background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border-radius:var(--radius-xl); padding:18px; position:relative; overflow:hidden; box-shadow:var(--shadow)}
+.hero-card h3{margin:10px 0 8px}
+.orb{position:absolute; width:220px; height:220px; border-radius:50%; filter:blur(42px); opacity:.32; background: radial-gradient(circle at 30% 30%, var(--sec), transparent 60%); top:-40px; right:-40px; animation:float 10s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(16px) translateX(-8px) scale(1.05)}}
 
-    /* ====== HERO ====== */
-    .hero { display:grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items:center; min-height: 78vh; }
-    .title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(30px, 4.2vw, 62px);
-      line-height: 1.05;
-      letter-spacing: .6px;
-      background: linear-gradient(90deg, var(--pri), var(--tri), var(--sec));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-      filter: drop-shadow(0 10px 30px rgba(0,0,0,.2));
-    }
-    .subtitle { color: var(--muted); margin-top: 14px; font-size: clamp(14px, 1.6vw, 18px); }
-    .cta { display:flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
-    .btn {
-      display:inline-flex; align-items:center; gap:10px; cursor:pointer; border:none; font-weight:800;
-      padding: 14px 18px; border-radius: 14px; letter-spacing:.4px; text-decoration:none;
-      background: linear-gradient(135deg, var(--pri), var(--sec)); color: #0b0f1a;
-      box-shadow: 0 10px 28px rgba(122,169,255,.25);
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(122,169,255,.38); }
-    .btn.ghost { background: transparent; color: var(--txt); border:1px solid var(--card-bd); box-shadow:none; }
-    .btn.ghost:hover { background: var(--glass); }
+/* ===== MARQUEE ===== */
+.marquee{margin-top:28px; border-top:1px dashed var(--card-bd); border-bottom:1px dashed var(--card-bd); padding:12px 0; overflow:hidden}
+.marquee .track{display:flex; gap:36px; animation:scroll 22s linear infinite; white-space:nowrap}
+.marquee:hover .track{animation-play-state:paused}
+.marquee .pill{padding:8px 14px; border-radius:999px; background:var(--glass); border:1px solid var(--card-bd); font-weight:700; font-size:.95rem}
+@keyframes scroll{to{transform:translateX(-50%)}}
 
-    .hero-card {
-      border: 1px solid var(--card-bd); background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border-radius: var(--radius-xl); padding: 18px; position:relative; overflow:hidden; box-shadow: var(--shadow);
-    }
-    .orb {
-      position:absolute; width: 200px; height: 200px; border-radius: 50%; filter: blur(40px); opacity:.3;
-      background: radial-gradient(circle at 30% 30%, var(--sec), transparent 60%);
-      top:-40px; right:-40px; animation: float 10s ease-in-out infinite;
-    }
-    @keyframes float { 50% { transform: translateY(16px) translateX(-8px) scale(1.05); } }
+/* ===== SECTION TITLE ===== */
+.sec-title{display:flex; align-items:baseline; gap:10px; margin-bottom:22px}
+.sec-title h2{font-size:clamp(20px,2.6vw,34px); margin:0}
+.sec-title .bar{flex:1; height:2px; background:linear-gradient(90deg,var(--pri), transparent); opacity:.5}
 
-    /* ====== MARQUEE ====== */
-    .marquee { margin-top: 34px; border-top:1px dashed var(--card-bd); border-bottom:1px dashed var(--card-bd); padding: 12px 0; overflow: hidden; }
-    .marquee .track { display:flex; gap: 36px; animation: scroll 22s linear infinite; white-space: nowrap; }
-    .marquee .pill { padding:8px 14px; border-radius: 999px; background: var(--glass); border:1px solid var(--card-bd); font-weight:700; font-size:.95rem; }
-    @keyframes scroll { to { transform: translateX(-50%); } }
+/* ===== GRID/CARDS ===== */
+.grid{display:grid; gap:18px; grid-template-columns:repeat(12, minmax(0,1fr))}
+.card{grid-column:span 4; border:1px solid var(--card-bd); background:var(--glass); border-radius:var(--radius-md); padding:18px; position:relative; overflow:hidden; transition:transform .18s ease, box-shadow .25s ease, border-color .25s ease, filter .25s ease; will-change:transform}
+.card:hover{transform:translateY(-3px); box-shadow:var(--shadow); border-color:var(--ring)}
+.card h3{margin:8px 0 6px; font-size:1.12rem}
+.card p{margin:0; color:var(--muted)}
+.badge{display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.85rem; padding:6px 10px; border-radius:999px; background:linear-gradient(135deg, rgba(122,169,255,.2), rgba(157,123,255,.2)); border:1px solid var(--ring); color:var(--txt)}
+.shine{position:absolute; inset:0; background: radial-gradient(600px circle at var(--mx, 0px) var(--my, 0px), rgba(255,255,255,.08), transparent 40%); opacity:0; transition:opacity .2s ease; pointer-events:none}
+.card:hover .shine{opacity:1}
 
-    /* ====== SECTION TITLES ====== */
-    .sec-title { display:flex; align-items:baseline; gap: 10px; margin-bottom: 22px; }
-    .sec-title h2 { font-size: clamp(20px, 2.8vw, 34px); margin:0; }
-    .sec-title .bar { flex:1; height: 2px; background: linear-gradient(90deg, var(--pri), transparent); opacity:.5; }
+/* ===== TIMELINE ===== */
+.timeline{position:relative; margin-top:10px}
+.timeline::before{content:""; position:absolute; left:12px; top:8px; bottom:8px; width:2px; background:linear-gradient(var(--pri), var(--sec)); opacity:.4}
+.t-item{position:relative; padding-left:40px; margin:20px 0}
+.t-item::before{content:""; position:absolute; left:7px; top:6px; width:10px; height:10px; border-radius:50%; background:var(--tri); box-shadow:0 0 0 4px rgba(0,231,212,.18)}
+.t-item h4{margin:0 0 4px}
+.t-item span{color:var(--muted); font-size:.9rem}
 
-    /* ====== GRID / CARDS ====== */
-    .grid { display:grid; gap: 18px; grid-template-columns: repeat(12, 1fr); }
-    .card { grid-column: span 4; border:1px solid var(--card-bd); background: var(--glass); border-radius: var(--radius-md); padding: 18px; position:relative; overflow:hidden; transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease; }
-    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--ring); }
-    .card h3 { margin: 8px 0 6px; font-size: 1.15rem; }
-    .card p { margin: 0; color: var(--muted); }
-    .badge { display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.85rem; padding:6px 10px; border-radius: 999px; background: linear-gradient(135deg, rgba(122,169,255,.2), rgba(157,123,255,.2)); border: 1px solid var(--ring); color: var(--txt); }
+/* ===== CONTACT ===== */
+form{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:10px}
+form input, form textarea{width:100%; padding:14px; border-radius:12px; border:1px solid var(--card-bd); background:var(--glass); color:var(--txt); backdrop-filter: blur(8px); font-size:16px}
+form textarea{grid-column:span 2; min-height:140px; resize:vertical}
+.form-actions{display:flex; gap:10px; align-items:center}
 
-    /* ====== TIMELINE ====== */
-    .timeline { position:relative; margin-top: 10px; }
-    .timeline::before { content:""; position:absolute; left: 12px; top:8px; bottom:8px; width:2px; background: linear-gradient(var(--pri), var(--sec)); opacity:.4; }
-    .t-item { position:relative; padding-left: 40px; margin: 20px 0; }
-    .t-item::before { content:""; position:absolute; left: 7px; top: 6px; width:10px; height:10px; border-radius:50%; background: var(--tri); box-shadow: 0 0 0 4px rgba(0,231,212,.18); }
-    .t-item h4 { margin:0 0 4px; }
-    .t-item span { color: var(--muted); font-size:.9rem; }
+/* ===== SOCIALS ===== */
+.socials{display:flex; gap:14px; margin-top:18px}
+.socials a{width:44px; height:44px; display:grid; place-items:center; border-radius:12px; border:1px solid var(--card-bd); background:var(--glass); color:var(--txt); text-decoration:none; transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease, filter .2s ease}
+.socials a:hover{transform:translateY(-2px) scale(1.03); border-color:var(--ring); box-shadow:0 12px 26px rgba(0,0,0,.2)}
 
-    /* ====== CONTACT ====== */
-    form { display:grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; }
-    form input, form textarea { width:100%; padding: 14px 14px; border-radius: 12px; border:1px solid var(--card-bd); background: var(--glass); color: var(--txt); backdrop-filter: blur(8px); }
-    form textarea { grid-column: span 2; min-height: 140px; resize: vertical; }
-    .form-actions { display:flex; gap: 10px; align-items:center; }
+/* ===== FOOTER ===== */
+footer{border-top:1px solid var(--card-bd); padding:22px 0 40px; color:var(--muted)}
 
-    /* ====== SOCIALS (no heading) ====== */
-    .socials { display:flex; gap: 14px; margin-top: 18px; }
-    .socials a { width:44px; height:44px; display:grid; place-items:center; border-radius: 12px; border:1px solid var(--card-bd); background: var(--glass); color: var(--txt); text-decoration:none; transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease; }
-    .socials a:hover { transform: translateY(-2px) scale(1.03); border-color: var(--ring); box-shadow: 0 12px 26px rgba(0,0,0,.2); }
+/* ===== MOBILE ===== */
+@media (max-width:980px){ .hero{grid-template-columns:1fr; min-height:auto} .hero-card{order:2} .grid .card{grid-column:span 6} }
+@media (max-width:720px){
+  .links{display:none} .hamb{display:block} .grid .card{grid-column:span 12}
+  form{grid-template-columns:1fr} form textarea{grid-column:span 1}
+}
+/* mobile menu overlay */
+.links.mobile{position:fixed; inset: calc(var(--nav-h) + 8px) 12px auto 12px; background:var(--bg-2); border:1px solid var(--card-bd); border-radius:16px; padding:10px; flex-direction:column; gap:4px; box-shadow:var(--shadow); display:none; z-index:65}
+.links.mobile a{padding:12px 14px}
+.links.mobile.show{display:flex}
 
-    /* ====== FOOTER ====== */
-    footer { border-top: 1px solid var(--card-bd); padding: 22px 0 40px; color: var(--muted); }
+/* ===== PAGE TRANSITION CURTAIN ===== */
+.curtain{
+  position:fixed; inset:0; pointer-events:none; z-index:80;
+  background:radial-gradient(1200px 1200px at var(--x,50%) var(--y,50%), rgba(122,169,255,.45), rgba(0,231,212,.35) 40%, rgba(157,123,255,.45) 70%, transparent 72%);
+  transform:scale(0); opacity:.9; transition:transform .55s cubic-bezier(.2,.8,.2,1), opacity .35s ease;
+  mix-blend-mode:screen; filter:blur(16px) saturate(120%);
+}
 
-    /* ====== RESPONSIVE ====== */
-    @media (max-width: 980px){
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-      .grid .card { grid-column: span 6; }
-    }
-    @media (max-width: 680px){
-      .links { display:none; }
-      .hamb { display:block; }
-      .grid .card { grid-column: span 12; }
-      form { grid-template-columns: 1fr; }
-      .form-actions { flex-wrap: wrap; }
-    }
+/* ===== REVEAL ANIMS ===== */
+.reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+.reveal.show{opacity:1; transform:none}
+.reveal.stagger:nth-child(1){transition-delay:.05s}
+.reveal.stagger:nth-child(2){transition-delay:.12s}
+.reveal.stagger:nth-child(3){transition-delay:.18s}
+.reveal.stagger:nth-child(4){transition-delay:.24s}
+.reveal.stagger:nth-child(5){transition-delay:.30s}
+.reveal.stagger:nth-child(6){transition-delay:.36s}
 
-    /* subtle focus ring */
-    :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: 10px; }
-
-    /* tilt hint overlay */
-    .shine { position:absolute; inset:0; background: radial-gradient(600px circle at var(--mx, 0px) var(--my, 0px), rgba(255,255,255,.08), transparent 40%); opacity: 0; transition: opacity .2s ease; pointer-events:none; }
-    .card:hover .shine { opacity: 1; }
-  </style>
+/* accessibility */
+:focus-visible{outline:2px solid var(--ring); outline-offset:2px; border-radius:10px}
+</style>
 </head>
 <body>
-  <div class="backdrop"></div>
-  <canvas id="space" aria-hidden="true" style="position:fixed; inset:0; z-index:-1; opacity:.45;"></canvas>
+<div class="progress" id="progress"></div>
+<div class="backdrop"></div>
+<div id="curtain" class="curtain" aria-hidden="true"></div>
+<canvas id="space" aria-hidden="true" style="position:fixed; inset:0; z-index:-1; opacity:.45;"></canvas>
 
-  <!-- ====== NAV ====== -->
-  <nav class="nav" role="navigation">
-    <div class="inner">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <span>ABDULLAH DUMAN</span>
-      </div>
-      <div class="links" id="navLinks">
-        <a href="#home" class="active">Ana Sayfa</a>
-        <a href="#about">Hakkımda</a>
-        <a href="#skills">Yetenekler</a>
-        <a href="#projects">Projeler</a>
-        <a href="#contact">İletişim</a>
-      </div>
-      <button class="hamb" id="hamb" aria-label="Menüyü Aç/Kapat"><i class="fa-solid fa-bars"></i></button>
-      <button class="theme-toggle" id="themeBtn" aria-label="Tema Değiştir">
-        <i class="fa-regular fa-moon"></i><span style="font-weight:800">Tema</span>
-      </button>
+<!-- NAV -->
+<nav class="nav" role="navigation">
+  <div class="inner">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <span>ABDULLAH DUMAN</span>
     </div>
-  </nav>
-
-  <!-- ====== HERO ====== -->
-  <header id="home" class="container">
-    <section class="hero">
-      <div>
-        <h1 class="title">Merhaba! Ben Abdullah — Web & Mobil Geliştirici</h1>
-        <p class="subtitle">Amasya Üniversitesi Bilgisayar Mühendisliği 3. sınıf öğrencisiyim. Güvenlik odaklı QR çözümleri, Flutter ile mobil uygulamalar ve PHP/MySQL tabanlı paneller geliştiriyorum.</p>
-        <div class="cta">
-          <a class="btn" href="#projects"><i class="fa-solid fa-bolt"></i>Projelerime Git</a>
-          <a class="btn ghost" href="mailto:dduman.abdulla2003@gmail.com"><i class="fa-regular fa-paper-plane"></i>İletişime Geç</a>
-        </div>
-        <div class="socials" aria-label="Sosyal bağlantılar">
-          <a href="https://www.instagram.com/abdullah_duman00/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://github.com/duman011" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/abdullah-duman-112812245/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        </div>
-        <div class="marquee" aria-hidden="true">
-          <div class="track" id="marqueeTrack">
-            <span class="pill">Python</span>
-            <span class="pill">Flutter</span>
-            <span class="pill">Kotlin</span>
-            <span class="pill">PHP</span>
-            <span class="pill">.NET</span>
-            <span class="pill">MySQL</span>
-            <span class="pill">Playwright</span>
-            <span class="pill">QR Güvenlik</span>
-            <span class="pill">Android Studio</span>
-            <span class="pill">HTML/CSS/JS</span>
-            <!-- clone for smooth loop -->
-            <span class="pill">Python</span>
-            <span class="pill">Flutter</span>
-            <span class="pill">Kotlin</span>
-            <span class="pill">PHP</span>
-            <span class="pill">.NET</span>
-            <span class="pill">MySQL</span>
-            <span class="pill">Playwright</span>
-            <span class="pill">QR Güvenlik</span>
-            <span class="pill">Android Studio</span>
-            <span class="pill">HTML/CSS/JS</span>
-          </div>
-        </div>
-      </div>
-      <div class="hero-card" aria-label="Öne çıkan çalışma kartı">
-        <div class="orb"></div>
-        <div class="badge"><i class="fa-solid fa-shield-halved"></i> Güvenlik Odaklı</div>
-        <h3 style="margin:10px 0 8px">QR Doğrulama & Çoklu Pozlama</h3>
-        <p style="color:var(--muted); margin:0 0 10px">Kağıt üzerindeki QR kodlarını ekran görüntülerinden ayıran, 3 farklı enstantane ile yakalama ve Python API doğrulaması.</p>
-        <div class="badge" style="margin-top:8px"><i class="fa-solid fa-code"></i> Flutter · Python · OpenCV</div>
-      </div>
-    </section>
-  </header>
-
-  <!-- ====== ABOUT ====== -->
-  <main>
-    <section id="about" class="container">
-      <div class="sec-title"><h2>Hakkımda</h2><div class="bar"></div></div>
-      <div class="grid">
-        <div class="card" style="grid-column: span 7;">
-          <div class="shine"></div>
-          <h3>Kimim?</h3>
-          <p>Problem çözmeyi ve zor şeyleri basitleştirmeyi seviyorum. Güvenlik, performans ve kullanıcı deneyimini aynı masaya oturtan çözümler çıkarırım. Kod yazmadığım zamanlarda motosiklet teknolojilerini kurcalarım.</p>
-        </div>
-        <div class="card" style="grid-column: span 5;">
-          <div class="shine"></div>
-          <h3>Odak Alanlarım</h3>
-          <p><strong>Mobil</strong> (Flutter/Kotlin), <strong>Web</strong> (PHP, .NET), <strong>Otomasyon</strong> (Python + Playwright) ve <strong>Görüntü İşleme</strong> (OpenCV). Renkli ama dengeli UI/UX ve temiz mimari önceliğimdir.</p>
-        </div>
-        <div class="card" style="grid-column: span 12;">
-          <div class="shine"></div>
-          <h3>Eğitim & Deneyim</h3>
-          <div class="timeline">
-            <div class="t-item">
-              <h4>Amasya Üniversitesi — Bilgisayar Müh. (3. Sınıf)</h4>
-              <span>2022 — Günümüz</span>
-            </div>
-            <div class="t-item">
-              <h4>LinkedIn İş İlanı Analiz Aracı</h4>
-              <span>2025 — Python, MySQL, Playwright</span>
-            </div>
-            <div class="t-item">
-              <h4>QR Tabanlı Etkinlik Katılım Sistemi</h4>
-              <span>2025 — Flutter, Python API, OpenCV</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====== SKILLS ====== -->
-    <section id="skills" class="container">
-      <div class="sec-title"><h2>Yetenekler</h2><div class="bar"></div></div>
-      <div class="grid">
-        <div class="card"><div class="shine"></div><h3>Flutter</h3><p>Çoklu platform, kamera & sensör API'leri, performans optimizasyonu.</p></div>
-        <div class="card"><div class="shine"></div><h3>Kotlin</h3><p>CameraX, ML Kit, modern Android bileşenleri.</p></div>
-        <div class="card"><div class="shine"></div><h3>Python</h3><p>Playwright ile otomasyon, Flask API, OpenCV analizleri.</p></div>
-        <div class="card"><div class="shine"></div><h3>PHP & MySQL</h3><p>Modern kontrol panelleri, REST endpoint’leri, güvenlik.</p></div>
-        <div class="card"><div class="shine"></div><h3>.NET</h3><p>WinForms projeleri, oyun/araç geliştirme (C#).</p></div>
-        <div class="card"><div class="shine"></div><h3>UI/UX</h3><p>Koyu tema, egzotik gradyanlar, erişilebilirlik ve animasyon.</p></div>
-      </div>
-    </section>
-
-    <!-- ====== PROJECTS ====== -->
-    <section id="projects" class="container">
-      <div class="sec-title"><h2>Projeler</h2><div class="bar"></div></div>
-      <div class="grid">
-        <article class="card tilt">
-          <div class="shine"></div>
-          <span class="badge"><i class="fa-solid fa-qrcode"></i> QR Güvenlik</span>
-          <h3>Kağıt/Screenshoot Ayırıcı</h3>
-          <p>3 farklı enstantane ile çekim, gri ton profiline göre doğrulama ve Python API ile karar verme.</p>
-        </article>
-        <article class="card tilt">
-          <div class="shine"></div>
-          <span class="badge"><i class="fa-solid fa-chart-line"></i> Otomasyon</span>
-          <h3>LinkedIn İlan Analiz Paneli</h3>
-          <p>Günlük veri çekimi, MySQL depolama ve PHP panel üzerinden görsel analiz.</p>
-        </article>
-        <article class="card tilt">
-          <div class="shine"></div>
-          <span class="badge"><i class="fa-solid fa-chess-board"></i> Masaüstü</span>
-          <h3>Satranç Uygulaması (.NET)</h3>
-          <p>WinForms üzerinde 2D satranç, temiz kod ve yeniden oynatma.</p>
-        </article>
-        <article class="card tilt">
-          <div class="shine"></div>
-          <span class="badge"><i class="fa-solid fa-people-group"></i> Web</span>
-          <h3>Personel Yönetim Sistemi</h3>
-          <p>Rol tabanlı yetkilendirme, CRUD panelleri ve raporlama.</p>
-        </article>
-        <article class="card tilt">
-          <div class="shine"></div>
-          <span class="badge"><i class="fa-solid fa-heart-pulse"></i> STK</span>
-          <h3>Kadın Sağlığı Kulübü</h3>
-          <p>Etkinlik odaklı, duyarlı (responsive) bilgilendirme sitesi.</p>
-        </article>
-        <article class="card tilt">
-          <div class="shine"></div>
-          <span class="badge"><i class="fa-solid fa-shield"></i> Güvenlik</span>
-          <h3>QR/Gradient Tasarım</h3>
-          <p>Gradyanlı QR modül tasarımı ve parçacık tabanlı sahtecilik tespiti denemeleri.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ====== CONTACT ====== -->
-    <section id="contact" class="container">
-      <div class="sec-title"><h2>İletişim</h2><div class="bar"></div></div>
-      <p style="color:var(--muted)">Bir projeyi beraber uçuralım mı? Aşağıdan haber bırak ya da doğrudan <a href="mailto:dduman.abdulla2003@gmail.com" style="color:var(--pri); font-weight:700; text-decoration:none">e‑posta</a> gönder.</p>
-      <form id="contactForm" action="https://formspree.io/f/xbldjjzd" method="POST">
-        <input name="name" placeholder="Ad Soyad" required />
-        <input type="email" name="email" placeholder="E‑posta" required />
-        <textarea name="message" placeholder="Kısaca proje/mesaj…" required></textarea>
-        <div class="form-actions">
-          <button class="btn" type="submit"><i class="fa-regular fa-paper-plane"></i> Mesaj Gönder</button>
-          <button class="btn ghost" type="button" id="copyMail"><i class="fa-regular fa-copy"></i> E‑posta Kopyala</button>
-        </div>
-      </form>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container" style="display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap;">
-      <small>© 2025 Abdullah Duman</small>
-      <small>Made with <i class="fa-regular fa-star"></i> in Türkiye</small>
+    <div class="links" id="navLinks">
+      <a href="#home" class="active">Ana Sayfa</a>
+      <a href="#about">Hakkımda</a>
+      <a href="#skills">Yetenekler</a>
+      <a href="#projects">Projeler</a>
+      <a href="#contact">İletişim</a>
     </div>
-  </footer>
+    <button class="hamb" id="hamb" aria-label="Menüyü Aç/Kapat"><i class="fa-solid fa-bars"></i></button>
+    <button class="theme-toggle" id="themeBtn" aria-label="Tema Değiştir"><i class="fa-regular fa-moon"></i></button>
+  </div>
+  <!-- mobile copy -->
+  <div class="links mobile" id="navMobile">
+    <a href="#home">Ana Sayfa</a>
+    <a href="#about">Hakkımda</a>
+    <a href="#skills">Yetenekler</a>
+    <a href="#projects">Projeler</a>
+    <a href="#contact">İletişim</a>
+  </div>
+</nav>
 
-  <script>
-    // ====== THEME TOGGLE ======
-    const root = document.documentElement;
-    const themeBtn = document.getElementById('themeBtn');
-    const saved = localStorage.getItem('theme');
-    if(saved === 'light') root.classList.add('light');
-    themeBtn.addEventListener('click', ()=>{
-      root.classList.toggle('light');
-      localStorage.setItem('theme', root.classList.contains('light') ? 'light' : 'dark');
-    });
+<!-- HERO -->
+<header id="home" class="container">
+  <section class="hero">
+    <div>
+      <h1 class="title reveal">Merhaba! Ben Abdullah — Web & Mobil Geliştirici</h1>
+      <p class="subtitle reveal">Amasya Üniversitesi Bilgisayar Mühendisliği 3. sınıf öğrencisiyim. Güvenlik odaklı QR çözümleri, Flutter ile mobil uygulamalar ve PHP/MySQL tabanlı paneller geliştiriyorum.</p>
+      <div class="cta reveal">
+        <a class="btn" href="#projects"><i class="fa-solid fa-bolt"></i>Projelerime Git</a>
+        <a class="btn ghost" href="mailto:dduman.abdulla2003@gmail.com"><i class="fa-regular fa-paper-plane"></i>İletişime Geç</a>
+      </div>
+      <div class="socials reveal" aria-label="Sosyal bağlantılar">
+        <a href="https://www.instagram.com/abdullah_duman00/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/duman011" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/abdullah-duman-112812245/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
 
-    // ====== HAMBURGER QUICK MENU (small screens) ======
-    const hamb = document.getElementById('hamb');
-    const navLinks = document.getElementById('navLinks');
-    hamb?.addEventListener('click', () => {
-      const open = navLinks.style.display === 'flex';
-      navLinks.style.display = open ? 'none' : 'flex';
-      navLinks.style.flexDirection = 'column';
-      navLinks.style.position = 'absolute';
-      navLinks.style.top = '58px';
-      navLinks.style.right = '16px';
-      navLinks.style.background = getComputedStyle(document.documentElement).getPropertyValue('--bg-3');
-      navLinks.style.border = '1px solid var(--card-bd)';
-      navLinks.style.borderRadius = '14px';
-      navLinks.style.padding = '10px';
-    });
+      <div class="marquee reveal" aria-hidden="true">
+        <div class="track" id="marqueeTrack">
+          <span class="pill">Python</span><span class="pill">Flutter</span><span class="pill">Kotlin</span><span class="pill">PHP</span><span class="pill">.NET</span><span class="pill">MySQL</span><span class="pill">Playwright</span><span class="pill">QR Güvenlik</span><span class="pill">Android Studio</span><span class="pill">HTML/CSS/JS</span>
+          <span class="pill">Python</span><span class="pill">Flutter</span><span class="pill">Kotlin</span><span class="pill">PHP</span><span class="pill">.NET</span><span class="pill">MySQL</span><span class="pill">Playwright</span><span class="pill">QR Güvenlik</span><span class="pill">Android Studio</span><span class="pill">HTML/CSS/JS</span>
+        </div>
+      </div>
+    </div>
 
-    // ====== SMOOTH SCROLL + ACTIVE LINK ======
-    document.querySelectorAll('.links a').forEach(a => {
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        const id = a.getAttribute('href');
-        const el = document.querySelector(id);
-        el?.scrollIntoView({behavior:'smooth', block:'start'});
-      });
-    });
-    const sections = ['#home','#about','#skills','#projects','#contact'].map(s=>document.querySelector(s));
-    const linkEls = [...document.querySelectorAll('.links a')];
-    const obs = new IntersectionObserver((entries)=>{
-      const visible = entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio - a.intersectionRatio)[0];
-      if(!visible) return; const id = '#' + visible.target.id;
-      linkEls.forEach(l=> l.classList.toggle('active', l.getAttribute('href')===id));
-    },{threshold:[.35,.6], rootMargin:'-80px 0px -60% 0px'});
-    sections.forEach(s=> s && obs.observe(s));
+    <div class="hero-card reveal" aria-label="Öne çıkan çalışma kartı">
+      <div class="orb"></div>
+      <div class="badge"><i class="fa-solid fa-shield-halved"></i> Güvenlik Odaklı</div>
+      <h3>QR Doğrulama & Çoklu Pozlama</h3>
+      <p style="color:var(--muted); margin:0 0 10px">Kağıt üzerindeki QR kodlarını ekran görüntülerinden ayıran, 3 farklı enstantane ile yakalama ve Python API doğrulaması.</p>
+      <div class="badge" style="margin-top:8px"><i class="fa-solid fa-code"></i> Flutter · Python · OpenCV</div>
+    </div>
+  </section>
+</header>
 
-    // ====== TILT EFFECT ======
-    const tilts = document.querySelectorAll('.tilt');
-    tilts.forEach(card=>{
-      card.addEventListener('mousemove', (e)=>{
-        const r = card.getBoundingClientRect();
-        const x = e.clientX - r.left, y = e.clientY - r.top;
-        const rx = ((y/r.height)-.5)*8; // rotateX
-        const ry = ((x/r.width)-.5)*-8; // rotateY
-        card.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-        card.style.boxShadow = 'var(--shadow)';
-        card.style.borderColor = 'var(--ring)';
-        card.style.setProperty('--mx', x+'px');
-        card.style.setProperty('--my', y+'px');
-      });
-      card.addEventListener('mouseleave', ()=>{
-        card.style.transform = 'translateY(-3px)';
-        card.style.borderColor = 'var(--card-bd)';
-      });
-    });
+<main>
+  <!-- ABOUT -->
+  <section id="about" class="container">
+    <div class="sec-title reveal"><h2>Hakkımda</h2><div class="bar"></div></div>
+    <div class="grid">
+      <div class="card reveal stagger" style="grid-column: span 7;">
+        <div class="shine"></div>
+        <h3>Kimim?</h3>
+        <p>Problem çözmeyi ve zor şeyleri basitleştirmeyi seviyorum. Güvenlik, performans ve kullanıcı deneyimini aynı masaya oturtan çözümler çıkarırım. Kod yazmadığım zamanlarda motosiklet teknolojilerini kurcalarım.</p>
+      </div>
+      <div class="card reveal stagger" style="grid-column: span 5;">
+        <div class="shine"></div>
+        <h3>Odak Alanlarım</h3>
+        <p><strong>Mobil</strong> (Flutter/Kotlin), <strong>Web</strong> (PHP, .NET), <strong>Otomasyon</strong> (Python + Playwright) ve <strong>Görüntü İşleme</strong> (OpenCV). Renkli ama dengeli UI/UX ve temiz mimari önceliğimdir.</p>
+      </div>
+      <div class="card reveal" style="grid-column: span 12;">
+        <div class="shine"></div>
+        <h3>Eğitim & Deneyim</h3>
+        <div class="timeline">
+          <div class="t-item"><h4>Amasya Üniversitesi — Bilgisayar Müh. (3. Sınıf)</h4><span>2022 — Günümüz</span></div>
+          <div class="t-item"><h4>LinkedIn İş İlanı Analiz Aracı</h4><span>2025 — Python, MySQL, Playwright</span></div>
+          <div class="t-item"><h4>QR Tabanlı Etkinlik Katılım Sistemi</h4><span>2025 — Flutter, Python API, OpenCV</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    // ====== SPACE PARTICLES (Canvas) ======
-    const c = document.getElementById('space');
-    const ctx = c.getContext('2d');
-    let w, h, dpr = Math.min(window.devicePixelRatio || 1, 2);
-    let stars = [];
-    function resize(){
-      w = c.width = Math.floor(innerWidth * dpr);
-      h = c.height = Math.floor(innerHeight * dpr);
-      c.style.width = innerWidth + 'px';
-      c.style.height = innerHeight + 'px';
-      spawn();
-    }
-    window.addEventListener('resize', resize);
+  <!-- SKILLS -->
+  <section id="skills" class="container">
+    <div class="sec-title reveal"><h2>Yetenekler</h2><div class="bar"></div></div>
+    <div class="grid">
+      <article class="card tilt reveal stagger"><div class="shine"></div><h3>Flutter</h3><p>Çoklu platform, kamera & sensör API'leri, performans optimizasyonu.</p></article>
+      <article class="card tilt reveal stagger"><div class="shine"></div><h3>Kotlin</h3><p>CameraX, ML Kit, modern Android bileşenleri.</p></article>
+      <article class="card tilt reveal stagger"><div class="shine"></div><h3>Python</h3><p>Playwright ile otomasyon, Flask API, OpenCV analizleri.</p></article>
+      <article class="card tilt reveal stagger"><div class="shine"></div><h3>PHP & MySQL</h3><p>Modern kontrol panelleri, REST endpoint’leri, güvenlik.</p></article>
+      <article class="card tilt reveal stagger"><div class="shine"></div><h3>.NET</h3><p>WinForms projeleri, oyun/araç geliştirme (C#).</p></article>
+      <article class="card tilt reveal stagger"><div class="shine"></div><h3>UI/UX</h3><p>Koyu tema, egzotik gradyanlar, erişilebilirlik ve animasyon.</p></article>
+    </div>
+  </section>
 
-    function spawn(){
-      const count = Math.floor((innerWidth * innerHeight) / 18000);
-      stars = Array.from({length: count}, ()=>({
-        x: Math.random()*w,
-        y: Math.random()*h,
-        r: Math.random()*1.4 + .2,
-        a: Math.random()*Math.PI*2,
-        s: Math.random()*0.35 + 0.05
-      }));
-    }
-    function draw(){
-      ctx.clearRect(0,0,w,h);
-      for(const st of stars){
-        st.x += Math.cos(st.a) * st.s;
-        st.y += Math.sin(st.a) * st.s;
-        if(st.x<0) st.x=w; if(st.x>w) st.x=0; if(st.y<0) st.y=h; if(st.y>h) st.y=0;
-        ctx.beginPath();
-        ctx.arc(st.x, st.y, st.r, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba(200,220,255,.85)';
-        ctx.fill();
-      }
-      requestAnimationFrame(draw);
-    }
-    resize();
-    draw();
+  <!-- PROJECTS -->
+  <section id="projects" class="container">
+    <div class="sec-title reveal"><h2>Projeler</h2><div class="bar"></div></div>
+    <div class="grid">
+      <article class="card tilt reveal stagger"><div class="shine"></div><span class="badge"><i class="fa-solid fa-qrcode"></i> QR Güvenlik</span><h3>Kağıt/Screenshot Ayırıcı</h3><p>3 farklı enstantane ile çekim, gri ton profiline göre doğrulama ve Python API ile karar verme.</p></article>
+      <article class="card tilt reveal stagger"><div class="shine"></div><span class="badge"><i class="fa-solid fa-chart-line"></i> Otomasyon</span><h3>LinkedIn İlan Analiz Paneli</h3><p>Günlük veri çekimi, MySQL depolama ve PHP panel üzerinden görsel analiz.</p></article>
+      <article class="card tilt reveal stagger"><div class="shine"></div><span class="badge"><i class="fa-solid fa-chess-board"></i> Masaüstü</span><h3>Satranç Uygulaması (.NET)</h3><p>WinForms üzerinde 2D satranç, temiz kod ve yeniden oynatma.</p></article>
+      <article class="card tilt reveal stagger"><div class="shine"></div><span class="badge"><i class="fa-solid fa-people-group"></i> Web</span><h3>Personel Yönetim Sistemi</h3><p>Rol tabanlı yetkilendirme, CRUD panelleri ve raporlama.</p></article>
+      <article class="card tilt reveal stagger"><div class="shine"></div><span class="badge"><i class="fa-solid fa-heart-pulse"></i> STK</span><h3>Kadın Sağlığı Kulübü</h3><p>Etkinlik odaklı, duyarlı (responsive) bilgilendirme sitesi.</p></article>
+      <article class="card tilt reveal stagger"><div class="shine"></div><span class="badge"><i class="fa-solid fa-shield"></i> Güvenlik</span><h3>QR/Gradient Tasarım</h3><p>Gradyanlı QR modül tasarımı ve parçacık tabanlı sahtecilik tespiti denemeleri.</p></article>
+    </div>
+  </section>
 
-    // ====== CONTACT: COPY MAIL ======
-    document.getElementById('copyMail').addEventListener('click', async ()=>{
-      await navigator.clipboard.writeText('dduman.abdulla2003@gmail.com');
-      const b = document.getElementById('copyMail');
-      const old = b.innerHTML; b.innerHTML = '<i class="fa-solid fa-check"></i> Kopyalandı';
-      setTimeout(()=> b.innerHTML = old, 1200);
-    });
+  <!-- CONTACT -->
+  <section id="contact" class="container">
+    <div class="sec-title reveal"><h2>İletişim</h2><div class="bar"></div></div>
+    <p class="reveal" style="color:var(--muted)">Bir projeyi beraber uçuralım mı? Aşağıdan haber bırak ya da doğrudan <a href="mailto:dduman.abdulla2003@gmail.com" style="color:var(--pri); font-weight:700; text-decoration:none">e-posta</a> gönder.</p>
+    <form id="contactForm" action="https://formspree.io/f/xbldjjzd" method="POST">
+      <input name="name" placeholder="Ad Soyad" required />
+      <input type="email" name="email" placeholder="E-posta" required />
+      <textarea name="message" placeholder="Kısaca proje/mesaj…" required></textarea>
+      <div class="form-actions">
+        <button class="btn" type="submit"><i class="fa-regular fa-paper-plane"></i> Mesaj Gönder</button>
+        <button class="btn ghost" type="button" id="copyMail"><i class="fa-regular fa-copy"></i> E-posta Kopyala</button>
+      </div>
+    </form>
+  </section>
+</main>
 
-    // ====== FORM: basic honeypot ======
-    const honeypot = document.createElement('input');
-    honeypot.type = 'text'; honeypot.name = 'company'; honeypot.style.display = 'none';
-    document.getElementById('contactForm').appendChild(honeypot);
-  </script>
+<footer>
+  <div class="container" style="display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap;">
+    <small>© 2025 Abdullah Duman</small>
+    <small>Made with <i class="fa-regular fa-star"></i> in Türkiye</small>
+  </div>
+</footer>
+
+<script>
+/* THEME */
+const root=document.documentElement, themeBtn=document.getElementById('themeBtn');
+const saved=localStorage.getItem('theme'); if(saved==='light') root.classList.add('light');
+themeBtn.addEventListener('click',()=>{ root.classList.toggle('light'); localStorage.setItem('theme', root.classList.contains('light')?'light':'dark');});
+
+/* MOBILE MENU */
+const hamb=document.getElementById('hamb'), navMobile=document.getElementById('navMobile');
+hamb?.addEventListener('click',()=> navMobile.classList.toggle('show'));
+navMobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navMobile.classList.remove('show')));
+
+/* DESKTOP LINKS */
+const deskLinks=[...document.querySelectorAll('#navLinks a')];
+
+/* PAGE TRANSITION CURTAIN + SMOOTH SCROLL */
+const curtain=document.getElementById('curtain');
+function fancyScrollTo(id, clickX, clickY){
+  // 1) curtain aç
+  const r=curtain.getBoundingClientRect();
+  curtain.style.setProperty('--x', (clickX||innerWidth/2)+'px');
+  curtain.style.setProperty('--y', (clickY||innerHeight/2)+'px');
+  curtain.style.transform='scale(1)';
+  // 2) bekle + scroll
+  setTimeout(()=>{
+    document.querySelector(id)?.scrollIntoView({behavior:'smooth', block:'start'});
+  },180);
+  // 3) kapan
+  setTimeout(()=>{ curtain.style.transform='scale(0)'; }, 650);
+}
+function onNavClick(e){
+  e.preventDefault();
+  const id=this.getAttribute('href');
+  const rect=this.getBoundingClientRect();
+  const x=rect.left+rect.width/2, y=rect.top+rect.height/2;
+  fancyScrollTo(id,x,y);
+}
+[...document.querySelectorAll('#navLinks a, #navMobile a')].forEach(a=>a.addEventListener('click', onNavClick));
+
+/* ACTIVE LINK + REVEALS */
+const sections=['#home','#about','#skills','#projects','#contact'].map(s=>document.querySelector(s)).filter(Boolean);
+const obs=new IntersectionObserver((entries)=>{
+  const vis=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+  if(!vis) return; const id='#'+vis.target.id;
+  deskLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')===id));
+},{threshold:[.35,.6], rootMargin:`-${parseInt(getComputedStyle(root).getPropertyValue('--nav-h'))+8}px 0px -55% 0px`});
+sections.forEach(s=>obs.observe(s));
+
+/* Scroll reveal */
+const rev=[...document.querySelectorAll('.reveal')];
+const ro=new IntersectionObserver((en)=>en.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); ro.unobserve(e.target);} }),{threshold:.2});
+rev.forEach(el=>ro.observe(el));
+
+/* NAV PROGRESS BAR */
+const progress=document.getElementById('progress');
+window.addEventListener('scroll', ()=>{
+  const max=document.body.scrollHeight - innerHeight;
+  const pct=Math.max(0, Math.min(1, scrollY / max));
+  progress.style.width=(pct*100)+'%';
+},{passive:true});
+
+/* TILT EFFECT */
+const tilts=document.querySelectorAll('.tilt');
+tilts.forEach(card=>{
+  let raf=null;
+  const onMove=(e)=>{
+    const r=card.getBoundingClientRect();
+    const x=e.clientX - r.left, y=e.clientY - r.top;
+    const rx=((y/r.height)-.5)*8, ry=((x/r.width)-.5)*-8;
+    card.style.transform=`perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    card.style.boxShadow='var(--shadow)'; card.style.borderColor='var(--ring)';
+    card.style.setProperty('--mx', x+'px'); card.style.setProperty('--my', y+'px');
+    raf=null;
+  };
+  card.addEventListener('mousemove',(e)=>{ if(!raf) raf=requestAnimationFrame(()=>onMove(e)); });
+  card.addEventListener('mouseleave',()=>{ card.style.transform='translateY(-3px)'; card.style.borderColor='var(--card-bd)'; });
+});
+
+/* STARFIELD CANVAS */
+const c=document.getElementById('space'), ctx=c.getContext('2d'); let w,h,dpr,stars=[];
+function resize(){
+  dpr=Math.min(window.devicePixelRatio||1,1.75);
+  w=c.width=Math.floor(innerWidth*dpr); h=c.height=Math.floor(innerHeight*dpr);
+  c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px';
+  spawn();
+}
+function spawn(){
+  const density=(innerWidth<720)?24000:18000;
+  const count=Math.floor((innerWidth*innerHeight)/density);
+  stars=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.4+.2,a:Math.random()*Math.PI*2,s:Math.random()*0.35+0.05}));
+}
+function draw(){
+  ctx.clearRect(0,0,w,h);
+  for(const st of stars){
+    st.x+=Math.cos(st.a)*st.s; st.y+=Math.sin(st.a)*st.s;
+    if(st.x<0) st.x=w; if(st.x>w) st.x=0; if(st.y<0) st.y=h; if(st.y>h) st.y=0;
+    ctx.beginPath(); ctx.arc(st.x,st.y,st.r,0,Math.PI*2); ctx.fillStyle='rgba(200,220,255,.85)'; ctx.fill();
+  }
+  requestAnimationFrame(draw);
+}
+window.addEventListener('resize', resize, {passive:true}); resize(); draw();
+
+/* COPY MAIL */
+document.getElementById('copyMail').addEventListener('click', async ()=>{
+  await navigator.clipboard.writeText('dduman.abdulla2003@gmail.com');
+  const b=document.getElementById('copyMail'); const old=b.innerHTML; b.innerHTML='<i class="fa-solid fa-check"></i> Kopyalandı';
+  setTimeout(()=> b.innerHTML=old, 1200);
+});
+
+/* FORM honeypot */
+const honeypot=document.createElement('input'); honeypot.type='text'; honeypot.name='company'; honeypot.style.display='none';
+document.getElementById('contactForm').appendChild(honeypot);
+</script>
 </body>
 </html>
