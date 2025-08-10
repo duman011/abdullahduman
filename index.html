@@ -48,7 +48,7 @@ body{
 }
 img{max-width:100%; display:block}
 
-/* backdrop */
+/* animated backdrop */
 .backdrop{
   position:fixed; inset:-10vmax; z-index:-2; pointer-events:none;
   background:conic-gradient(from 0deg, rgba(122,169,255,.12), rgba(0,231,212,.12), rgba(157,123,255,.12), rgba(122,169,255,.12));
@@ -60,7 +60,7 @@ img{max-width:100%; display:block}
 .nav{position:sticky; top:0; z-index:60; backdrop-filter:blur(10px); background:var(--bg-3); border-bottom:1px solid var(--card-bd)}
 .nav .inner{
   max-width:var(--maxw); margin:0 auto;
-  padding:calc(var(--sat)/2) max(var(--pad), var(--sal)) calc(0px + var(--sat)/2) max(var(--pad), var(--sal));
+  padding:calc(var(--sat)/2) max(var(--pad), var(--sal)) calc(var(--sat)/2) max(var(--pad), var(--sal));
   height:var(--nav-h); display:flex; align-items:center; justify-content:space-between;
 }
 .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.6px}
@@ -77,23 +77,20 @@ img{max-width:100%; display:block}
 .progress{position:fixed; top:0; left:0; height:3px; width:0; background:linear-gradient(90deg,var(--pri),var(--tri)); z-index:70}
 
 /* ===== LAYOUT ===== */
-.container{max-width:var(--maxw); margin:0 auto; padding:0 max(var(--pad), var(--sal)) 0 max(var(--pad), var(--sal))}
+.container{max-width:var(--maxw); margin:0 auto; padding:0 max(var(--pad), var(--sal))}
 section{padding: clamp(56px, 8vw, 96px) 0}
 section, header{scroll-margin-top: calc(var(--nav-h) + 16px)}
 
 /* ===== HERO ===== */
 .hero{
-  display:grid; grid-template-columns:1.05fr .95fr;
-  gap:clamp(20px,3vw,32px); align-items:center;
-  min-height: clamp(60vh, 78vh, 84vh);
+  display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(20px,3vw,32px);
+  align-items:center; min-height: clamp(60vh, 78vh, 84vh);
 }
 .title{
   font-family:'Orbitron', sans-serif;
-  font-size:clamp(22px, 8.5vw, 48px); /* mobile küçüldü */
-  max-width: 22ch;
-  line-height:1.10; letter-spacing:.6px;
-  text-wrap:balance; overflow-wrap:anywhere;
-  margin:0;
+  font-size:clamp(22px, 7.5vw, 48px); /* güvenli başlık */
+  max-width:22ch; line-height:1.12; letter-spacing:.6px;
+  text-wrap:balance; overflow-wrap:anywhere; margin:0;
   background:linear-gradient(90deg,var(--pri),var(--tri),var(--sec));
   -webkit-background-clip:text; background-clip:text; color:transparent;
   filter:drop-shadow(0 10px 30px rgba(0,0,0,.2));
@@ -110,9 +107,10 @@ section, header{scroll-margin-top: calc(var(--nav-h) + 16px)}
 .orb{position:absolute; width:220px; height:220px; border-radius:50%; filter:blur(42px); opacity:.32; background: radial-gradient(circle at 30% 30%, var(--sec), transparent 60%); top:-40px; right:-40px; animation:float 10s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(16px) translateX(-8px) scale(1.05)}}
 
-/* ===== MARQUEE / MOBILE CHIPS ===== */
+/* ===== MARQUEE ===== */
 .marquee{margin-top:22px; border-top:1px dashed var(--card-bd); border-bottom:1px dashed var(--card-bd); padding:10px 0; overflow:hidden}
 .marquee .track{display:flex; gap:16px; animation:scroll 22s linear infinite; white-space:nowrap}
+.marquee:hover .track{animation-play-state:paused}
 .marquee .pill{padding:8px 14px; border-radius:999px; background:var(--glass); border:1px solid var(--card-bd); font-weight:700; font-size:.92rem}
 @keyframes scroll{to{transform:translateX(-50%)}}
 
@@ -122,8 +120,13 @@ section, header{scroll-margin-top: calc(var(--nav-h) + 16px)}
 .sec-title .bar{flex:1; height:2px; background:linear-gradient(90deg,var(--pri), transparent); opacity:.5}
 
 /* ===== GRID/CARDS ===== */
-.grid{display:grid; gap:18px; grid-template-columns:repeat(12, minmax(0,1fr))}
-.card{grid-column:span 4; border:1px solid var(--card-bd); background:var(--glass); border-radius:var(--radius-md); padding:18px; position:relative; overflow:hidden; transition:transform .18s ease, box-shadow .25s ease, border-color .25s ease}
+.grid{
+  display:grid;
+  gap:18px;
+  /* otomatik: 1 -> 2 -> 3 sütun, boşluk yok */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+.card{border:1px solid var(--card-bd); background:var(--glass); border-radius:var(--radius-md); padding:18px; position:relative; overflow:hidden; transition:transform .18s ease, box-shadow .25s ease, border-color .25s ease}
 .card:hover{transform:translateY(-3px); box-shadow:var(--shadow); border-color:var(--ring)}
 .card h3{margin:8px 0 6px; font-size:1.12rem}
 .card p{margin:0; color:var(--muted)}
@@ -154,26 +157,25 @@ form textarea{grid-column:span 2; min-height:140px; resize:vertical}
 footer{border-top:1px solid var(--card-bd); padding:22px 0 calc(32px + var(--sab)); color:var(--muted)}
 
 /* ===== MOBILE ===== */
-@media (max-width:980px){ .hero{grid-template-columns:1fr; min-height:auto} .hero-card{order:2} .grid .card{grid-column:span 6} }
+@media (max-width:980px){ .hero{grid-template-columns:1fr; min-height:auto} .hero-card{order:2} }
 @media (max-width:720px){
-  .links{display:none} .hamb{display:block} .grid .card{grid-column:span 12}
+  .links{display:none} .hamb{display:block}
   .hero{row-gap:8px}
-  .title{max-width:none; text-align:center}
-  .subtitle{text-align:center}
-  .cta{justify-content:center}
-  .cta .btn{width:100%; justify-content:center}
-  .socials{justify-content:center}
+  .title, .subtitle{ text-align:center }
+  .cta{ justify-content:center }
+  .cta .btn{ width:100%; justify-content:center }
+  .socials{ justify-content:center }
   form{grid-template-columns:1fr} form textarea{grid-column:span 1}
-  /* marquee: mobilde animasyon yerine yatay kaydırma */
-  .marquee{overflow:auto; -webkit-overflow-scrolling:touch}
-  .marquee .track{animation:none; gap:12px; padding:2px 4px; width:max-content}
-  .marquee .pill{font-size:.9rem; padding:7px 12px}
-  /* progress bar ince */
+  /* marquee: mobilde parmakla kaydırma */
+  .marquee{ overflow:auto; -webkit-overflow-scrolling:touch }
+  .marquee .track{ animation:none; gap:12px; padding:2px 4px; width:max-content }
+  .marquee .pill{ font-size:.9rem; padding:7px 12px }
   .progress{height:2px}
 }
-/* mobile menu sheet */
+/* mobile menu sheet + safe areas */
 .links.mobile{
-  position:fixed; left:max(12px, var(--sal)); right:max(12px, var(--sar));
+  position:fixed;
+  left: max(12px, var(--sal)); right: max(12px, var(--sar));
   top: calc(var(--nav-h) + var(--sat) + 8px);
   background:var(--bg-2); border:1px solid var(--card-bd); border-radius:16px;
   padding:10px; flex-direction:column; gap:4px; box-shadow:var(--shadow); display:none; z-index:65
@@ -201,6 +203,18 @@ footer{border-top:1px solid var(--card-bd); padding:22px 0 calc(32px + var(--sab
 
 /* accessibility */
 :focus-visible{outline:2px solid var(--ring); outline-offset:2px; border-radius:10px}
+
+/* ==== MOBILE BACKDROP & CANVAS FIX ==== */
+@media (max-width: 720px){
+  .backdrop{ display:none; }
+  #space{ display:none !important; }
+  body{
+    background:
+      radial-gradient(1200px 600px at 50% -10%, rgba(122,169,255,.12), transparent 60%),
+      radial-gradient(900px 500px at 100% 10%, rgba(0,231,212,.10), transparent 60%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-1));
+  }
+}
 </style>
 </head>
 <body>
@@ -251,7 +265,7 @@ footer{border-top:1px solid var(--card-bd); padding:22px 0 calc(32px + var(--sab
         <a href="https://www.linkedin.com/in/abdullah-duman-112812245/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
       </div>
 
-      <div class="marquee reveal" aria-label="Teknolojiler">
+      <div class="marquee reveal" aria-hidden="true">
         <div class="track" id="marqueeTrack">
           <span class="pill">Python</span><span class="pill">Flutter</span><span class="pill">Kotlin</span><span class="pill">PHP</span><span class="pill">.NET</span><span class="pill">MySQL</span><span class="pill">Playwright</span><span class="pill">QR Güvenlik</span><span class="pill">Android Studio</span><span class="pill">HTML/CSS/JS</span>
           <span class="pill">Python</span><span class="pill">Flutter</span><span class="pill">Kotlin</span><span class="pill">PHP</span><span class="pill">.NET</span><span class="pill">MySQL</span><span class="pill">Playwright</span><span class="pill">QR Güvenlik</span><span class="pill">Android Studio</span><span class="pill">HTML/CSS/JS</span>
@@ -274,17 +288,17 @@ footer{border-top:1px solid var(--card-bd); padding:22px 0 calc(32px + var(--sab
   <section id="about" class="container">
     <div class="sec-title reveal"><h2>Hakkımda</h2><div class="bar"></div></div>
     <div class="grid">
-      <div class="card reveal stagger" style="grid-column: span 7;">
+      <div class="card reveal stagger">
         <div class="shine"></div>
         <h3>Kimim?</h3>
         <p>Problem çözmeyi ve zor şeyleri basitleştirmeyi seviyorum. Güvenlik, performans ve kullanıcı deneyimini aynı masaya oturtan çözümler çıkarırım. Kod yazmadığım zamanlarda motosiklet teknolojilerini kurcalarım.</p>
       </div>
-      <div class="card reveal stagger" style="grid-column: span 5;">
+      <div class="card reveal stagger">
         <div class="shine"></div>
         <h3>Odak Alanlarım</h3>
         <p><strong>Mobil</strong> (Flutter/Kotlin), <strong>Web</strong> (PHP, .NET), <strong>Otomasyon</strong> (Python + Playwright) ve <strong>Görüntü İşleme</strong> (OpenCV). Renkli ama dengeli UI/UX ve temiz mimari önceliğimdir.</p>
       </div>
-      <div class="card reveal" style="grid-column: span 12;">
+      <div class="card reveal">
         <div class="shine"></div>
         <h3>Eğitim & Deneyim</h3>
         <div class="timeline">
@@ -359,7 +373,6 @@ navMobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navMob
 /* PAGE TRANSITION CURTAIN + SMOOTH SCROLL */
 const curtain=document.getElementById('curtain');
 function fancyScrollTo(id, clickX, clickY){
-  const r=curtain.getBoundingClientRect();
   curtain.style.setProperty('--x', (clickX||innerWidth/2)+'px');
   curtain.style.setProperty('--y', (clickY||innerHeight/2)+'px');
   curtain.style.transform='scale(1)';
@@ -370,8 +383,7 @@ function onNavClick(e){
   e.preventDefault();
   const id=this.getAttribute('href');
   const rect=this.getBoundingClientRect();
-  const x=rect.left+rect.width/2, y=rect.top+rect.height/2;
-  fancyScrollTo(id,x,y);
+  fancyScrollTo(id, rect.left+rect.width/2, rect.top+rect.height/2);
 }
 [...document.querySelectorAll('#navLinks a, #navMobile a')].forEach(a=>a.addEventListener('click', onNavClick));
 
@@ -418,7 +430,7 @@ if(!isTouch){
   });
 }
 
-/* STARFIELD CANVAS (mobilde daha az) */
+/* STARFIELD CANVAS (mobilde azalt) */
 const c=document.getElementById('space'), ctx=c.getContext('2d'); let w,h,dpr,stars=[];
 function resize(){
   dpr=Math.min(window.devicePixelRatio||1,1.5);
@@ -427,7 +439,7 @@ function resize(){
   spawn();
 }
 function spawn(){
-  const density=(innerWidth<720)?32000:20000; // mobilde seyrek
+  const density=(innerWidth<720)?32000:20000;
   const count=Math.floor((innerWidth*innerHeight)/density);
   stars=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.4+.2,a:Math.random()*Math.PI*2,s:Math.random()*0.35+0.05}));
 }
