@@ -3,392 +3,1300 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ABDULLAH DUMAN — Portfolyo</title>
-<meta name="description" content="Abdullah Duman | Bilgisayar Mühendisliği 3. sınıf — Web & Mobil geliştirici.">
+<title>Abdullah Duman — Mobil & Web Geliştirici</title>
+<meta name="description" content="Abdullah Duman | Bilgisayar Mühendisliği 3. sınıf — Flutter, Android, .NET ve Web geliştirici. Mobil uygulamalar, oyunlar ve masaüstü uygulamaları.">
 <meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#7aa9ff">
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <style>
-/* ===== TOKENS ===== */
+/* ===== MODERN DESIGN TOKENS ===== */
 :root{
-  --bg-1:#080a12; --bg-2:#0d1020; --bg-3:rgba(11,15,26,.55);
-  --txt:#e8edf2; --muted:#a8b0bf;
-  --pri:#7aa9ff; --sec:#9d7bff; --tri:#00e7d4;
-  --glass:rgba(255,255,255,.06); --card-bd:rgba(255,255,255,.12); --ring:rgba(122,169,255,.45);
-  --shadow:0 10px 30px rgba(0,0,0,.35);
-  --radius-xl:24px; --radius-md:16px;
+  --bg-1:#0a0e1a; --bg-2:#111827; --bg-3:rgba(17,24,39,.8);
+  --txt:#f9fafb; --muted:#9ca3af; --accent:#6b7280;
+  --pri:#3b82f6; --sec:#8b5cf6; --tri:#06b6d4; --success:#10b981; --warning:#f59e0b;
+  --glass:rgba(255,255,255,.05); --card-bd:rgba(255,255,255,.1); --ring:rgba(59,130,246,.4);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05); --shadow:0 4px 6px rgba(0,0,0,.1); --shadow-lg:0 10px 15px rgba(0,0,0,.1); --shadow-xl:0 20px 25px rgba(0,0,0,.15);
+  --radius-sm:6px; --radius:12px; --radius-lg:16px; --radius-xl:20px; --radius-2xl:24px;
   --maxw:1200px;
-  --nav-h:64px;
-  --pad:clamp(16px, 3vw, 28px);           /* yatay boşluk */
-  --v-gap:clamp(48px, 7vw, 96px);         /* dikey ritim */
+  --nav-h:72px;
+  --pad:clamp(16px, 4vw, 32px);
+  --v-gap:clamp(40px, 8vw, 80px);
+  --mobile-pad:20px;
 }
 :root.light{
-  --bg-1:#f6f7fb; --bg-2:#fff; --bg-3:rgba(255,255,255,.7);
-  --txt:#0e1220; --muted:#4a5364; --pri:#2d6fff; --sec:#6a4dff; --tri:#00b3a4;
-  --glass:rgba(0,0,0,.04); --card-bd:rgba(0,0,0,.08); --ring:rgba(45,111,255,.35);
-  --shadow:0 12px 30px rgba(0,0,0,.12);
+  --bg-1:#ffffff; --bg-2:#f9fafb; --bg-3:rgba(249,250,251,.8);
+  --txt:#111827; --muted:#6b7280; --accent:#9ca3af;
+  --pri:#2563eb; --sec:#7c3aed; --tri:#0891b2; --success:#059669; --warning:#d97706;
+  --glass:rgba(0,0,0,.03); --card-bd:rgba(0,0,0,.08); --ring:rgba(37,99,235,.3);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05); --shadow:0 4px 6px rgba(0,0,0,.07); --shadow-lg:0 10px 15px rgba(0,0,0,.1); --shadow-xl:0 20px 25px rgba(0,0,0,.1);
 }
 
-/* ===== RESET ===== */
+/* ===== RESET & BASE ===== */
 *,*::before,*::after{box-sizing:border-box}
-html,body{height:100%}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
 body{
-  margin:0; color:var(--txt);
-  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  background:
-    radial-gradient(80vw 80vh at 15% 10%, rgba(122,169,255,.12), transparent 50%),
-    radial-gradient(70vw 70vh at 85% 0%,  rgba(0,231,212,.10), transparent 55%),
-    radial-gradient(60vw 60vh at 50% 100%,rgba(157,123,255,.12), transparent 50%),
-    linear-gradient(180deg,var(--bg-1),var(--bg-1));
+  margin:0; color:var(--txt); line-height:1.6;
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg-1);
   overflow-x:hidden; -webkit-tap-highlight-color:transparent;
+  font-size:16px; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
 }
-img{max-width:100%; display:block}
+img{max-width:100%; height:auto; display:block}
+a{color:inherit; text-decoration:none}
+button{border:none; background:none; cursor:pointer; font:inherit}
 
-/* animated backdrop (her cihazda aktif) */
+/* ===== BACKGROUND & EFFECTS ===== */
 .backdrop{
-  position:fixed; inset:-10vmax; z-index:-2; pointer-events:none;
-  background:conic-gradient(from 0deg, rgba(122,169,255,.12), rgba(0,231,212,.12), rgba(157,123,255,.12), rgba(122,169,255,.12));
-  filter:blur(120px) saturate(120%); animation:swirl 26s linear infinite; opacity:.35;
+  position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(600px 600px at 20% 30%, rgba(59,130,246,.15), transparent 50%),
+    radial-gradient(800px 800px at 80% 20%, rgba(139,92,246,.1), transparent 50%),
+    radial-gradient(400px 400px at 50% 80%, rgba(6,182,212,.1), transparent 50%);
+  opacity:.6;
 }
-@keyframes swirl{to{transform:rotate(1turn)}}
 
-/* ===== NAV ===== */
-.nav{position:sticky; top:0; z-index:60; backdrop-filter:blur(10px); background:var(--bg-3); border-bottom:1px solid var(--card-bd)}
-.nav .inner{max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); height:var(--nav-h); display:flex; align-items:center; justify-content:space-between}
-.brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.6px}
-.brand .logo{width:36px; height:36px; border-radius:10px; overflow:hidden; box-shadow:var(--shadow); background:linear-gradient(135deg,var(--pri),var(--sec))}
-.brand span{font-family:'Orbitron', sans-serif; font-size:1.05rem}
-.links{display:flex; gap:18px; align-items:center}
-.links a{color:var(--muted); text-decoration:none; font-weight:600; font-size:.95rem; padding:10px 12px; border-radius:10px}
-.links a.active,.links a:hover{color:var(--txt); background:var(--glass)}
-.hamb{display:none; font-size:1.25rem; background:none; border:0; color:var(--txt)}
-.theme-toggle{border:1px solid var(--card-bd); background:var(--glass); border-radius:999px; width:40px; height:40px; display:grid; place-items:center; cursor:pointer}
-.progress{position:fixed; top:0; left:0; height:3px; width:0; background:linear-gradient(90deg,var(--pri),var(--tri)); z-index:70}
+/* ===== NAVIGATION ===== */
+.nav{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  background:var(--bg-3); border-bottom:1px solid var(--card-bd);
+  transition:all 0.3s ease;
+}
+.nav .inner{
+  max-width:var(--maxw); margin:0 auto; padding:0 var(--pad);
+  height:var(--nav-h); display:flex; align-items:center; justify-content:space-between;
+}
+.brand{
+  display:flex; align-items:center; gap:12px; font-weight:700;
+  font-size:1.1rem; color:var(--txt);
+}
+.brand .logo{
+  width:40px; height:40px; border-radius:var(--radius);
+  background:linear-gradient(135deg,var(--pri),var(--sec));
+  display:flex; align-items:center; justify-content:center;
+  color:white; font-weight:800; font-size:1.2rem;
+}
+.links{display:flex; gap:8px; align-items:center}
+.links a{
+  color:var(--muted); font-weight:500; font-size:.95rem;
+  padding:8px 16px; border-radius:var(--radius);
+  transition:all 0.2s ease; position:relative;
+}
+.links a:hover,.links a.active{
+  color:var(--txt); background:var(--glass);
+}
+.hamb{display:none; font-size:1.25rem; color:var(--txt); padding:8px}
+.theme-toggle{
+  width:44px; height:44px; border-radius:var(--radius);
+  background:var(--glass); border:1px solid var(--card-bd);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--txt); transition:all 0.2s ease;
+}
+.theme-toggle:hover{background:var(--pri); color:white}
+.progress{
+  position:fixed; top:0; left:0; height:3px; width:0;
+  background:linear-gradient(90deg,var(--pri),var(--sec));
+  z-index:60; transition:width 0.3s ease;
+}
 
 /* ===== LAYOUT ===== */
 .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--pad)}
 section{padding:var(--v-gap) 0}
-section, header{scroll-margin-top:calc(var(--nav-h) + 14px)}
+section, header{scroll-margin-top:calc(var(--nav-h) + 20px)}
 
-/* ===== HERO ===== */
+/* ===== HERO SECTION ===== */
 .hero{
-  display:grid; grid-template-columns:1.05fr .95fr;
-  gap:clamp(20px,3vw,32px); align-items:center;
-  min-height:clamp(60vh, 78vh, 84vh);
+  display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px, 5vw, 64px);
+  align-items:center; min-height:calc(100vh - var(--nav-h));
+  padding:clamp(40px, 8vw, 80px) 0;
 }
+.hero-content{max-width:600px}
 .title{
-  font-family:'Orbitron', sans-serif;
-  /* akışkan tipografi + güvenli satır uzunluğu */
-  font-size:clamp(22px, 6.2vw, 52px);
-  line-height:1.1; letter-spacing:.6px; margin:0;
-  max-width:22ch; text-wrap:balance; overflow-wrap:anywhere;
-  background:linear-gradient(90deg,var(--pri),var(--tri),var(--sec));
+  font-size:clamp(2.5rem, 6vw, 4rem); font-weight:800; line-height:1.1;
+  margin:0 0 24px; color:var(--txt);
+  background:linear-gradient(135deg, var(--pri), var(--sec), var(--tri));
   -webkit-background-clip:text; background-clip:text; color:transparent;
-  filter:drop-shadow(0 10px 30px rgba(0,0,0,.2));
 }
-.subtitle{color:var(--muted); margin-top:12px; font-size:clamp(14px,1.6vw,18px)}
-.cta{display:flex; gap:12px; margin-top:18px; flex-wrap:wrap}
+.subtitle{
+  font-size:clamp(1.1rem, 2.5vw, 1.25rem); color:var(--muted);
+  margin:0 0 32px; line-height:1.6;
+}
+.cta{
+  display:flex; gap:16px; margin-bottom:40px; flex-wrap:wrap;
+}
 .btn{
-  display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer;
-  font-weight:800; padding:12px 16px; border-radius:14px; letter-spacing:.4px; text-decoration:none;
-  background:linear-gradient(135deg,var(--pri),var(--sec)); color:#0b0f1a;
-  box-shadow:0 10px 28px rgba(122,169,255,.25); transition:transform .2s ease, box-shadow .2s ease;
-  flex:0 1 auto; max-width:calc(50% - 6px); /* satır kırılırsa oranlı kalır */
+  display:inline-flex; align-items:center; gap:8px;
+  padding:14px 24px; border-radius:var(--radius-lg);
+  font-weight:600; font-size:1rem; text-decoration:none;
+  transition:all 0.3s ease; cursor:pointer;
+  border:2px solid transparent;
 }
-.btn:hover{transform:translateY(-2px); box-shadow:0 14px 36px rgba(122,169,255,.38)}
-.btn.ghost{background:transparent; color:var(--txt); border:1px solid var(--card-bd); box-shadow:none}
-.btn.ghost:hover{background:var(--glass)}
+.btn-primary{
+  background:linear-gradient(135deg, var(--pri), var(--sec));
+  color:white; box-shadow:var(--shadow-lg);
+}
+.btn-primary:hover{
+  transform:translateY(-2px); box-shadow:var(--shadow-xl);
+}
+.btn-secondary{
+  background:var(--glass); color:var(--txt);
+  border-color:var(--card-bd);
+}
+.btn-secondary:hover{
+  background:var(--pri); color:white; border-color:var(--pri);
+}
 
-.hero-card{border:1px solid var(--card-bd); background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border-radius:var(--radius-xl); padding:18px; position:relative; overflow:hidden; box-shadow:var(--shadow)}
-.hero-card h3{margin:10px 0 8px}
-.orb{position:absolute; width:220px; height:220px; border-radius:50%; filter:blur(42px); opacity:.32; background: radial-gradient(circle at 30% 30%, var(--sec), transparent 60%); top:-40px; right:-40px; animation:float 10s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(16px) translateX(-8px) scale(1.05)}}
+.hero-card{
+  background:var(--glass); border:1px solid var(--card-bd);
+  border-radius:var(--radius-2xl); padding:32px; position:relative;
+  box-shadow:var(--shadow-xl); backdrop-filter:blur(20px);
+}
+.hero-card h3{
+  font-size:1.5rem; font-weight:700; margin:0 0 16px;
+  color:var(--txt);
+}
+.hero-card p{
+  color:var(--muted); margin:0 0 20px; line-height:1.6;
+}
+.badge{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 16px; border-radius:var(--radius);
+  background:var(--pri); color:white; font-weight:600; font-size:.9rem;
+}
 
-/* ===== MARQUEE ===== */
-.marquee{margin-top:22px; border-top:1px dashed var(--card-bd); border-bottom:1px dashed var(--card-bd); padding:10px 0; overflow:hidden}
-.marquee .track{display:flex; gap:16px; animation:scroll 22s linear infinite; white-space:nowrap}
-.marquee .pill{padding:8px 14px; border-radius:999px; background:var(--glass); border:1px solid var(--card-bd); font-weight:700; font-size:.92rem}
-.marquee:hover .track{animation-play-state:paused}
+/* ===== SKILLS MARQUEE ===== */
+.skills-marquee{
+  margin:40px 0; padding:20px 0; overflow:hidden;
+  border-top:1px solid var(--card-bd); border-bottom:1px solid var(--card-bd);
+}
+.skills-track{
+  display:flex; gap:24px; animation:scroll 30s linear infinite;
+  white-space:nowrap;
+}
+.skill-pill{
+  padding:12px 20px; border-radius:var(--radius-xl);
+  background:var(--glass); border:1px solid var(--card-bd);
+  font-weight:600; font-size:.95rem; color:var(--txt);
+  white-space:nowrap;
+}
+.skills-marquee:hover .skills-track{animation-play-state:paused}
 @keyframes scroll{to{transform:translateX(-50%)}}
 
-/* ===== SECTION TITLE ===== */
-.sec-title{display:flex; align-items:baseline; gap:10px; margin-bottom:18px}
-.sec-title h2{font-size:clamp(20px,2.6vw,34px); margin:0}
-.sec-title .bar{flex:1; height:2px; background:linear-gradient(90deg,var(--pri), transparent); opacity:.5}
-
-/* ===== GRID / CARDS (boşluksuz, orantılı) ===== */
-.grid{
-  display:grid; gap:18px;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+/* ===== SECTION TITLES ===== */
+.section-title{
+  text-align:center; margin-bottom:clamp(40px, 6vw, 60px);
 }
-.card{border:1px solid var(--card-bd); background:var(--glass); border-radius:var(--radius-md); padding:18px; position:relative; overflow:hidden; transition:transform .18s ease, box-shadow .25s ease, border-color .25s ease}
-.card:hover{transform:translateY(-3px); box-shadow:var(--shadow); border-color:var(--ring)}
-.card h3{margin:8px 0 6px; font-size:1.12rem}
-.card p{margin:0; color:var(--muted)}
-.badge{display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.85rem; padding:6px 10px; border-radius:999px; background:linear-gradient(135deg, rgba(122,169,255,.2), rgba(157,123,255,.2)); border:1px solid var(--ring); color: var(--txt)}
-.shine{position:absolute; inset:0; background: radial-gradient(600px circle at var(--mx, 0px) var(--my, 0px), rgba(255,255,255,.08), transparent 40%); opacity:0; transition:opacity .2s ease; pointer-events:none}
-.card:hover .shine{opacity:1}
+.section-title h2{
+  font-size:clamp(2rem, 4vw, 3rem); font-weight:800;
+  margin:0 0 16px; color:var(--txt);
+}
+.section-title p{
+  font-size:1.1rem; color:var(--muted); max-width:600px;
+  margin:0 auto; line-height:1.6;
+}
 
-/* ===== TIMELINE ===== */
-.timeline{position:relative; margin-top:10px}
-.timeline::before{content:""; position:absolute; left:12px; top:8px; bottom:8px; width:2px; background:linear-gradient(var(--pri), var(--sec)); opacity:.4}
-.t-item{position:relative; padding-left:40px; margin:20px 0}
-.t-item::before{content:""; position:absolute; left:7px; top:6px; width:10px; height:10px; border-radius:50%; background:var(--tri); box-shadow:0 0 0 4px rgba(0,231,212,.18)}
-.t-item h4{margin:0 0 4px}
-.t-item span{color:var(--muted); font-size:.9rem}
+/* ===== GRID LAYOUTS ===== */
+.grid{
+  display:grid; gap:24px;
+  grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+}
+.card{
+  background:var(--glass); border:1px solid var(--card-bd);
+  border-radius:var(--radius-xl); padding:24px; position:relative;
+  transition:all 0.3s ease; backdrop-filter:blur(20px);
+  overflow:hidden;
+}
+.card:hover{
+  transform:translateY(-4px); box-shadow:var(--shadow-xl);
+  border-color:var(--pri);
+}
+.card h3{
+  font-size:1.25rem; font-weight:700; margin:0 0 12px;
+  color:var(--txt);
+}
+.card p{
+  color:var(--muted); margin:0 0 16px; line-height:1.6;
+}
+.card .badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 12px; border-radius:var(--radius);
+  background:var(--pri); color:white; font-weight:600;
+  font-size:.85rem; margin-bottom:12px;
+}
 
-/* ===== CONTACT ===== */
-form{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:10px}
-form input, form textarea{width:100%; padding:14px; border-radius:12px; border:1px solid var(--card-bd); background:var(--glass); color:var(--txt); backdrop-filter: blur(8px); font-size:16px}
-form textarea{grid-column:span 2; min-height:140px; resize:vertical}
-.form-actions{display:flex; gap:10px; align-items:center}
+/* ===== PROJECT CARDS ===== */
+.project-card{
+  background:var(--glass); border:1px solid var(--card-bd);
+  border-radius:var(--radius-xl); padding:24px; position:relative;
+  transition:all 0.3s ease; backdrop-filter:blur(20px);
+  overflow:hidden;
+}
+.project-card:hover{
+  transform:translateY(-4px); box-shadow:var(--shadow-xl);
+  border-color:var(--pri);
+}
+.project-links{
+  display:flex; gap:12px; margin-top:16px; flex-wrap:wrap;
+}
+.project-link{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:8px 16px; border-radius:var(--radius);
+  font-weight:600; font-size:.9rem; text-decoration:none;
+  transition:all 0.2s ease;
+}
+.project-link.github{
+  background:var(--glass); color:var(--txt);
+  border:1px solid var(--card-bd);
+}
+.project-link.github:hover{
+  background:var(--pri); color:white; border-color:var(--pri);
+}
+.project-link.download{
+  background:var(--success); color:white;
+}
+.project-link.download:hover{
+  background:var(--warning); transform:translateY(-1px);
+}
 
-/* ===== SOCIALS ===== */
-.socials{display:flex; gap:14px; margin-top:16px}
-.socials a{width:44px; height:44px; display:grid; place-items:center; border-radius:12px; border:1px solid var(--card-bd); background:var(--glass); color:var(--txt); text-decoration:none; transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease}
-.socials a:hover{transform:translateY(-2px) scale(1.03); border-color:var(--ring); box-shadow:0 12px 26px rgba(0,0,0,.2)}
+/* ===== CONTACT FORM ===== */
+.contact-form{
+  max-width:600px; margin:0 auto;
+}
+.form-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  margin-bottom:20px;
+}
+.form-group{
+  display:flex; flex-direction:column; gap:8px;
+}
+.form-group.full{grid-column:span 2}
+.form-input, .form-textarea{
+  width:100%; padding:16px; border-radius:var(--radius-lg);
+  border:1px solid var(--card-bd); background:var(--glass);
+  color:var(--txt); font-size:1rem; transition:all 0.2s ease;
+  backdrop-filter:blur(20px);
+}
+.form-input:focus, .form-textarea:focus{
+  outline:none; border-color:var(--pri); box-shadow:0 0 0 3px rgba(59,130,246,.1);
+}
+.form-textarea{
+  min-height:120px; resize:vertical; font-family:inherit;
+}
+.form-actions{
+  display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+}
+
+/* ===== SOCIAL LINKS ===== */
+.social-links{
+  display:flex; gap:16px; justify-content:center; margin:32px 0;
+}
+.social-link{
+  width:48px; height:48px; display:flex; align-items:center; justify-content:center;
+  border-radius:var(--radius-lg); background:var(--glass);
+  border:1px solid var(--card-bd); color:var(--txt);
+  text-decoration:none; transition:all 0.3s ease; font-size:1.2rem;
+}
+.social-link:hover{
+  transform:translateY(-2px); background:var(--pri); color:white;
+  box-shadow:var(--shadow-lg);
+}
+
+/* ===== CV SECTION ===== */
+.cv-container{
+  max-width:800px; margin:0 auto;
+}
+.cv-section{
+  margin-bottom:40px; padding:32px;
+  background:var(--glass); border:1px solid var(--card-bd);
+  border-radius:var(--radius-xl); backdrop-filter:blur(20px);
+}
+.cv-section h3{
+  font-size:1.5rem; font-weight:700; margin:0 0 24px;
+  color:var(--txt); display:flex; align-items:center; gap:12px;
+}
+.cv-section h3 i{
+  color:var(--pri); font-size:1.3rem;
+}
+.cv-item{
+  margin-bottom:24px; padding-bottom:24px;
+  border-bottom:1px solid var(--card-bd);
+}
+.cv-item:last-child{
+  margin-bottom:0; padding-bottom:0; border-bottom:none;
+}
+.cv-header{
+  display:flex; justify-content:space-between; align-items:flex-start;
+  margin-bottom:8px; flex-wrap:wrap; gap:12px;
+}
+.cv-header h4{
+  font-size:1.1rem; font-weight:600; margin:0;
+  color:var(--txt);
+}
+.cv-date{
+  background:var(--pri); color:white; padding:4px 12px;
+  border-radius:var(--radius); font-size:.85rem; font-weight:600;
+  white-space:nowrap;
+}
+.cv-location{
+  color:var(--muted); font-weight:500; margin:0 0 8px;
+  font-size:.95rem;
+}
+.cv-description{
+  color:var(--muted); margin:0; line-height:1.6;
+  font-size:.9rem;
+}
+
+/* Skills Grid */
+.skills-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+  gap:24px; margin-top:16px;
+}
+.skill-category{
+  background:var(--bg-2); padding:20px; border-radius:var(--radius-lg);
+  border:1px solid var(--card-bd);
+}
+.skill-category h4{
+  font-size:1rem; font-weight:600; margin:0 0 12px;
+  color:var(--txt);
+}
+.skill-category ul{
+  list-style:none; padding:0; margin:0;
+}
+.skill-category li{
+  padding:6px 0; color:var(--muted); font-size:.9rem;
+  position:relative; padding-left:16px;
+}
+.skill-category li::before{
+  content:"•"; color:var(--pri); font-weight:bold;
+  position:absolute; left:0;
+}
+
+/* Project Stats */
+.project-summary{
+  margin-top:16px;
+}
+.project-stats{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
+  gap:20px; margin-top:20px;
+}
+.stat{
+  text-align:center; padding:20px; background:var(--bg-2);
+  border-radius:var(--radius-lg); border:1px solid var(--card-bd);
+}
+.stat h4{
+  font-size:2rem; font-weight:800; margin:0 0 8px;
+  color:var(--pri);
+}
+.stat p{
+  margin:0; color:var(--muted); font-size:.9rem;
+  font-weight:500;
+}
+
+/* Contact Info */
+.contact-info{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+  gap:16px; margin-top:16px;
+}
+.contact-item{
+  display:flex; align-items:center; gap:12px;
+  padding:12px 16px; background:var(--bg-2);
+  border-radius:var(--radius); border:1px solid var(--card-bd);
+  transition:all 0.2s ease;
+}
+.contact-item:hover{
+  background:var(--pri); color:white;
+  transform:translateY(-2px);
+}
+.contact-item i{
+  color:var(--pri); font-size:1.1rem; width:20px;
+  text-align:center;
+}
+.contact-item:hover i{
+  color:white;
+}
+.contact-item a{
+  color:inherit; text-decoration:none;
+}
+
+/* CV Download */
+.cv-download{
+  text-align:center; margin-top:40px; padding:32px;
+  background:var(--glass); border:1px solid var(--card-bd);
+  border-radius:var(--radius-xl); backdrop-filter:blur(20px);
+}
 
 /* ===== FOOTER ===== */
-footer{border-top:1px solid var(--card-bd); padding:22px 0 40px; color:var(--muted)}
-
-/* ===== MOBILE — oran koru ===== */
-@media (max-width:980px){
-  .hero{grid-template-columns:1fr; min-height:auto}
-  .hero-card{order:2}
+footer{
+  border-top:1px solid var(--card-bd); padding:40px 0;
+  text-align:center; color:var(--muted);
+  background:var(--bg-2);
 }
-@media (max-width:720px){
-  .links{display:none} .hamb{display:block}
-  .title,.subtitle{text-align:center}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width:768px){
+  .nav .inner{padding:0 var(--mobile-pad)}
+  .container{padding:0 var(--mobile-pad)}
+  
+  .hero{
+    grid-template-columns:1fr; gap:40px; text-align:center;
+    min-height:auto; padding:60px 0;
+  }
+  .hero-content{max-width:100%}
+  .title{font-size:clamp(2rem, 8vw, 3rem)}
   .cta{justify-content:center}
-  .btn{max-width:unset}
-  form{grid-template-columns:1fr} form textarea{grid-column:span 1}
-  .progress{height:2px}
-  .marquee{overflow:auto; -webkit-overflow-scrolling:touch}
-  .marquee .track{animation:none; gap:12px; padding:2px 4px; width:max-content}
+  .btn{flex:1; min-width:140px}
+  
+  .grid{grid-template-columns:1fr; gap:20px}
+  .form-grid{grid-template-columns:1fr}
+  .form-group.full{grid-column:span 1}
+  
+  .links{display:none}
+  .hamb{display:block}
+  .mobile-menu{
+    position:fixed; left:var(--mobile-pad); right:var(--mobile-pad);
+    top:calc(var(--nav-h) + 12px); background:var(--bg-2);
+    border:1px solid var(--card-bd); border-radius:var(--radius-xl);
+    padding:16px; flex-direction:column; gap:8px;
+    box-shadow:var(--shadow-xl); display:none; z-index:60;
+    backdrop-filter:blur(20px);
+  }
+  .mobile-menu.show{display:flex}
+  .mobile-menu a{
+    padding:12px 16px; border-radius:var(--radius);
+    text-align:center; font-weight:600;
+  }
+  .mobile-menu a:hover{background:var(--glass)}
+  
+  .skills-marquee{overflow-x:auto; -webkit-overflow-scrolling:touch}
+  .skills-track{animation:none; gap:16px; padding:0 16px}
+  
+  .project-links{justify-content:center}
+  .social-links{flex-wrap:wrap; justify-content:center}
+  
+  .cv-section{padding:24px; margin-bottom:24px}
+  .cv-header{flex-direction:column; align-items:flex-start; gap:8px}
+  .skills-grid{grid-template-columns:1fr; gap:16px}
+  .project-stats{grid-template-columns:repeat(2, 1fr); gap:16px}
+  .contact-info{grid-template-columns:1fr; gap:12px}
+  .cv-download{padding:24px}
 }
 
-/* mobile sheet menu */
-.links.mobile{
-  position:fixed; left:12px; right:12px; top:calc(var(--nav-h) + 8px);
-  background:var(--bg-2); border:1px solid var(--card-bd); border-radius:16px;
-  padding:10px; flex-direction:column; gap:4px; box-shadow:var(--shadow); display:none; z-index:65
+@media (max-width:480px){
+  .hero{padding:40px 0}
+  .section-title h2{font-size:clamp(1.5rem, 6vw, 2.5rem)}
+  .card{padding:20px}
+  .project-card{padding:20px}
+  .btn{padding:12px 20px; font-size:.95rem}
 }
-.links.mobile a{padding:12px 14px}
-.links.mobile.show{display:flex}
 
-/* curtain + reveals */
-.curtain{position:fixed; inset:0; pointer-events:none; z-index:80; background:radial-gradient(1000px 1000px at var(--x,50%) var(--y,50%), rgba(122,169,255,.45), rgba(0,231,212,.35) 40%, rgba(157,123,255,.45) 70%, transparent 72%); transform:scale(0); opacity:.9; transition:transform .55s cubic-bezier(.2,.8,.2,1), opacity .35s ease; mix-blend-mode:screen; filter:blur(14px) saturate(120%)}
-.reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
-.reveal.show{opacity:1; transform:none}
+/* ===== ANIMATIONS & EFFECTS ===== */
+.fade-in{
+  opacity:0; transform:translateY(20px);
+  transition:opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible{
+  opacity:1; transform:translateY(0);
+}
 
-/* focus ring */
-:focus-visible{outline:2px solid var(--ring); outline-offset:2px; border-radius:10px}
+.slide-up{
+  opacity:0; transform:translateY(30px);
+  transition:opacity 0.8s ease, transform 0.8s ease;
+}
+.slide-up.visible{
+  opacity:1; transform:translateY(0);
+}
+
+/* ===== UTILITIES ===== */
+.text-center{text-align:center}
+.text-gradient{
+  background:linear-gradient(135deg, var(--pri), var(--sec));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hidden{display:none}
+.visible{display:block}
+
+/* ===== FOCUS STATES ===== */
+:focus-visible{
+  outline:2px solid var(--pri); outline-offset:2px;
+  border-radius:var(--radius);
+}
 </style>
 </head>
 <body>
 <div class="progress" id="progress"></div>
 <div class="backdrop"></div>
-<canvas id="space" aria-hidden="true" style="position:fixed; inset:0; z-index:-1; opacity:.45;"></canvas>
-<div id="curtain" class="curtain" aria-hidden="true"></div>
 
-<!-- NAV -->
+<!-- NAVIGATION -->
 <nav class="nav" role="navigation">
   <div class="inner">
     <div class="brand">
-      <div class="logo" aria-hidden="true"></div>
-      <span>ABDULLAH DUMAN</span>
+      <div class="logo">AD</div>
+      <span>Abdullah Duman</span>
     </div>
     <div class="links" id="navLinks">
       <a href="#home" class="active">Ana Sayfa</a>
       <a href="#about">Hakkımda</a>
       <a href="#skills">Yetenekler</a>
       <a href="#projects">Projeler</a>
+      <a href="#cv">CV</a>
       <a href="#contact">İletişim</a>
     </div>
-    <button class="hamb" id="hamb" aria-label="Menüyü Aç/Kapat"><i class="fa-solid fa-bars"></i></button>
-    <button class="theme-toggle" id="themeBtn" aria-label="Tema Değiştir"><i class="fa-regular fa-moon"></i></button>
+    <button class="hamb" id="hamb" aria-label="Menüyü Aç/Kapat">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <button class="theme-toggle" id="themeBtn" aria-label="Tema Değiştir">
+      <i class="fa-regular fa-moon"></i>
+    </button>
   </div>
-  <div class="links mobile" id="navMobile">
-    <a href="#home">Ana Sayfa</a><a href="#about">Hakkımda</a><a href="#skills">Yetenekler</a><a href="#projects">Projeler</a><a href="#contact">İletişim</a>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home">Ana Sayfa</a>
+    <a href="#about">Hakkımda</a>
+    <a href="#skills">Yetenekler</a> 
+    <a href="#projects">Projeler</a>
+    <a href="#cv">CV</a>
+    <a href="#contact">İletişim</a>
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- HERO SECTION -->
 <header id="home" class="container">
   <section class="hero">
-    <div>
-      <h1 class="title reveal">Merhaba! Ben Abdullah — Web & Mobil Geliştirici</h1>
-      <p class="subtitle reveal">Amasya Üniversitesi Bilgisayar Mühendisliği 3. sınıf öğrencisiyim. Güvenlik odaklı QR çözümleri, Flutter ile mobil uygulamalar ve PHP/MySQL tabanlı paneller geliştiriyorum.</p>
-      <div class="cta reveal">
-        <a class="btn" href="#projects"><i class="fa-solid fa-bolt"></i>Projelerime Git</a>
-        <a class="btn ghost" href="mailto:dduman.abdulla2003@gmail.com"><i class="fa-regular fa-paper-plane"></i>İletişime Geç</a>
-      </div>
-      <div class="socials reveal" aria-label="Sosyal bağlantılar">
-        <a href="https://www.instagram.com/abdullah_duman00/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://github.com/duman011" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/abdullah-duman-112812245/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <div class="hero-content">
+      <h1 class="title fade-in">Merhaba! Ben Abdullah</h1>
+      <p class="subtitle fade-in">Mobil & Web Geliştirici</p>
+      <p class="fade-in">Amasya Üniversitesi Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Flutter ile mobil uygulamalar, .NET masaüstü uygulamaları ve modern web teknolojileri ile projeler geliştiriyorum.</p>
+      
+      <div class="cta fade-in">
+        <a class="btn btn-primary" href="#projects">
+          <i class="fa-solid fa-code"></i>
+          Projelerimi İncele
+        </a>
+        <a class="btn btn-secondary" href="#contact">
+          <i class="fa-regular fa-envelope"></i>
+          İletişime Geç
+        </a>
       </div>
 
-      <div class="marquee reveal" aria-hidden="true">
-        <div class="track">
-          <span class="pill">Python</span><span class="pill">Flutter</span><span class="pill">Kotlin</span><span class="pill">PHP</span><span class="pill">.NET</span><span class="pill">MySQL</span><span class="pill">Playwright</span><span class="pill">QR Güvenlik</span><span class="pill">Android Studio</span><span class="pill">HTML/CSS/JS</span>
-          <span class="pill">Python</span><span class="pill">Flutter</span><span class="pill">Kotlin</span><span class="pill">PHP</span><span class="pill">.NET</span><span class="pill">MySQL</span><span class="pill">Playwright</span><span class="pill">QR Güvenlik</span><span class="pill">Android Studio</span><span class="pill">HTML/CSS/JS</span>
-        </div>
+      <div class="social-links fade-in">
+        <a href="https://github.com/duman011" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/abdullah-duman-112812245/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://www.instagram.com/abdullah_duman00/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
       </div>
     </div>
 
-    <div class="hero-card reveal" aria-label="Öne çıkan çalışma kartı">
-      <div class="orb"></div>
-      <div class="badge"><i class="fa-solid fa-shield-halved"></i> Güvenlik Odaklı</div>
-      <h3>QR Doğrulama & Çoklu Pozlama</h3>
-      <p style="color:var(--muted); margin:0 0 10px">Kağıt üzerindeki QR kodlarını ekran görüntülerinden ayıran, 3 farklı enstantane ile yakalama ve Python API doğrulaması.</p>
-      <div class="badge" style="margin-top:8px"><i class="fa-solid fa-code"></i> Flutter · Python · OpenCV</div>
+    <div class="hero-card fade-in">
+      <div class="badge">
+        <i class="fa-solid fa-code"></i>
+        Geliştirici
+      </div>
+      <h3>Yazılım Geliştirici</h3>
+      <p>Mobil uygulamalar, masaüstü uygulamaları ve web projeleri geliştiriyorum. Modern teknolojiler kullanarak kullanıcı dostu çözümler üretiyorum.</p>
+      <div class="project-links">
+        <a href="#projects" class="project-link github">
+          <i class="fa-solid fa-arrow-right"></i>
+          Projeleri Gör
+        </a>
+        <a href="#cv" class="project-link download">
+          <i class="fa-solid fa-file-text"></i>
+          CV'yi İncele
+        </a>
+      </div>
     </div>
   </section>
+
+  <!-- Skills Marquee -->
+  <div class="skills-marquee">
+    <div class="skills-track">
+      <span class="skill-pill">Flutter</span>
+      <span class="skill-pill">Dart</span>
+      <span class="skill-pill">Kotlin</span>
+      <span class="skill-pill">Android Studio</span>
+      <span class="skill-pill">C#</span>
+      <span class="skill-pill">.NET</span>
+      <span class="skill-pill">PHP</span>
+      <span class="skill-pill">MySQL</span>
+      <span class="skill-pill">Python</span>
+      <span class="skill-pill">HTML/CSS</span>
+      <span class="skill-pill">JavaScript</span>
+      <span class="skill-pill">Git</span>
+      <span class="skill-pill">Flutter</span>
+      <span class="skill-pill">Dart</span>
+      <span class="skill-pill">Kotlin</span>
+      <span class="skill-pill">Android Studio</span>
+      <span class="skill-pill">C#</span>
+      <span class="skill-pill">.NET</span>
+      <span class="skill-pill">PHP</span>
+      <span class="skill-pill">MySQL</span>
+      <span class="skill-pill">Python</span>
+      <span class="skill-pill">HTML/CSS</span>
+      <span class="skill-pill">JavaScript</span>
+      <span class="skill-pill">Git</span>
+    </div>
+  </div>
 </header>
 
 <main>
+  <!-- ABOUT SECTION -->
   <section id="about" class="container">
-    <div class="sec-title reveal"><h2>Hakkımda</h2><div class="bar"></div></div>
+    <div class="section-title">
+      <h2>Hakkımda</h2>
+      <p>Bilgisayar mühendisliği öğrencisi olarak mobil ve web teknolojileri ile projeler geliştiriyorum</p>
+    </div>
     <div class="grid">
-      <div class="card reveal"><div class="shine"></div><h3>Kimim?</h3><p>Problem çözmeyi ve zor şeyleri basitleştirmeyi seviyorum. Güvenlik, performans ve kullanıcı deneyimini aynı masaya oturtan çözümler çıkarırım. Kod yazmadığım zamanlarda motosiklet teknolojilerini kurcalarım.</p></div>
-      <div class="card reveal"><div class="shine"></div><h3>Odak Alanlarım</h3><p><strong>Mobil</strong> (Flutter/Kotlin), <strong>Web</strong> (PHP, .NET), <strong>Otomasyon</strong> (Python + Playwright) ve <strong>Görüntü İşleme</strong> (OpenCV). Renkli ama dengeli UI/UX ve temiz mimari önceliğimdir.</p></div>
-      <div class="card reveal"><div class="shine"></div><h3>Eğitim & Deneyim</h3>
-        <div class="timeline">
-          <div class="t-item"><h4>Amasya Üniversitesi — Bilgisayar Müh. (3. Sınıf)</h4><span>2022 — Günümüz</span></div>
-          <div class="t-item"><h4>LinkedIn İş İlanı Analiz Aracı</h4><span>2025 — Python, MySQL, Playwright</span></div>
-          <div class="t-item"><h4>QR Tabanlı Etkinlik Katılım Sistemi</h4><span>2025 — Flutter, Python API, OpenCV</span></div>
+      <div class="card slide-up">
+        <h3><i class="fa-solid fa-user"></i> Kimim?</h3>
+        <p>Amasya Üniversitesi Bilgisayar Mühendisliği 3. sınıf öğrencisiyim. Mobil uygulama geliştirme, masaüstü uygulamaları ve web teknolojileri konularında kendimi geliştiriyorum. Problem çözmeyi ve yaratıcı çözümler üretmeyi seviyorum.</p>
+      </div>
+      <div class="card slide-up">
+        <h3><i class="fa-solid fa-code"></i> Teknoloji Odaklarım</h3>
+        <p><strong>Mobil:</strong> Flutter, Dart, Kotlin, Android Studio<br>
+        <strong>Masaüstü:</strong> C#, .NET Framework, WinForms<br>
+        <strong>Web:</strong> PHP, MySQL, HTML/CSS, JavaScript<br>
+        <strong>Diğer:</strong> Python, Git, GitHub</p>
+      </div>
+      <div class="card slide-up">
+        <h3><i class="fa-solid fa-graduation-cap"></i> Eğitim & Projeler</h3>
+        <p><strong>2022 - Günümüz:</strong> Amasya Üniversitesi Bilgisayar Mühendisliği (4. Sınıf)<br>
+        <strong>2025:</strong> Flutter ile Snake Game, Android Hava Durumu Uygulaması<br>
+        <strong>2025:</strong> .NET ile Satranç Oyunu, C# ile Uzay Oyunu<br>
+        <strong>2025:</strong> PHP Personel Yönetim Sistemi, LinkedIn İlan Analiz Otomasyonu</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <section id="skills" class="container">
+    <div class="section-title">
+      <h2>Yetenekler</h2>
+      <p>Geliştirdiğim projelerde kullandığım teknolojiler ve araçlar</p>
+    </div>
+    <div class="grid">
+      <div class="card slide-up">
+        <div class="badge"><i class="fa-solid fa-mobile-screen"></i> Mobil</div>
+        <h3>Flutter & Dart</h3>
+        <p>Cross-platform mobil uygulama geliştirme, widget kullanımı, state management ve performans optimizasyonu.</p>
+      </div>
+      <div class="card slide-up">
+        <div class="badge"><i class="fa-brands fa-android"></i> Android</div>
+        <h3>Kotlin & Android Studio</h3>
+        <p>Native Android uygulama geliştirme, modern Android bileşenleri ve API entegrasyonları.</p>
+      </div>
+      <div class="card slide-up">
+        <div class="badge"><i class="fa-solid fa-desktop"></i> Masaüstü</div>
+        <h3>C# & .NET</h3>
+        <p>WinForms uygulamaları, oyun geliştirme ve masaüstü araçları oluşturma.</p>
+      </div>
+      <div class="card slide-up">
+        <div class="badge"><i class="fa-solid fa-globe"></i> Web</div>
+        <h3>PHP & MySQL</h3>
+        <p>Backend geliştirme, veritabanı tasarımı, REST API'ler ve güvenlik uygulamaları.</p>
+      </div>
+      <div class="card slide-up">
+        <div class="badge"><i class="fa-brands fa-python"></i> Python</div>
+        <h3>Python & Otomasyon</h3>
+        <p>Web scraping, veri analizi, otomasyon scriptleri ve API geliştirme.</p>
+      </div>
+      <div class="card slide-up">
+        <div class="badge"><i class="fa-solid fa-palette"></i> Tasarım</div>
+        <h3>UI/UX & Frontend</h3>
+        <p>Modern web tasarımı, responsive layout, kullanıcı deneyimi optimizasyonu.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects" class="container">
+    <div class="section-title">
+      <h2>Projelerim</h2>
+      <p>GitHub'da geliştirdiğim projeler ve uygulamalar</p>
+    </div>
+    <div class="grid">
+      <!-- Flutter Snake Game -->
+      <div class="project-card slide-up">
+        <div class="badge"><i class="fa-solid fa-mobile-screen"></i> Flutter</div>
+        <h3>Flutter Snake Game</h3>
+        <p>Klasik yılan oyununun modern Flutter implementasyonu. Dokunmatik kontroller, skor sistemi ve smooth animasyonlar ile mobil oyun deneyimi sunuyor.</p>
+        <div class="project-links">
+          <a href="https://github.com/duman011/flutter-ile-snake-game" target="_blank" class="project-link github">
+            <i class="fab fa-github"></i>
+            GitHub
+          </a>
+          <a href="#" class="project-link download">
+            <i class="fa-solid fa-download"></i>
+            APK İndir
+          </a>
+        </div>
+      </div>
+
+      <!-- Android Weather App -->
+      <div class="project-card slide-up">
+        <div class="badge"><i class="fa-brands fa-android"></i> Android</div>
+        <h3>Android Hava Durumu Uygulaması</h3>
+        <p>Kotlin ile geliştirilmiş hava durumu uygulaması. API entegrasyonu, konum servisleri ve modern Android UI bileşenleri kullanılarak oluşturuldu.</p>
+        <div class="project-links">
+          <a href="https://github.com/duman011/android-hava-durumu-uygulamas-" target="_blank" class="project-link github">
+            <i class="fab fa-github"></i>
+            GitHub
+          </a>
+          <a href="#" class="project-link download">
+            <i class="fa-solid fa-download"></i>
+            APK İndir
+          </a>
+        </div>
+      </div>
+
+      <!-- .NET Chess Game -->
+      <div class="project-card slide-up">
+        <div class="badge"><i class="fa-solid fa-chess"></i> .NET</div>
+        <h3>.NET ile Satranç Oyunu</h3>
+        <p>C# ve WinForms kullanılarak geliştirilmiş 2D satranç oyunu. Temiz kod yapısı, oyun kuralları ve yeniden oynatma özellikleri içeriyor.</p>
+        <div class="project-links">
+          <a href="https://github.com/duman011/.NET-ile-santranc-oyunu" target="_blank" class="project-link github">
+            <i class="fab fa-github"></i>
+            GitHub
+          </a>
+          <a href="#" class="project-link download">
+            <i class="fa-solid fa-download"></i>
+            EXE İndir
+          </a>
+        </div>
+      </div>
+
+      <!-- C# Space Game -->
+      <div class="project-card slide-up">
+        <div class="badge"><i class="fa-solid fa-rocket"></i> C#</div>
+        <h3>C# ile Uzay Oyunu</h3>
+        <p>İlk C# deneyimi olarak geliştirilen uzay temalı oyun. Oyun mekaniği, grafik işleme ve kullanıcı etkileşimi konularında öğrenme projesi.</p>
+        <div class="project-links">
+          <a href="https://github.com/duman011/c-ile-ilk-deneyim-uzay-oyunu" target="_blank" class="project-link github">
+            <i class="fab fa-github"></i>
+            GitHub
+          </a>
+          <a href="#" class="project-link download">
+            <i class="fa-solid fa-download"></i>
+            EXE İndir
+          </a>
+        </div>
+      </div>
+
+      <!-- PHP Personnel Management -->
+      <div class="project-card slide-up">
+        <div class="badge"><i class="fa-solid fa-users"></i> PHP</div>
+        <h3>Personel Yönetim Sistemi</h3>
+        <p>PHP ve MySQL ile geliştirilmiş personel yönetim sistemi. Rol tabanlı yetkilendirme, CRUD işlemleri ve raporlama özellikleri içeriyor.</p>
+        <div class="project-links">
+          <a href="https://github.com/duman011/Personel_Yonetim_Sistemi" target="_blank" class="project-link github">
+            <i class="fab fa-github"></i>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- LinkedIn Analysis Automation -->
+      <div class="project-card slide-up">
+        <div class="badge"><i class="fa-brands fa-linkedin"></i> Python</div>
+        <h3>LinkedIn İlan Analiz Otomasyonu</h3>
+        <p>Python ve Playwright kullanılarak geliştirilmiş LinkedIn iş ilanları analiz aracı. Otomatik veri çekimi, MySQL depolama ve PHP panel ile görselleştirme.</p>
+        <div class="project-links">
+          <a href="https://github.com/duman011/linkedin-ilan-analiz-otomasyonu" target="_blank" class="project-link github">
+            <i class="fab fa-github"></i>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- Event QR Project -->
+      <div class="project-card slide-up">
+        <div class="badge"><i class="fa-solid fa-qrcode"></i> Flutter</div>
+        <h3>Etkinlik Mobil QR Projesi</h3>
+        <p>Flutter ile geliştirilmiş etkinlik katılım sistemi. QR kod okuma, katılımcı yönetimi ve etkinlik takibi özellikleri içeriyor.</p>
+        <div class="project-links">
+          <a href="https://github.com/duman011/etkinlik-mobil-qr-projesi" target="_blank" class="project-link github">
+            <i class="fab fa-github"></i>
+            GitHub
+          </a>
+          <a href="#" class="project-link download">
+            <i class="fa-solid fa-download"></i>
+            APK İndir
+          </a>
+        </div>
+      </div>
+
+      <!-- Project Management System -->
+      <div class="project-card slide-up">
+        <div class="badge"><i class="fa-solid fa-tasks"></i> Web</div>
+        <h3>Proje Yönetim Sistemi</h3>
+        <p>HTML, CSS ve JavaScript ile geliştirilmiş proje yönetim sistemi. Görev takibi, ekip yönetimi ve proje ilerleme takibi özellikleri.</p>
+        <div class="project-links">
+          <a href="https://github.com/duman011/proje-yonetim-sistemi" target="_blank" class="project-link github">
+            <i class="fab fa-github"></i>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- Reproductive Health Club -->
+      <div class="project-card slide-up">
+        <div class="badge"><i class="fa-solid fa-heart"></i> Web</div>
+        <h3>Kadın Sağlığı Kulübü</h3>
+        <p>STK için geliştirilmiş bilgilendirme web sitesi. Responsive tasarım, etkinlik duyuruları ve bilgi paylaşım platformu.</p>
+        <div class="project-links">
+          <a href="https://github.com/duman011/reproductive_health_club" target="_blank" class="project-link github">
+            <i class="fab fa-github"></i>
+            GitHub
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="skills" class="container">
-    <div class="sec-title reveal"><h2>Yetenekler</h2><div class="bar"></div></div>
-    <div class="grid">
-      <article class="card tilt reveal"><div class="shine"></div><h3>Flutter</h3><p>Çoklu platform, kamera & sensör API'leri, performans optimizasyonu.</p></article>
-      <article class="card tilt reveal"><div class="shine"></div><h3>Kotlin</h3><p>CameraX, ML Kit, modern Android bileşenleri.</p></article>
-      <article class="card tilt reveal"><div class="shine"></div><h3>Python</h3><p>Playwright ile otomasyon, Flask API, OpenCV analizleri.</p></article>
-      <article class="card tilt reveal"><div class="shine"></div><h3>PHP & MySQL</h3><p>Modern kontrol panelleri, REST endpoint’leri, güvenlik.</p></article>
-      <article class="card tilt reveal"><div class="shine"></div><h3>.NET</h3><p>WinForms projeleri, oyun/araç geliştirme (C#).</p></article>
-      <article class="card tilt reveal"><div class="shine"></div><h3>UI/UX</h3><p>Koyu tema, egzotik gradyanlar, erişilebilirlik ve animasyon.</p></article>
+  <!-- CV SECTION -->
+  <section id="cv" class="container">
+    <div class="section-title">
+      <h2>Özgeçmiş</h2>
+      <p>Eğitim, sertifikalar ve profesyonel deneyimlerim</p>
     </div>
-  </section>
 
-  <section id="projects" class="container">
-    <div class="sec-title reveal"><h2>Projeler</h2><div class="bar"></div></div>
-    <div class="grid">
-      <article class="card tilt reveal"><div class="shine"></div><span class="badge"><i class="fa-solid fa-qrcode"></i> QR Güvenlik</span><h3>Kağıt/Screenshot Ayırıcı</h3><p>3 farklı enstantane ile çekim, gri ton profiline göre doğrulama ve Python API ile karar verme.</p></article>
-      <article class="card tilt reveal"><div class="shine"></div><span class="badge"><i class="fa-solid fa-chart-line"></i> Otomasyon</span><h3>LinkedIn İlan Analiz Paneli</h3><p>Günlük veri çekimi, MySQL depolama ve PHP panel üzerinden görsel analiz.</p></article>
-      <article class="card tilt reveal"><div class="shine"></div><span class="badge"><i class="fa-solid fa-chess-board"></i> Masaüstü</span><h3>Satranç Uygulaması (.NET)</h3><p>WinForms üzerinde 2D satranç, temiz kod ve yeniden oynatma.</p></article>
-      <article class="card tilt reveal"><div class="shine"></div><span class="badge"><i class="fa-solid fa-people-group"></i> Web</span><h3>Personel Yönetim Sistemi</h3><p>Rol tabanlı yetkilendirme, CRUD panelleri ve raporlama.</p></article>
-      <article class="card tilt reveal"><div class="shine"></div><span class="badge"><i class="fa-solid fa-heart-pulse"></i> STK</span><h3>Kadın Sağlığı Kulübü</h3><p>Etkinlik odaklı, duyarlı (responsive) bilgilendirme sitesi.</p></article>
-      <article class="card tilt reveal"><div class="shine"></div><span class="badge"><i class="fa-solid fa-shield"></i> Güvenlik</span><h3>QR/Gradient Tasarım</h3><p>Gradyanlı QR modül tasarımı ve parçacık tabanlı sahtecilik tespiti denemeleri.</p></article>
-    </div>
-  </section>
-
-  <section id="contact" class="container">
-    <div class="sec-title reveal"><h2>İletişim</h2><div class="bar"></div></div>
-    <p class="reveal" style="color:var(--muted)">Bir projeyi beraber uçuralım mı? Aşağıdan haber bırak ya da doğrudan <a href="mailto:dduman.abdulla2003@gmail.com" style="color:var(--pri); font-weight:700; text-decoration:none">e-posta</a> gönder.</p>
-    <form id="contactForm" action="https://formspree.io/f/xbldjjzd" method="POST">
-      <input name="name" placeholder="Ad Soyad" required />
-      <input type="email" name="email" placeholder="E-posta" required />
-      <textarea name="message" placeholder="Kısaca proje/mesaj…" required></textarea>
-      <div class="form-actions">
-        <button class="btn" type="submit"><i class="fa-regular fa-paper-plane"></i> Mesaj Gönder</button>
-        <button class="btn ghost" type="button" id="copyMail"><i class="fa-regular fa-copy"></i> E-posta Kopyala</button>
+    <div class="cv-container">
+      <!-- Eğitim Bilgileri -->
+      <div class="cv-section">
+        <h3><i class="fa-solid fa-graduation-cap"></i> Eğitim</h3>
+        <div class="cv-item">
+          <div class="cv-header">
+            <h4>Bilgisayar Mühendisliği</h4>
+            <span class="cv-date">2022 - Günümüz</span>
+          </div>
+          <p class="cv-location">Amasya Üniversitesi</p>
+          <p class="cv-description">4. sınıf öğrencisi - Mobil uygulama geliştirme, web teknolojileri ve yazılım mühendisliği alanlarında eğitim alıyorum.</p>
+        </div>
       </div>
-    </form>
+
+      <!-- Sertifikalar ve Lisanslar -->
+      <div class="cv-section">
+        <h3><i class="fa-solid fa-certificate"></i> Sertifikalar & Lisanslar</h3>
+        
+        <div class="cv-item">
+          <div class="cv-header">
+            <h4>BTK Akademi Sertifikası</h4>
+            <span class="cv-date">2024</span>
+          </div>
+          <p class="cv-location">BTK Akademi</p>
+          <p class="cv-description">Bilgi Teknolojileri ve İletişim Kurumu Akademi'den aldığım sertifika.</p>
+        </div>
+
+        <div class="cv-item">
+          <div class="cv-header">
+            <h4>Cisco Sertifikası</h4>
+            <span class="cv-date">2024</span>
+          </div>
+          <p class="cv-location">Cisco</p>
+          <p class="cv-description>Cisco'dan aldığım ağ teknolojileri ve güvenlik sertifikası.</p>
+        </div>
+      </div>
+
+
+      <!-- Projeler Özeti -->
+      <div class="cv-section">
+        <h3><i class="fa-solid fa-project-diagram"></i> Proje Deneyimi</h3>
+        <div class="project-summary">
+          <div class="project-stats">
+            <div class="stat">
+              <h4>9+</h4>
+              <p>Tamamlanan Proje</p>
+            </div>
+            <div class="stat">
+              <h4>5+</h4>
+              <p>Mobil Uygulama</p>
+            </div>
+            <div class="stat">
+              <h4>3+</h4>
+              <p>Masaüstü Uygulama</p>
+            </div>
+            <div class="stat">
+              <h4>4+</h4>
+              <p>Web Projesi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- İletişim Bilgileri -->
+      <div class="cv-section">
+        <h3><i class="fa-solid fa-address-book"></i> İletişim</h3>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>dduman.abdulla2003@gmail.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="fa-brands fa-linkedin"></i>
+            <a href="https://www.linkedin.com/in/abdullah-duman-112812245/" target="_blank">LinkedIn Profilim</a>
+          </div>
+          <div class="contact-item">
+            <i class="fa-brands fa-github"></i>
+            <a href="https://github.com/duman011" target="_blank">GitHub Profilim</a>
+          </div>
+          <div class="contact-item">
+            <i class="fa-brands fa-instagram"></i>
+            <a href="https://www.instagram.com/abdullah_duman00/" target="_blank">@abdullah_duman00</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CV İndirme Butonu -->
+      <div class="cv-download">
+        <a href="#" class="btn btn-primary" id="downloadCV">
+          <i class="fa-solid fa-download"></i>
+          CV'yi PDF Olarak İndir
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="container">
+    <div class="section-title">
+      <h2>İletişim</h2>
+      <p>Projeleriniz için benimle iletişime geçin</p>
+    </div>
+    
+    <div class="contact-form">
+      <p class="text-center" style="color:var(--muted); margin-bottom:32px;">
+        Bir projeyi beraber geliştirmek ister misiniz? Aşağıdan mesaj bırakın veya doğrudan 
+        <a href="mailto:dduman.abdulla2003@gmail.com" style="color:var(--pri); font-weight:600; text-decoration:none">
+          e-posta
+        </a> gönderin.
+      </p>
+      
+      <form id="contactForm" action="https://formspree.io/f/xbldjjzd" method="POST">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="name">Ad Soyad</label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Adınız ve soyadınız" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-posta</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="ornek@email.com" required>
+          </div>
+        </div>
+        <div class="form-group full">
+          <label for="message">Mesaj</label>
+          <textarea id="message" name="message" class="form-textarea" placeholder="Projeniz hakkında detayları paylaşın..." required></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit">
+            <i class="fa-regular fa-paper-plane"></i>
+            Mesaj Gönder
+          </button>
+          <button class="btn btn-secondary" type="button" id="copyMail">
+            <i class="fa-regular fa-copy"></i>
+            E-posta Kopyala
+          </button>
+        </div>
+      </form>
+    </div>
   </section>
 </main>
 
+<!-- FOOTER -->
 <footer>
-  <div class="container" style="display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap;">
-    <small>© 2025 Abdullah Duman</small>
-    <small>Made with <i class="fa-regular fa-star"></i> in Türkiye</small>
+  <div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <div>
+        <p style="margin:0; font-weight:600; color:var(--txt);">Abdullah Duman</p>
+        <p style="margin:4px 0 0; color:var(--muted);">Mobil & Web Geliştirici</p>
+      </div>
+      <div style="text-align:right;">
+        <p style="margin:0; color:var(--muted);">© 2025 Abdullah Duman</p>
+        <p style="margin:4px 0 0; color:var(--muted);">
+          Made with <i class="fa-solid fa-heart" style="color:var(--pri);"></i> in Türkiye
+        </p>
+      </div>
+    </div>
   </div>
 </footer>
 
 <script>
-/* theme */
-const root=document.documentElement, themeBtn=document.getElementById('themeBtn');
-const saved=localStorage.getItem('theme'); if(saved==='light') root.classList.add('light');
-themeBtn.addEventListener('click',()=>{ root.classList.toggle('light'); localStorage.setItem('theme', root.classList.contains('light')?'light':'dark');});
+// ===== THEME TOGGLE =====
+const root = document.documentElement;
+const themeBtn = document.getElementById('themeBtn');
+const savedTheme = localStorage.getItem('theme');
 
-/* mobile menu */
-const hamb=document.getElementById('hamb'), navMobile=document.getElementById('navMobile');
-hamb?.addEventListener('click',()=> navMobile.classList.toggle('show'));
-navMobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navMobile.classList.remove('show')));
-
-/* curtain + smooth scroll */
-const curtain=document.getElementById('curtain');
-function fancyScrollTo(id, x, y){
-  curtain.style.setProperty('--x',(x||innerWidth/2)+'px');
-  curtain.style.setProperty('--y',(y||innerHeight/2)+'px');
-  curtain.style.transform='scale(1)';
-  setTimeout(()=>document.querySelector(id)?.scrollIntoView({behavior:'smooth', block:'start'}),180);
-  setTimeout(()=>curtain.style.transform='scale(0)',650);
+if (savedTheme === 'light') {
+  root.classList.add('light');
+  themeBtn.innerHTML = '<i class="fa-regular fa-sun"></i>';
 }
-[...document.querySelectorAll('#navLinks a, #navMobile a')].forEach(a=>{
-  a.addEventListener('click',e=>{
-    e.preventDefault(); const r=a.getBoundingClientRect();
-    fancyScrollTo(a.getAttribute('href'), r.left+r.width/2, r.top+r.height/2);
+
+themeBtn.addEventListener('click', () => {
+  root.classList.toggle('light');
+  const isLight = root.classList.contains('light');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  themeBtn.innerHTML = isLight ? '<i class="fa-regular fa-sun"></i>' : '<i class="fa-regular fa-moon"></i>';
+});
+
+// ===== MOBILE MENU =====
+const hamb = document.getElementById('hamb');
+const mobileMenu = document.getElementById('mobileMenu');
+
+hamb?.addEventListener('click', () => {
+  mobileMenu.classList.toggle('show');
+  hamb.innerHTML = mobileMenu.classList.contains('show') 
+    ? '<i class="fa-solid fa-times"></i>' 
+    : '<i class="fa-solid fa-bars"></i>';
+});
+
+// Close mobile menu when clicking on links
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenu.classList.remove('show');
+    hamb.innerHTML = '<i class="fa-solid fa-bars"></i>';
   });
 });
 
-/* active link + reveals */
-const deskLinks=[...document.querySelectorAll('#navLinks a')];
-const secs=['#home','#about','#skills','#projects','#contact'].map(s=>document.querySelector(s)).filter(Boolean);
-const obs=new IntersectionObserver((entries)=>{
-  const vis=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
-  if(!vis) return; const id='#'+vis.target.id;
-  deskLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')===id));
-},{threshold:[.35,.6], rootMargin:`-${parseInt(getComputedStyle(root).getPropertyValue('--nav-h'))+8}px 0px -55% 0px`});
-secs.forEach(s=>obs.observe(s));
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (!hamb.contains(e.target) && !mobileMenu.contains(e.target)) {
+    mobileMenu.classList.remove('show');
+    hamb.innerHTML = '<i class="fa-solid fa-bars"></i>';
+  }
+});
 
-const rev=[...document.querySelectorAll('.reveal')];
-const ro=new IntersectionObserver((en)=>en.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); ro.unobserve(e.target);} }),{threshold:.2});
-rev.forEach(el=>ro.observe(el));
-
-/* progress */
-const progress=document.getElementById('progress');
-window.addEventListener('scroll', ()=>{
-  const max=document.body.scrollHeight - innerHeight;
-  progress.style.width=(Math.max(0, Math.min(1, scrollY/max))*100)+'%';
-},{passive:true});
-
-/* tilt (mouse cihazlarda) */
-if(!matchMedia('(pointer: coarse)').matches){
-  document.querySelectorAll('.tilt').forEach(card=>{
-    let raf=null;
-    card.addEventListener('mousemove',e=>{
-      if(raf) return; raf=requestAnimationFrame(()=>{
-        const r=card.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
-        const rx=((y/r.height)-.5)*8, ry=((x/r.width)-.5)*-8;
-        card.style.transform=`perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-        card.style.borderColor='var(--ring)'; card.style.setProperty('--mx',x+'px'); card.style.setProperty('--my',y+'px'); raf=null;
+// ===== SMOOTH SCROLLING =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
       });
+    }
+  });
+});
+
+// ===== ACTIVE NAVIGATION =====
+const navLinks = document.querySelectorAll('#navLinks a, #mobileMenu a');
+const sections = document.querySelectorAll('section[id], header[id]');
+
+const observerOptions = {
+  threshold: 0.3,
+  rootMargin: '-80px 0px -50% 0px'
+};
+
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${id}`) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
+}, observerOptions);
+
+sections.forEach(section => navObserver.observe(section));
+
+// ===== SCROLL PROGRESS =====
+const progress = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.pageYOffset;
+  const docHeight = document.body.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / docHeight) * 100;
+  progress.style.width = Math.min(scrollPercent, 100) + '%';
+}, { passive: true });
+
+// ===== FADE IN ANIMATIONS =====
+const fadeElements = document.querySelectorAll('.fade-in, .slide-up');
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+fadeElements.forEach(el => fadeObserver.observe(el));
+
+// ===== COPY EMAIL FUNCTIONALITY =====
+const copyMailBtn = document.getElementById('copyMail');
+copyMailBtn?.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText('dduman.abdulla2003@gmail.com');
+    const originalText = copyMailBtn.innerHTML;
+    copyMailBtn.innerHTML = '<i class="fa-solid fa-check"></i> Kopyalandı!';
+    copyMailBtn.style.background = 'var(--success)';
+    
+    setTimeout(() => {
+      copyMailBtn.innerHTML = originalText;
+      copyMailBtn.style.background = '';
+    }, 2000);
+  } catch (err) {
+    console.error('Failed to copy email:', err);
+  }
+});
+
+// ===== CV DOWNLOAD FUNCTIONALITY =====
+const downloadCVBtn = document.getElementById('downloadCV');
+downloadCVBtn?.addEventListener('click', (e) => {
+  e.preventDefault();
+  
+  // Create a simple CV content for download
+  const cvContent = `
+ABDULLAH DUMAN
+Mobil & Web Geliştirici
+
+İLETİŞİM
+E-posta: dduman.abdulla2003@gmail.com
+LinkedIn: https://www.linkedin.com/in/abdullah-duman-112812245/
+GitHub: https://github.com/duman011
+Instagram: @abdullah_duman00
+
+EĞİTİM
+Bilgisayar Mühendisliği (4. Sınıf)
+Amasya Üniversitesi | 2022 - Günümüz
+
+SERTİFİKALAR & LİSANSLAR
+• BTK Akademi Sertifikası (2024)
+• Cisco Sertifikası (2024)
+
+TEKNİK YETENEKLER
+Mobil Geliştirme:
+• Flutter & Dart
+• Kotlin
+• Android Studio
+• Cross-platform Development
+
+Masaüstü Geliştirme:
+• C#
+• .NET Framework
+• WinForms
+• Game Development
+
+Web Geliştirme:
+• PHP
+• MySQL
+• HTML/CSS/JavaScript
+• REST API
+
+Diğer Teknolojiler:
+• Python
+• Git & GitHub
+• Web Scraping
+• Data Analysis
+
+PROJE DENEYİMİ
+• 9+ Tamamlanan Proje
+• 5+ Mobil Uygulama
+• 3+ Masaüstü Uygulama
+• 4+ Web Projesi
+
+ÖNE ÇIKAN PROJELER
+• Flutter Snake Game - Cross-platform mobil oyun
+• Android Hava Durumu Uygulaması - Kotlin ile geliştirilmiş
+• .NET ile Satranç Oyunu - C# WinForms
+• C# ile Uzay Oyunu - İlk C# deneyimi
+• Personel Yönetim Sistemi - PHP/MySQL
+• LinkedIn İlan Analiz Otomasyonu - Python/Playwright
+• Etkinlik Mobil QR Projesi - Flutter QR sistemi
+• Proje Yönetim Sistemi - HTML/CSS/JS
+• Kadın Sağlığı Kulübü - STK web sitesi
+
+Bu CV, web sitesinden otomatik olarak oluşturulmuştur.
+Güncel bilgiler için: https://duman011.github.io
+  `;
+  
+  // Create and download the file
+  const blob = new Blob([cvContent], { type: 'application/pdf' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Abdullah_Duman_CV.pdf';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  window.URL.revokeObjectURL(url);
+  
+  // Show success message
+  const originalText = downloadCVBtn.innerHTML;
+  downloadCVBtn.innerHTML = '<i class="fa-solid fa-check"></i> İndirildi!';
+  downloadCVBtn.style.background = 'var(--success)';
+  
+  setTimeout(() => {
+    downloadCVBtn.innerHTML = originalText;
+    downloadCVBtn.style.background = '';
+  }, 2000);
+});
+
+// ===== FORM HONEYPOT =====
+const honeypot = document.createElement('input');
+honeypot.type = 'text';
+honeypot.name = 'company';
+honeypot.style.display = 'none';
+honeypot.tabIndex = -1;
+honeypot.autocomplete = 'off';
+document.getElementById('contactForm').appendChild(honeypot);
+
+// ===== PERFORMANCE OPTIMIZATIONS =====
+// Lazy load images if any are added in the future
+if ('IntersectionObserver' in window) {
+  const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;
+        img.classList.remove('lazy');
+        imageObserver.unobserve(img);
+      }
     });
-    card.addEventListener('mouseleave',()=>{ card.style.transform='translateY(-3px)'; card.style.borderColor='var(--card-bd)'; });
+  });
+  
+  document.querySelectorAll('img[data-src]').forEach(img => {
+    imageObserver.observe(img);
   });
 }
 
-/* starfield (her yerde açık) */
-const c=document.getElementById('space'), ctx=c.getContext('2d'); let w,h,dpr,stars=[];
-function resize(){ dpr=Math.min(window.devicePixelRatio||1,1.75); w=c.width=Math.floor(innerWidth*dpr); h=c.height=Math.floor(innerHeight*dpr); c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px'; spawn(); }
-function spawn(){ const count=Math.floor((innerWidth*innerHeight)/20000); stars=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.4+.2,a:Math.random()*Math.PI*2,s:Math.random()*0.35+0.05})); }
-function draw(){ ctx.clearRect(0,0,w,h); for(const st of stars){ st.x+=Math.cos(st.a)*st.s; st.y+=Math.sin(st.a)*st.s; if(st.x<0) st.x=w; if(st.x>w) st.x=0; if(st.y<0) st.y=h; if(st.y>h) st.y=0; ctx.beginPath(); ctx.arc(st.x,st.y,st.r,0,Math.PI*2); ctx.fillStyle='rgba(200,220,255,.85)'; ctx.fill(); } requestAnimationFrame(draw); }
-window.addEventListener('resize', resize, {passive:true}); resize(); draw();
+// ===== MOBILE TOUCH OPTIMIZATIONS =====
+// Prevent zoom on double tap for better mobile experience
+let lastTouchEnd = 0;
+document.addEventListener('touchend', (e) => {
+  const now = (new Date()).getTime();
+  if (now - lastTouchEnd <= 300) {
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
 
-/* copy mail + honeypot */
-document.getElementById('copyMail').addEventListener('click', async ()=>{
-  await navigator.clipboard.writeText('dduman.abdulla2003@gmail.com');
-  const b=document.getElementById('copyMail'); const old=b.innerHTML; b.innerHTML='<i class="fa-solid fa-check"></i> Kopyalandı'; setTimeout(()=> b.innerHTML=old, 1200);
+// ===== KEYBOARD NAVIGATION =====
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+    mobileMenu.classList.remove('show');
+    hamb.innerHTML = '<i class="fa-solid fa-bars"></i>';
+  }
 });
-const honeypot=document.createElement('input'); honeypot.type='text'; honeypot.name='company'; honeypot.style.display='none'; document.getElementById('contactForm').appendChild(honeypot);
+
+// ===== INITIALIZE =====
+document.addEventListener('DOMContentLoaded', () => {
+  // Add loaded class for any initial animations
+  document.body.classList.add('loaded');
+  
+  // Initialize any other components here
+  console.log('Portfolio website loaded successfully!');
+});
 </script>
 </body>
 </html>
+
