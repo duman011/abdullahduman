@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<!-- (removed jsPDF) -->
 
 <style>
 /* ===== MODERN DESIGN TOKENS ===== */
@@ -90,6 +91,8 @@ button{border:none; background:none; cursor:pointer; font:inherit}
   color:var(--txt); background:var(--glass);
 }
 .hamb{display:none; font-size:1.25rem; color:var(--txt); padding:8px}
+/* Ensure mobile menu is hidden by default on desktop */
+.mobile-menu{display:none}
 .theme-toggle{
   width:44px; height:44px; border-radius:var(--radius);
   background:var(--glass); border:1px solid var(--card-bd);
@@ -545,14 +548,14 @@ footer{
       <a href="#cv">CV</a>
       <a href="#contact">İletişim</a>
     </div>
-    <button class="hamb" id="hamb" aria-label="Menüyü Aç/Kapat">
+    <button class="hamb" id="hamb" aria-label="Menüyü Aç/Kapat" aria-controls="mobileMenu" aria-expanded="false">
       <i class="fa-solid fa-bars"></i>
     </button>
     <button class="theme-toggle" id="themeBtn" aria-label="Tema Değiştir">
       <i class="fa-regular fa-moon"></i>
     </button>
   </div>
-  <div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
     <a href="#home">Ana Sayfa</a>
     <a href="#about">Hakkımda</a>
     <a href="#skills">Yetenekler</a> 
@@ -588,7 +591,7 @@ footer{
         <div class="contact-info">
           <div class="contact-item">
             <i class="fa-solid fa-envelope"></i>
-            <span>dduman.abdulla2003@gmail.com</span>
+            <span><a href="mailto:dduman.abdulla2003@gmail.com">dduman.abdulla2003@gmail.com</a></span>
           </div>
           <div class="contact-item">
             <i class="fa-brands fa-linkedin"></i>
@@ -967,10 +970,10 @@ footer{
 
       <!-- CV İndirme Butonu -->
       <div class="cv-download">
-        <a href="#" class="btn btn-primary" id="downloadCV">
-          <i class="fa-solid fa-download"></i>
-          CV'yi PDF Olarak İndir
-        </a>
+        <a href="https://drive.google.com/file/d/1di1n6KCCnvH3A1clO6YOo3t8BBrDlz6F/view?usp=sharing" class="btn btn-primary" id="downloadCV" target="_blank" rel="noopener noreferrer">
+            <i class="fa-solid fa-download"></i>
+            CV'yi PDF Olarak İndir
+          </a>
       </div>
     </div>
   </section>
@@ -1059,27 +1062,76 @@ themeBtn.addEventListener('click', () => {
 // ===== MOBILE MENU =====
 const hamb = document.getElementById('hamb');
 const mobileMenu = document.getElementById('mobileMenu');
+const MOBILE_BREAKPOINT = 768; // matches the CSS media query
 
+// Helper to set links' focusability based on menu state
+function setMenuFocusability(visible) {
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    if (visible) {
+      a.removeAttribute('tabindex');
+    } else {
+      a.setAttribute('tabindex', '-1');
+    }
+  });
+}
+
+// Initialize ARIA and tabindex depending on viewport
+function initMobileMenuState() {
+  const isDesktop = window.innerWidth > MOBILE_BREAKPOINT;
+  mobileMenu.classList.remove('show');
+  mobileMenu.setAttribute('aria-hidden', isDesktop ? 'true' : 'true');
+  hamb.setAttribute('aria-expanded', 'false');
+  setMenuFocusability(false);
+}
+
+initMobileMenuState();
+
+// Toggle menu (only on mobile widths)
 hamb?.addEventListener('click', () => {
-  mobileMenu.classList.toggle('show');
-  hamb.innerHTML = mobileMenu.classList.contains('show') 
-    ? '<i class="fa-solid fa-times"></i>' 
-    : '<i class="fa-solid fa-bars"></i>';
+  if (window.innerWidth > MOBILE_BREAKPOINT) return; // keep inactive on desktop
+
+  const isNowShown = mobileMenu.classList.toggle('show');
+  hamb.innerHTML = isNowShown ? '<i class="fa-solid fa-times"></i>' : '<i class="fa-solid fa-bars"></i>';
+  mobileMenu.setAttribute('aria-hidden', isNowShown ? 'false' : 'true');
+  hamb.setAttribute('aria-expanded', isNowShown ? 'true' : 'false');
+  setMenuFocusability(isNowShown);
 });
 
-// Close mobile menu when clicking on links
+// Close mobile menu when clicking on links (only on mobile)
 mobileMenu.querySelectorAll('a').forEach(link => {
+  // ensure links are not focusable when hidden
+  link.setAttribute('tabindex', '-1');
   link.addEventListener('click', () => {
-    mobileMenu.classList.remove('show');
-    hamb.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    if (window.innerWidth <= MOBILE_BREAKPOINT) {
+      mobileMenu.classList.remove('show');
+      hamb.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      hamb.setAttribute('aria-expanded', 'false');
+      setMenuFocusability(false);
+    }
   });
 });
 
-// Close mobile menu when clicking outside
+// Close mobile menu when clicking outside (only when menu is open on mobile)
 document.addEventListener('click', (e) => {
-  if (!hamb.contains(e.target) && !mobileMenu.contains(e.target)) {
+  if (window.innerWidth > MOBILE_BREAKPOINT) return;
+  if (!hamb.contains(e.target) && !mobileMenu.contains(e.target) && mobileMenu.classList.contains('show')) {
     mobileMenu.classList.remove('show');
     hamb.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    hamb.setAttribute('aria-expanded', 'false');
+    setMenuFocusability(false);
+  }
+});
+
+// Ensure menu is closed and inactive when resizing to desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth > MOBILE_BREAKPOINT) {
+    mobileMenu.classList.remove('show');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    hamb.setAttribute('aria-expanded', 'false');
+    hamb.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    setMenuFocusability(false);
   }
 });
 
@@ -1161,97 +1213,7 @@ copyMailBtn?.addEventListener('click', async () => {
   }
 });
 
-// ===== CV DOWNLOAD FUNCTIONALITY =====
-const downloadCVBtn = document.getElementById('downloadCV');
-downloadCVBtn?.addEventListener('click', (e) => {
-  e.preventDefault();
-  
-  // Create a simple CV content for download
-  const cvContent = `
-ABDULLAH DUMAN
-Mobil & Web Geliştirici
-
-İLETİŞİM
-E-posta: dduman.abdulla2003@gmail.com
-LinkedIn: https://www.linkedin.com/in/abdullah-duman-112812245/
-GitHub: https://github.com/duman011
-Instagram: @abdullah_duman00
-
-EĞİTİM
-Bilgisayar Mühendisliği (4. Sınıf)
-Amasya Üniversitesi | 2022 - Günümüz
-
-SERTİFİKALAR & LİSANSLAR
-• BTK Akademi Sertifikası (2024)
-• Cisco Sertifikası (2024)
-
-TEKNİK YETENEKLER
-Mobil Geliştirme:
-• Flutter & Dart
-• Kotlin
-• Android Studio
-• Cross-platform Development
-
-Masaüstü Geliştirme:
-• C#
-• .NET Framework
-• WinForms
-• Game Development
-
-Web Geliştirme:
-• PHP
-• MySQL
-• HTML/CSS/JavaScript
-• REST API
-
-Diğer Teknolojiler:
-• Python
-• Git & GitHub
-• Web Scraping
-• Data Analysis
-
-PROJE DENEYİMİ
-• 9+ Tamamlanan Proje
-• 5+ Mobil Uygulama
-• 3+ Masaüstü Uygulama
-• 4+ Web Projesi
-
-ÖNE ÇIKAN PROJELER
-• Flutter Snake Game - Cross-platform mobil oyun
-• Android Hava Durumu Uygulaması - Kotlin ile geliştirilmiş
-• .NET ile Satranç Oyunu - C# WinForms
-• C# ile Uzay Oyunu - İlk C# deneyimi
-• Personel Yönetim Sistemi - PHP/MySQL
-• LinkedIn İlan Analiz Otomasyonu - Python/Playwright
-• Etkinlik Mobil QR Projesi - Flutter QR sistemi
-• Proje Yönetim Sistemi - HTML/CSS/JS
-• Kadın Sağlığı Kulübü - STK web sitesi
-
-Bu CV, web sitesinden otomatik olarak oluşturulmuştur.
-Güncel bilgiler için: https://duman011.github.io
-  `;
-  
-  // Create and download the file
-  const blob = new Blob([cvContent], { type: 'application/pdf' });
-  const url = window.URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'Abdullah_Duman_CV.pdf';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  window.URL.revokeObjectURL(url);
-  
-  // Show success message
-  const originalText = downloadCVBtn.innerHTML;
-  downloadCVBtn.innerHTML = '<i class="fa-solid fa-check"></i> İndirildi!';
-  downloadCVBtn.style.background = 'var(--success)';
-  
-  setTimeout(() => {
-    downloadCVBtn.innerHTML = originalText;
-    downloadCVBtn.style.background = '';
-  }, 2000);
-});
+// CV download is handled by the anchor's href (redirects to external Drive link)
 
 // ===== FORM HONEYPOT =====
 const honeypot = document.createElement('input');
