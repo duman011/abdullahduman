@@ -67,6 +67,21 @@
     </div>
   </div>
 
+  <!-- Side Navigation Dots (desktop) -->
+  <nav class="side-nav" id="sideNav" aria-label="Bölüm Navigasyonu">
+    <a href="#home"     class="side-dot active" data-label="Ana Sayfa"   aria-label="Ana Sayfa"></a>
+    <a href="#about"    class="side-dot"         data-label="Hakkımda"    aria-label="Hakkımda"></a>
+    <a href="#skills"   class="side-dot"         data-label="Yetenekler"  aria-label="Yetenekler"></a>
+    <a href="#projects" class="side-dot"         data-label="Projeler"    aria-label="Projeler"></a>
+    <a href="#cv"       class="side-dot"         data-label="CV"          aria-label="CV"></a>
+    <a href="#contact"  class="side-dot"         data-label="İletişim"    aria-label="İletişim"></a>
+  </nav>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop" aria-label="Yukarı çık">
+    <i class="fas fa-chevron-up" aria-hidden="true"></i>
+  </button>
+
   <main>
 
     <!-- ====== HERO ====== -->
@@ -184,38 +199,6 @@
         </div>
       </div>
 
-      <!-- Tech Stack Marquee -->
-      <div class="marquee-wrapper" aria-label="Kullanılan teknolojiler">
-        <div class="marquee-track" aria-hidden="true">
-          <div class="marquee-items">
-            <span class="tech-pill"><i class="fab fa-flutter"></i> Flutter</span>
-            <span class="tech-pill">Dart</span>
-            <span class="tech-pill"><i class="fab fa-android"></i> Kotlin</span>
-            <span class="tech-pill">Android Studio</span>
-            <span class="tech-pill">C#</span>
-            <span class="tech-pill">.NET</span>
-            <span class="tech-pill"><i class="fab fa-php"></i> PHP</span>
-            <span class="tech-pill">MySQL</span>
-            <span class="tech-pill"><i class="fab fa-python"></i> Python</span>
-            <span class="tech-pill"><i class="fab fa-js"></i> JavaScript</span>
-            <span class="tech-pill"><i class="fab fa-html5"></i> HTML/CSS</span>
-            <span class="tech-pill"><i class="fab fa-git-alt"></i> Git</span>
-            <!-- Duplicate for seamless loop -->
-            <span class="tech-pill"><i class="fab fa-flutter"></i> Flutter</span>
-            <span class="tech-pill">Dart</span>
-            <span class="tech-pill"><i class="fab fa-android"></i> Kotlin</span>
-            <span class="tech-pill">Android Studio</span>
-            <span class="tech-pill">C#</span>
-            <span class="tech-pill">.NET</span>
-            <span class="tech-pill"><i class="fab fa-php"></i> PHP</span>
-            <span class="tech-pill">MySQL</span>
-            <span class="tech-pill"><i class="fab fa-python"></i> Python</span>
-            <span class="tech-pill"><i class="fab fa-js"></i> JavaScript</span>
-            <span class="tech-pill"><i class="fab fa-html5"></i> HTML/CSS</span>
-            <span class="tech-pill"><i class="fab fa-git-alt"></i> Git</span>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- ====== ABOUT ====== -->
@@ -348,10 +331,19 @@
           <h2 class="section-title">Neler <span class="text-glow">Yaptım?</span></h2>
         </div>
 
+        <!-- Filter Tabs -->
+        <div class="filter-tabs" id="filterTabs" role="tablist" aria-label="Proje Filtreleri">
+          <button class="filter-btn active" data-filter="all"     role="tab" aria-selected="true">Tümü</button>
+          <button class="filter-btn"        data-filter="mobile"  role="tab" aria-selected="false">Mobil</button>
+          <button class="filter-btn"        data-filter="web"     role="tab" aria-selected="false">Web</button>
+          <button class="filter-btn"        data-filter="desktop" role="tab" aria-selected="false">Masaüstü</button>
+          <button class="filter-btn"        data-filter="python"  role="tab" aria-selected="false">Python</button>
+        </div>
+
         <div class="bento-grid" id="bentoGrid">
 
           <!-- 1: Flutter Snake Game — wide (span 4) -->
-          <article class="bento-card bento-wide">
+          <article class="bento-card bento-wide" data-cat="mobile">
             <div class="bento-badge badge-cyan">
               <i class="fas fa-mobile-screen" aria-hidden="true"></i> Flutter
             </div>
@@ -368,7 +360,7 @@
           </article>
 
           <!-- 2: Android Weather — narrow (span 2) -->
-          <article class="bento-card bento-narrow">
+          <article class="bento-card bento-narrow" data-cat="mobile">
             <div class="bento-badge badge-green">
               <i class="fab fa-android" aria-hidden="true"></i> Android
             </div>
@@ -382,7 +374,7 @@
           </article>
 
           <!-- 3: Chess — equal (span 2) -->
-          <article class="bento-card bento-equal">
+          <article class="bento-card bento-equal" data-cat="desktop">
             <div class="bento-badge badge-purple">
               <i class="fas fa-chess" aria-hidden="true"></i> .NET
             </div>
@@ -396,7 +388,7 @@
           </article>
 
           <!-- 4: Space Game — equal (span 2) -->
-          <article class="bento-card bento-equal">
+          <article class="bento-card bento-equal" data-cat="desktop">
             <div class="bento-badge badge-indigo">
               <i class="fas fa-rocket" aria-hidden="true"></i> C#
             </div>
@@ -410,7 +402,7 @@
           </article>
 
           <!-- 5: Personnel Mgmt — equal (span 2) -->
-          <article class="bento-card bento-equal">
+          <article class="bento-card bento-equal" data-cat="web">
             <div class="bento-badge badge-violet">
               <i class="fas fa-users" aria-hidden="true"></i> PHP
             </div>
@@ -424,7 +416,7 @@
           </article>
 
           <!-- 6: LinkedIn Automation — wide (span 4) -->
-          <article class="bento-card bento-wide">
+          <article class="bento-card bento-wide" data-cat="python">
             <div class="bento-badge badge-yellow">
               <i class="fab fa-linkedin" aria-hidden="true"></i> Python
             </div>
@@ -438,7 +430,7 @@
           </article>
 
           <!-- 7: QR Project — narrow (span 2) -->
-          <article class="bento-card bento-narrow">
+          <article class="bento-card bento-narrow" data-cat="mobile">
             <div class="bento-badge badge-cyan">
               <i class="fas fa-qrcode" aria-hidden="true"></i> Flutter
             </div>
@@ -452,7 +444,7 @@
           </article>
 
           <!-- 8: Project Mgmt — half (span 3) -->
-          <article class="bento-card bento-half">
+          <article class="bento-card bento-half" data-cat="web">
             <div class="bento-badge badge-orange">
               <i class="fas fa-tasks" aria-hidden="true"></i> Web
             </div>
@@ -466,7 +458,7 @@
           </article>
 
           <!-- 9: Health Club — half (span 3) -->
-          <article class="bento-card bento-half">
+          <article class="bento-card bento-half" data-cat="web">
             <div class="bento-badge badge-orange">
               <i class="fas fa-heart" aria-hidden="true"></i> Web
             </div>

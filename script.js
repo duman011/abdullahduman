@@ -37,7 +37,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
       this.vy = (Math.random() - 0.5) * 0.35;
       this.r  = Math.random() * 1.4 + 0.4;
       this.alpha = Math.random() * 0.45 + 0.08;
-      this.hue = Math.random() > 0.5 ? '34, 211, 238' : '168, 85, 247';
+      this.hue = Math.random() > 0.5 ? '129, 140, 248' : '192, 132, 252';
     }
 
     update() {
@@ -72,7 +72,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(34, 211, 238, ${alpha})`;
+          ctx.strokeStyle = `rgba(129, 140, 248, ${alpha})`;
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
@@ -198,26 +198,32 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
     if (active) moveIndicator(active);
   });
 
-  // ── Active section via IntersectionObserver ──
-  const allSections = document.querySelectorAll('section[id]');
+  // ── Active section via scroll (threshold-free — works for any section height) ──
+  const allSections = Array.from(document.querySelectorAll('section[id]'));
 
-  const sectionObs = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        navLinks.forEach(link => {
-          const isActive = link.getAttribute('href') === `#${id}`;
-          link.classList.toggle('active', isActive);
-          if (isActive) moveIndicator(link);
-        });
-        document.querySelectorAll('.mobile-link').forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-        });
+  function updateActiveNav() {
+    const scrollY = window.pageYOffset;
+    const triggerPoint = window.innerHeight * 0.35; // 35% from top
+
+    let currentId = allSections[0]?.id || '';
+    allSections.forEach(section => {
+      if (section.offsetTop - triggerPoint <= scrollY) {
+        currentId = section.id;
       }
     });
-  }, { threshold: 0.25, rootMargin: '-8% 0px -60% 0px' });
 
-  allSections.forEach(s => sectionObs.observe(s));
+    navLinks.forEach(link => {
+      const isActive = link.getAttribute('href') === `#${currentId}`;
+      link.classList.toggle('active', isActive);
+      if (isActive) moveIndicator(link);
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
 
   // ── Mobile menu ──
   function openMenu() {
@@ -506,10 +512,135 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 
 
 // ─────────────────────────────────────────────────────────────
+// 12. SIDE NAVIGATION DOTS
+// ─────────────────────────────────────────────────────────────
+(function initSideNav() {
+  const sideDots = document.querySelectorAll('.side-dot');
+  if (!sideDots.length) return;
+
+  const sideNavSections = ['home', 'about', 'skills', 'projects', 'cv', 'contact']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
+  function updateSideDots() {
+    const scrollY = window.pageYOffset;
+    const triggerPoint = window.innerHeight * 0.35;
+
+    let currentId = sideNavSections[0]?.id || '';
+    sideNavSections.forEach(section => {
+      if (section.offsetTop - triggerPoint <= scrollY) {
+        currentId = section.id;
+      }
+    });
+
+    sideDots.forEach(dot => {
+      dot.classList.toggle('active', dot.getAttribute('href') === `#${currentId}`);
+    });
+  }
+
+  window.addEventListener('scroll', updateSideDots, { passive: true });
+  updateSideDots();
+
+  // Smooth scroll on dot click
+  sideDots.forEach(dot => {
+    dot.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(dot.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+
+
+// ─────────────────────────────────────────────────────────────
+// 13. PROJECT FILTER TABS
+// ─────────────────────────────────────────────────────────────
+(function initFilter() {
+  const filterBtns  = document.querySelectorAll('.filter-btn');
+  const bentoCards  = document.querySelectorAll('.bento-card[data-cat]');
+  if (!filterBtns.length) return;
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      // Update active state
+      filterBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      // Filter cards
+      bentoCards.forEach(card => {
+        const matches = filter === 'all' || card.dataset.cat === filter;
+        card.classList.toggle('filtered-out', !matches);
+      });
+    });
+  });
+})();
+
+
+// ─────────────────────────────────────────────────────────────
+// 14. BACK TO TOP BUTTON
+// ─────────────────────────────────────────────────────────────
+(function initBackToTop() {
+  const btn = document.getElementById('backToTop');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.pageYOffset > 400);
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+
+// ─────────────────────────────────────────────────────────────
+// 15. KEYBOARD SHORTCUTS (1-6 → jump to section)
+// ─────────────────────────────────────────────────────────────
+(function initKeyboardShortcuts() {
+  const sectionMap = {
+    '1': 'home',
+    '2': 'about',
+    '3': 'skills',
+    '4': 'projects',
+    '5': 'cv',
+    '6': 'contact',
+  };
+
+  document.addEventListener('keydown', e => {
+    // Don't trigger when typing in form fields
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+    const id = sectionMap[e.key];
+    if (id) {
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        e.preventDefault();
+      }
+    }
+  });
+})();
+
+
+// ─────────────────────────────────────────────────────────────
+// 16. PARTICLE COLORS — update to match new indigo palette
+// ─────────────────────────────────────────────────────────────
+// Note: particle hue is set at init time in initParticles above.
+// Colors are already using the new indigo values (129,140,248) and (192,132,252).
+
+
+// ─────────────────────────────────────────────────────────────
 // READY
 // ─────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('js-loaded');
 });
 
-console.log('%c Abdullah Duman Portfolio 🚀 ', 'background:#22d3ee;color:#060b18;font-weight:bold;padding:4px 8px;border-radius:4px;');
+console.log('%c Abdullah Duman Portfolio ', 'background:#818cf8;color:#fff;font-weight:bold;padding:4px 8px;border-radius:4px;');
